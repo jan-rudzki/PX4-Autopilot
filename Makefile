@@ -354,7 +354,7 @@ doxygen:
 	@$(PX4_MAKE) -C "$(SRC_DIR)"/build/doxygen
 	@touch "$(SRC_DIR)"/build/doxygen/Documentation/.nojekyll
 
-# Astyle
+# Style
 # --------------------------------------------------------------------
 .PHONY: check_format format
 
@@ -366,6 +366,10 @@ check_format:
 format:
 	$(call colorecho,'Formatting with astyle')
 	@"$(SRC_DIR)"/Tools/astyle/check_code_style_all.sh --fix
+
+check_newlines:
+	$(call colorecho,'Checking for missing newlines at the end of files')
+	$(call git grep --cached -Il '' | xargs -L1 bash -c 'if test "$(tail -c 1 "$0")"; then echo "No new line at end of $0"; exit 1; fi')
 
 # Testing
 # --------------------------------------------------------------------
