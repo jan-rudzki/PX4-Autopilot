@@ -33,13 +33,13 @@ param set-default COM_PREARM_MODE 2
 param set-default CA_ROTOR_COUNT 8
 
 # Rotor 0: vorne links ccw
-param set-default CA_ROTOR0_PX 0.5519
+param set-default CA_ROTOR0_PX 0.7519
 param set-default CA_ROTOR0_PY -0.97
 param set-default CA_ROTOR0_PZ 0.03
 param set-default CA_ROTOR0_KM 0.05
 
 # Rotor 1 & 2: vorne & hinten mitte links cw
-param set-default CA_ROTOR1_PX -1.2595
+param set-default CA_ROTOR1_PX 0.07405
 param set-default CA_ROTOR1_PY -0.97
 param set-default CA_ROTOR1_PZ 0.03
 param set-default CA_ROTOR1_KM -0.05
@@ -51,19 +51,19 @@ param set-default CA_ROTOR1_KM -0.05
 #param set-default CA_ROTOR2_KM 0.05
 
 # Rotor 3: hinten links ccw
-param set-default CA_ROTOR2_PX -1.1
+param set-default CA_ROTOR2_PX -0.9
 param set-default CA_ROTOR2_PY -0.97
 param set-default CA_ROTOR2_PZ 0.03
 param set-default CA_ROTOR2_KM 0.05
 
 # Rotor 4: vorne rechts cw
-param set-default CA_ROTOR3_PX 0.5519
+param set-default CA_ROTOR3_PX 0.7519
 param set-default CA_ROTOR3_PY 0.97
 param set-default CA_ROTOR3_PZ 0.03
 param set-default CA_ROTOR3_KM -0.05
 
 # Rotor 5 & 6: vorne & hinten mitte rechts cw
-param set-default CA_ROTOR4_PX 0.12595
+param set-default CA_ROTOR4_PX 0.07405
 param set-default CA_ROTOR4_PY 0.97
 param set-default CA_ROTOR4_PZ 0.03
 param set-default CA_ROTOR4_KM 0.05
@@ -75,7 +75,7 @@ param set-default CA_ROTOR4_KM 0.05
 #param set-default CA_ROTOR6_KM -0.05
 
 # Rotor 7: hinten rechts ccw
-param set-default CA_ROTOR5_PX -1.1
+param set-default CA_ROTOR5_PX -0.9
 param set-default CA_ROTOR5_PY 0.97
 param set-default CA_ROTOR5_PZ 0.03
 param set-default CA_ROTOR5_KM -0.05
@@ -83,7 +83,7 @@ param set-default CA_ROTOR5_KM -0.05
 # Rotor 8: pusher links ccw
 param set-default CA_ROTOR6_AX 1.0
 param set-default CA_ROTOR6_AZ 0.0
-param set-default CA_ROTOR6_PX -1.040004
+param set-default CA_ROTOR6_PX -0.840004
 param set-default CA_ROTOR6_PY -0.47
 param set-default CA_ROTOR6_PZ -0.089
 param set-default CA_ROTOR6_KM 0.01
@@ -91,7 +91,7 @@ param set-default CA_ROTOR6_KM 0.01
 # Rotor 9: pusher rechts cw
 param set-default CA_ROTOR7_AX 1.0
 param set-default CA_ROTOR7_AZ 0.0
-param set-default CA_ROTOR7_PX -1.040004
+param set-default CA_ROTOR7_PX -0.840004
 param set-default CA_ROTOR7_PY 0.47
 param set-default CA_ROTOR7_PZ -0.089
 param set-default CA_ROTOR7_KM -0.01
@@ -140,16 +140,17 @@ param set-default COM_RC_IN_MODE 1
 param set-default CA_SV_CS_COUNT 4
 # left elevator
 param set-default CA_SV_CS1_TYPE 3
-param set-default CA_SV_CS1_TRQ_R 1.0
+param set-default CA_SV_CS1_TRQ_P 1.0
 # right elevator
 param set-default CA_SV_CS2_TYPE 3
-param set-default CA_SV_CS2_TRQ_R 1.0
+param set-default CA_SV_CS2_TRQ_P 1.0
 # left aileron
 param set-default CA_SV_CS3_TYPE 1
-param set-default CA_SV_CS3_TRQ_P 0.5
+param set-default CA_SV_CS3_TRQ_R -0.5
 # right aileron
 param set-default CA_SV_CS4_TYPE 2
-param set-default CA_SV_CS4_TRQ_R -0.5
+param set-default CA_SV_CS4_TRQ_R 0.5
+
 param set-default NPFG_PERIOD 12
 param set-default FW_PR_FF 0.2
 param set-default FW_PR_P 0.9
