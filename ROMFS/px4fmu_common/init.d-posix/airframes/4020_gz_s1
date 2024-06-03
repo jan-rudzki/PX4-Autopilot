@@ -9,79 +9,91 @@
 # - Moment coefficient from standard vtol doubled! (Corny)
 # - Takeoff altitude changed to 30 m
 
+# Instructions:
+# PX4 Coordinate System:
+	# Ursprung: Im Schwerpunkt (Quelle: https://docs.px4.io/main/en/config/actuators.html)
+	# x: zeigt von CG zur Nase
+	# y: zeigt von CG nach rechts
+	# z: zeigt von CG nach unten
+
+
 . ${R}etc/init.d/rc.vtol_defaults
 
 PX4_SIMULATOR=${PX4_SIMULATOR:=gz}
 PX4_GZ_WORLD=${PX4_GZ_WORLD:=default}
 PX4_SIM_MODEL=${PX4_SIM_MODEL:=s1}
 
-param set-default SIM_GZ_EN 1
+# Simulation settings
+param set-default SIM_GZ_EN 1 # enables Gazebo Simulator bridge
+param set-default SENS_EN_GPSSIM 1 # 1: enables simulated GPS instance
+param set-default SENS_EN_BAROSIM 0 # 1: enables simulated barometer sensor instance
+param set-default SENS_EN_MAGSIM 1 # 1: enables simulated magnetometer instance
+param set-default SENS_EN_ARSPDSIM 1 # 1: enables simulated airspeed sensor instance
 
-param set-default SENS_EN_GPSSIM 1
-param set-default SENS_EN_BAROSIM 0
-param set-default SENS_EN_MAGSIM 1
-param set-default SENS_EN_ARSPDSIM 1
-
-# TODO: Enable motor failure detection when the
-# VTOL no longer reports 0A for all ESCs in SITL
-param set-default FD_ACT_EN 0
-param set-default FD_ACT_MOT_TOUT 500
-
-param set-default CA_AIRFRAME 2 # Standard VTOL
-
-param set-default COM_PREARM_MODE 2
-
-# PX4 uses the standard Body-fixed frame forward-right-down
-
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# GENERAL SETTINGS
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# Airframe
+param set-default CA_AIRFRAME 2 # Standard VTOL airframe
 param set-default CA_ROTOR_COUNT 8
+param set-default VT_TYPE 2 # Tailsitter=0, Tiltrotor=1, Standard=2
 
+# Safety
+param set-default FD_ACT_EN 0 # 1: if enabled, failure detector will verify minimum ESC current
+param set-default FD_ACT_MOT_TOUT 500 # threshold in ms for motor failure
+param set-default COM_PREARM_MODE 2 # 0: disabled, 1: safety button, 2: always
+param set-default FD_ESCS_EN 0 # 1: Failure detector will verify that all ESCs have successfully armed after transitioning to armed state
+
+# Mission
+param set-default NAV_ACC_RAD 5 # Acceptance radius in m for waypoint
+param set-default MIS_TAKEOFF_ALT 30
+
+# Flight states
+param set-default VT_FWD_THRUST_EN 4 # 4: Enables pusher motors to move forward constantly
+param set-default VT_F_TRANS_THR 1.0 # Target throttle value for the transition to fixed wing
+param set-default MC_AIRMODE 1 # 0: Disabled, 1: Roll Pitch, 2: Roll/Pitch/Yaw (the air-mode enables the mixer to increase the total thrust of the multirotor in order to keep attitde and rate control)
+
+# Control
+param set-default COM_RC_IN_MODE 1 # 0: RC transmitter only, 1: Joysick control only, 2: Either RC or joystick control, first valid input is used, 3: Either RC or joystick, first available cource used, 4: ignores any stick input
+
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# MOTOR CONTROL ALLOCATION
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # Rotor 0: vorne links ccw
 param set-default CA_ROTOR0_PX 0.7519
 param set-default CA_ROTOR0_PY -0.97
 param set-default CA_ROTOR0_PZ 0.03
-param set-default CA_ROTOR0_KM 1.0 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR0_KM 0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
 # Rotor 1 & 2: vorne & hinten mitte links cw
 param set-default CA_ROTOR1_PX 0.07405
 param set-default CA_ROTOR1_PY -0.97
 param set-default CA_ROTOR1_PZ 0.03
-param set-default CA_ROTOR1_KM -1,0 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
-
-# Rotor 2: hinten mitte links ccw
-#param set-default CA_ROTOR2_PX -0.3519
-#param set-default CA_ROTOR2_PY -0.97
-#param set-default CA_ROTOR2_PZ 0.03
-#param set-default CA_ROTOR2_KM 0.05
+param set-default CA_ROTOR1_KM -0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
 # Rotor 3: hinten links ccw
 param set-default CA_ROTOR2_PX -0.9
 param set-default CA_ROTOR2_PY -0.97
 param set-default CA_ROTOR2_PZ 0.03
-param set-default CA_ROTOR2_KM 1.0 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR2_KM 0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
 # Rotor 4: vorne rechts cw
 param set-default CA_ROTOR3_PX 0.7519
 param set-default CA_ROTOR3_PY 0.97
 param set-default CA_ROTOR3_PZ 0.03
-param set-default CA_ROTOR3_KM -1.0 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR3_KM -0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
 # Rotor 5 & 6: vorne & hinten mitte rechts ccw
 param set-default CA_ROTOR4_PX 0.07405
 param set-default CA_ROTOR4_PY 0.97
 param set-default CA_ROTOR4_PZ 0.03
-param set-default CA_ROTOR4_KM 1.0 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
-
-# Rotor 6: hinten mitte rechts ccw
-#param set-default CA_ROTOR6_PX -0.3519
-#param set-default CA_ROTOR6_PY 0.97
-#param set-default CA_ROTOR6_PZ 0.03
-#param set-default CA_ROTOR6_KM -0.05
+param set-default CA_ROTOR4_KM 0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
 # Rotor 7: hinten rechts cw
 param set-default CA_ROTOR5_PX -0.9
 param set-default CA_ROTOR5_PY 0.97
 param set-default CA_ROTOR5_PZ 0.03
-param set-default CA_ROTOR5_KM -1.0 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR5_KM -0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
 # Rotor 8: pusher links ccw
 param set-default CA_ROTOR6_AX 1.0
@@ -99,48 +111,51 @@ param set-default CA_ROTOR7_PY 0.47
 param set-default CA_ROTOR7_PZ -0.089
 param set-default CA_ROTOR7_KM -0.1 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
-param set-default SIM_GZ_EC_FUNC1 101
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# MOTOR MAPPING GAZEBO
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+param set-default SIM_GZ_EC_FUNC1 101 # Motor 1
 param set-default SIM_GZ_EC_MIN1 10
 param set-default SIM_GZ_EC_MAX1 1500
-param set-default SIM_GZ_EC_FUNC2 102
+
+param set-default SIM_GZ_EC_FUNC2 102 # Motor 2
 param set-default SIM_GZ_EC_MIN2 10
 param set-default SIM_GZ_EC_MAX2 1500
-param set-default SIM_GZ_EC_FUNC3 103
+
+param set-default SIM_GZ_EC_FUNC3 103 # Motor 3
 param set-default SIM_GZ_EC_MIN3 10
 param set-default SIM_GZ_EC_MAX3 1500
-param set-default SIM_GZ_EC_FUNC4 104
+
+param set-default SIM_GZ_EC_FUNC4 104 # Motor 4
 param set-default SIM_GZ_EC_MIN4 10
 param set-default SIM_GZ_EC_MAX4 1500
-param set-default SIM_GZ_EC_FUNC5 105
+
+param set-default SIM_GZ_EC_FUNC5 105 # Motor 5
 param set-default SIM_GZ_EC_MIN5 10
 param set-default SIM_GZ_EC_MAX5 1500
-param set-default SIM_GZ_EC_FUNC6 106
+
+param set-default SIM_GZ_EC_FUNC6 106 # Motor 6
 param set-default SIM_GZ_EC_MIN6 10
 param set-default SIM_GZ_EC_MAX6 1500
-param set-default SIM_GZ_EC_FUNC7 107
+
+param set-default SIM_GZ_EC_FUNC7 107 # Motor 7
 param set-default SIM_GZ_EC_MIN7 10
 param set-default SIM_GZ_EC_MAX7 1500
-param set-default SIM_GZ_EC_FUNC8 108
+
+param set-default SIM_GZ_EC_FUNC8 108 # Motor 8
 param set-default SIM_GZ_EC_MIN8 10
 param set-default SIM_GZ_EC_MAX8 1500
 
-#param set-default SIM_GZ_SV_FUNC1 108
-#param set-default SIM_GZ_SV_MIN1 0
-#param set-default SIM_GZ_SV_MAX1 1500
-
-#param set-default SIM_GZ_SV_FUNC2 109
-#param set-default SIM_GZ_SV_MIN2 0
-#param set-default SIM_GZ_SV_MAX2 1500
-
-param set-default SIM_GZ_SV_FUNC1 201
-param set-default SIM_GZ_SV_FUNC2 202
-param set-default SIM_GZ_SV_FUNC3 203
-param set-default SIM_GZ_SV_FUNC4 204
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# SERVO MAPPING GAZEBO
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+param set-default SIM_GZ_SV_FUNC1 201 # Zuweiszng elevator servo 1
+param set-default SIM_GZ_SV_FUNC2 202 # Zuweisung elevator servo 2
+param set-default SIM_GZ_SV_FUNC3 203 # Zuweisung left elevon
+param set-default SIM_GZ_SV_FUNC4 204 # Hier sollte der right elevon hin (Zahl passt noch nicht)
 
 
-param set-default COM_RC_IN_MODE 1
-
-param set-default CA_SV_CS_COUNT 4
+param set-default CA_SV_CS_COUNT 4 # Number of servos
 # left elevator
 param set-default CA_SV_CS0_TYPE 3
 param set-default CA_SV_CS0_TRQ_P 1.0
@@ -154,7 +169,12 @@ param set-default CA_SV_CS2_TRQ_R -0.5
 param set-default CA_SV_CS3_TYPE 2
 param set-default CA_SV_CS3_TRQ_R 0.5
 
-param set-default NPFG_PERIOD 12
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# PID GAINS
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+param set-default NPFG_PERIOD 12 # period if NPFG control law in s
+
+# Fixed wing controller gains
 param set-default FW_PR_FF 0.2
 param set-default FW_PR_P 0.9
 param set-default FW_PSP_OFF 2
@@ -168,20 +188,27 @@ param set-default FW_T_CLMB_MAX 8
 param set-default FW_T_SINK_MAX 2.7
 param set-default FW_T_SINK_MIN 2.2
 
-param set-default MC_AIRMODE 1
+# Multicopter gains
+param set-default MC_ROLLRATE_K 2.1
+param set-default MC_ROLLRATE_D 0.0004
+param set-default MC_ROLLRATE_I 0.2
+
+param set-default MC_PITCHRATE_K 2.25
+param set-default MC_PITCHRATE_D 0.0004
+param set-default MC_PITCHRATE_I 0.2
+
+param set-default MC_YAWRATE_K 1.95
+param set-default MC_YAWRATE_I 0.04
+
+# Attitude gains
 param set-default MC_ROLLRATE_P 0.3
 param set-default MC_YAW_P 1.6
 
-param set-default MIS_TAKEOFF_ALT 30
 
+# Position controller gains
 param set-default MPC_XY_P 0.8
 param set-default MPC_XY_VEL_P_ACC 3
 param set-default MPC_XY_VEL_I_ACC 4
 param set-default MPC_XY_VEL_D_ACC 0.1
 
-param set-default NAV_ACC_RAD 5
 
-param set-default VT_FWD_THRUST_EN 4
-param set-default VT_F_TRANS_THR 0.75
-param set-default VT_TYPE 2
-param set-default FD_ESCS_EN 0
