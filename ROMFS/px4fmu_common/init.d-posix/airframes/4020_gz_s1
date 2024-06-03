@@ -50,7 +50,7 @@ param set-default FW_AIRSPD_TRIM 24 # Cruise speed
 
 # Mission
 param set-default NAV_ACC_RAD 5 # Acceptance radius in m for waypoint
-param set-default MIS_TAKEOFF_ALT 10
+param set-default MIS_TAKEOFF_ALT 30
 
 # Flight states
 param set-default VT_FWD_THRUST_EN 4 # 4: Enables pusher motors to move forward constantly
