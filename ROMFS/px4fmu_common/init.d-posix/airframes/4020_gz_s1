@@ -43,18 +43,28 @@ param set-default FD_ACT_EN 0 # 1: if enabled, failure detector will verify mini
 param set-default FD_ACT_MOT_TOUT 500 # threshold in ms for motor failure
 param set-default COM_PREARM_MODE 2 # 0: disabled, 1: safety button, 2: always
 param set-default FD_ESCS_EN 0 # 1: Failure detector will verify that all ESCs have successfully armed after transitioning to armed state
+param set-default FW_AIRSPD_MIN 20 # Minimum forward speed user can set (stall speed + margin)
+param set-default FW_AIRSPD_MIN 18 # Stall speed
+param set-default FW_AIRSPD_MAX 35 # Stall speed
+param set-default FW_AIRSPD_TRIM 24 # Cruise speed
 
 # Mission
 param set-default NAV_ACC_RAD 5 # Acceptance radius in m for waypoint
-param set-default MIS_TAKEOFF_ALT 30
+param set-default MIS_TAKEOFF_ALT 10
 
 # Flight states
 param set-default VT_FWD_THRUST_EN 4 # 4: Enables pusher motors to move forward constantly
 param set-default VT_F_TRANS_THR 1.0 # Target throttle value for the transition to fixed wing
 param set-default MC_AIRMODE 1 # 0: Disabled, 1: Roll Pitch, 2: Roll/Pitch/Yaw (the air-mode enables the mixer to increase the total thrust of the multirotor in order to keep attitde and rate control)
-
+0.47
 # Control
 param set-default COM_RC_IN_MODE 1 # 0: RC transmitter only, 1: Joysick control only, 2: Either RC or joystick control, first valid input is used, 3: Either RC or joystick, first available cource used, 4: ignores any stick input
+
+# Transition
+param set-default VT_ARSP_BLEND 18 # Speed at which fw and mc control are blended
+param set-default VT_ARSP_TRANS 20 # Transition speed
+
+
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # MOTOR CONTROL ALLOCATION
@@ -95,11 +105,11 @@ param set-default CA_ROTOR5_PY 0.97
 param set-default CA_ROTOR5_PZ 0.03
 param set-default CA_ROTOR5_KM -0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
-# Rotor 8: pusher links ccw
+# Rotor 8: pusher links + rechts ccw
 param set-default CA_ROTOR6_AX 1.0
 param set-default CA_ROTOR6_AZ 0.0
 param set-default CA_ROTOR6_PX -0.840004
-param set-default CA_ROTOR6_PY -0.47
+param set-default CA_ROTOR6_PY 0 # auf 0 gesetzt für durchschnittliche Position in der Mitte -0.47
 param set-default CA_ROTOR6_PZ -0.089
 param set-default CA_ROTOR6_KM 0.1 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
