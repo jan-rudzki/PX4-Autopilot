@@ -6,8 +6,7 @@
 #
 
 # Adaptions:
-# - Moment coefficient from standard vtol doubled! (Corny)
-# - Takeoff altitude changed to 30 m
+# - cleaned up
 
 # Instructions:
 # PX4 Coordinate System:
@@ -38,33 +37,38 @@ param set-default CA_AIRFRAME 2 # Standard VTOL airframe
 param set-default CA_ROTOR_COUNT 7
 param set-default VT_TYPE 2 # Tailsitter=0, Tiltrotor=1, Standard=2
 
+# ATTENTION: PARAMETER SETTING SEEMS TO NOT WORK!!!
+
 # Safety
 param set-default FD_ACT_EN 0 # 1: if enabled, failure detector will verify minimum ESC current
 param set-default FD_ACT_MOT_TOUT 500 # threshold in ms for motor failure
 param set-default COM_PREARM_MODE 2 # 0: disabled, 1: safety button, 2: always
 param set-default FD_ESCS_EN 0 # 1: Failure detector will verify that all ESCs have successfully armed after transitioning to armed state
 param set-default FW_AIRSPD_MIN 20 # Minimum forward speed user can set (stall speed + margin)
-param set-default FW_AIRSPD_MIN 18 # Stall speed
+param set-default FW_AIRSPD_STALL 18 # Stall speed
 param set-default FW_AIRSPD_MAX 35 # Stall speed
-param set-default FW_AIRSPD_TRIM 24 # Cruise speed
+param set-default FW_AIRSPD_TRIM 25 # Cruise speed
+param set-default VT_FW_MIN_ALT 10 # When vehicle in FW mode drops below this altitude in m, it will instantly swith back to MC mode
+param set-default FW_R_LIM # Maximum roll angle
 
 # Mission
 param set-default NAV_ACC_RAD 5 # Acceptance radius in m for waypoint
-param set-default MIS_TAKEOFF_ALT 30
+param set-default MIS_TAKEOFF_ALT 70
 
 # Flight states
 param set-default VT_FWD_THRUST_EN 4 # 4: Enables pusher motors to move forward constantly
 param set-default VT_F_TRANS_THR 1.0 # Target throttle value for the transition to fixed wing
 param set-default MC_AIRMODE 1 # 0: Disabled, 1: Roll Pitch, 2: Roll/Pitch/Yaw (the air-mode enables the mixer to increase the total thrust of the multirotor in order to keep attitde and rate control)
-0.47
+
 # Control
 param set-default COM_RC_IN_MODE 1 # 0: RC transmitter only, 1: Joysick control only, 2: Either RC or joystick control, first valid input is used, 3: Either RC or joystick, first available cource used, 4: ignores any stick input
 
 # Transition
 param set-default VT_ARSP_BLEND 18 # Speed at which fw and mc control are blended
 param set-default VT_ARSP_TRANS 20 # Transition speed
-
-
+param set-default VT_F_TRANS_THR 1.0 # Target throttle for the transition to FW flight
+param set-default VT_F_TR_OL_TM 6 # Duration of front transition, if no airspeed feedback available
+param set-default VT_QC_T_ALT_LOSS 20 # Altitude loss threshold for quad-chute triggering during VTOL transition to FW flight.
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # MOTOR CONTROL ALLOCATION
