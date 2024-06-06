@@ -49,11 +49,12 @@ param set-default FW_AIRSPD_STALL 18 # Stall speed
 param set-default FW_AIRSPD_MAX 35 # Stall speed
 param set-default FW_AIRSPD_TRIM 25 # Cruise speed
 param set-default VT_FW_MIN_ALT 10 # When vehicle in FW mode drops below this altitude in m, it will instantly swith back to MC mode
-param set-default FW_R_LIM # Maximum roll angle
+param set-default FW_R_LIM 45 # Maximum roll angle
+param set-default FW_R_LIM 35 # Maximum roll rate deg/s
 
 # Mission
 param set-default NAV_ACC_RAD 5 # Acceptance radius in m for waypoint
-param set-default MIS_TAKEOFF_ALT 70
+param set-default MIS_TAKEOFF_ALT 70 # Takeoff altitude
 
 # Flight states
 param set-default VT_FWD_THRUST_EN 4 # 4: Enables pusher motors to move forward constantly
@@ -64,7 +65,7 @@ param set-default MC_AIRMODE 1 # 0: Disabled, 1: Roll Pitch, 2: Roll/Pitch/Yaw (
 param set-default COM_RC_IN_MODE 1 # 0: RC transmitter only, 1: Joysick control only, 2: Either RC or joystick control, first valid input is used, 3: Either RC or joystick, first available cource used, 4: ignores any stick input
 
 # Transition
-param set-default VT_ARSP_BLEND 18 # Speed at which fw and mc control are blended
+param set-default VT_ARSP_BLEND 14 # Speed at which fw and mc control are blended
 param set-default VT_ARSP_TRANS 20 # Transition speed
 param set-default VT_F_TRANS_THR 1.0 # Target throttle for the transition to FW flight
 param set-default VT_F_TR_OL_TM 6 # Duration of front transition, if no airspeed feedback available
