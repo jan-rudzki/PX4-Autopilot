@@ -49,11 +49,11 @@ param set-default FW_AIRSPD_STALL 18 # Stall speed
 param set-default FW_AIRSPD_MAX 35 # Stall speed
 param set-default FW_AIRSPD_TRIM 25 # Cruise speed
 param set-default VT_FW_MIN_ALT 10 # When vehicle in FW mode drops below this altitude in m, it will instantly swith back to MC mode
-param set-default FW_R_LIM # Maximum roll angle
+param set-default FW_R_LIM 35 # Maximum roll angle
 
 # Mission
 param set-default NAV_ACC_RAD 5 # Acceptance radius in m for waypoint
-param set-default MIS_TAKEOFF_ALT 70
+param set-default MIS_TAKEOFF_ALT 70 # Takeoff altitude
 
 # Flight states
 param set-default VT_FWD_THRUST_EN 4 # 4: Enables pusher motors to move forward constantly
