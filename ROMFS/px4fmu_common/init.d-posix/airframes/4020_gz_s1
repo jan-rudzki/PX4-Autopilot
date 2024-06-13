@@ -54,6 +54,7 @@ param set-default FW_R_LIM 40 # Maximum roll angle
 # Mission
 param set-default NAV_ACC_RAD 5 # Acceptance radius in m for waypoint
 param set-default MIS_TAKEOFF_ALT 50 # Takeoff altitude
+param set-default VTO_LOITER_ALT 50 # VTOL relative loiter altitude
 
 # Flight states
 param set-default VT_FWD_THRUST_EN 4 # 4: Enables pusher motors to move forward constantly
