@@ -34,7 +34,7 @@ param set-default SENS_EN_ARSPDSIM 1 # 1: enables simulated airspeed sensor inst
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # Airframe
 param set-default CA_AIRFRAME 2 # Standard VTOL airframe
-param set-default CA_ROTOR_COUNT 7
+param set-default CA_ROTOR_COUNT 9
 param set-default VT_TYPE 2 # Tailsitter=0, Tiltrotor=1, Standard=2
 
 # ATTENTION: PARAMETER SETTING SEEMS TO NOT WORK!!!
@@ -75,23 +75,30 @@ param set-default VT_F_TR_OL_TM 8 # Duration of front transition, if no airspeed
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # MOTOR CONTROL ALLOCATION
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 # Rotor 0: vorne links ccw
 param set-default CA_ROTOR0_PX 0.7519
 param set-default CA_ROTOR0_PY -0.97
 param set-default CA_ROTOR0_PZ 0.03
 param set-default CA_ROTOR0_KM 0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
-# Rotor 1 & 2: vorne & hinten mitte links cw
-param set-default CA_ROTOR1_PX 0.07405
+# Rotor 1: vorne mitte links cw
+param set-default CA_ROTOR1_PX 0.3
 param set-default CA_ROTOR1_PY -0.97
-param set-default CA_ROTOR1_PZ 0.03
+param set-default CA_ROTOR1_PZ 0.0
 param set-default CA_ROTOR1_KM -0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
-# Rotor 3: hinten links ccw
+# Rotor 2: hinten mitte links ccw
+param set-default CA_ROTOR1_PX -0.1519
+param set-default CA_ROTOR1_PY -0.97
+param set-default CA_ROTOR1_PZ 0.0
+param set-default CA_ROTOR1_KM 0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+
+# Rotor 3: hinten links cw
 param set-default CA_ROTOR2_PX -0.9
 param set-default CA_ROTOR2_PY -0.97
 param set-default CA_ROTOR2_PZ 0.03
-param set-default CA_ROTOR2_KM 0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR2_KM -0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
 # Rotor 4: vorne rechts cw
 param set-default CA_ROTOR3_PX 0.7519
@@ -99,17 +106,23 @@ param set-default CA_ROTOR3_PY 0.97
 param set-default CA_ROTOR3_PZ 0.03
 param set-default CA_ROTOR3_KM -0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
-# Rotor 5 & 6: vorne & hinten mitte rechts ccw
-param set-default CA_ROTOR4_PX 0.07405
+# Rotor 5: vorne mitte rechts ccw
+param set-default CA_ROTOR4_PX 0.3
 param set-default CA_ROTOR4_PY 0.97
-param set-default CA_ROTOR4_PZ 0.03
+param set-default CA_ROTOR4_PZ 0.0
 param set-default CA_ROTOR4_KM 0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
-# Rotor 7: hinten rechts cw
+# Rotor 6: hinten mitte rechts cw
+param set-default CA_ROTOR4_PX -0.1519
+param set-default CA_ROTOR4_PY 0.97
+param set-default CA_ROTOR4_PZ 0.0
+param set-default CA_ROTOR4_KM -0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+
+# Rotor 7: hinten rechts ccw
 param set-default CA_ROTOR5_PX -0.9
 param set-default CA_ROTOR5_PY 0.97
 param set-default CA_ROTOR5_PZ 0.03
-param set-default CA_ROTOR5_KM -0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR5_KM 0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
 # Rotor 8: pusher links + rechts ccw
 param set-default CA_ROTOR6_AX 1.0
@@ -169,9 +182,10 @@ param set-default SIM_GZ_SV_FUNC1 201 # Zuweiszng elevator servo 1
 param set-default SIM_GZ_SV_FUNC2 202 # Zuweisung elevator servo 2
 param set-default SIM_GZ_SV_FUNC3 203 # Zuweisung left elevon
 param set-default SIM_GZ_SV_FUNC4 204 # Hier sollte der right elevon hin (Zahl passt noch nicht)
-
+param set-default SIM_GZ_SV_REV 3 # Servo 1 und 2 Input wird umgedreht (wieso der Wert 3 sein muss ist weird, aber stimmt laut Qground)
 
 param set-default CA_SV_CS_COUNT 4 # Number of servos
+
 # left elevator
 param set-default CA_SV_CS0_TYPE 3
 param set-default CA_SV_CS0_TRQ_P 1.0
