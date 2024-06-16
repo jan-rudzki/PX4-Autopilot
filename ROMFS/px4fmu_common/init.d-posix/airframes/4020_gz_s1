@@ -65,8 +65,8 @@ param set-default MC_AIRMODE 1 # 0: Disabled, 1: Roll Pitch, 2: Roll/Pitch/Yaw (
 param set-default COM_RC_IN_MODE 1 # 0: RC transmitter only, 1: Joysick control only, 2: Either RC or joystick control, first valid input is used, 3: Either RC or joystick, first available cource used, 4: ignores any stick input
 
 # Transition
-param set-default VT_ARSP_BLEND 18 # Speed at which fw and mc control are blended
-param set-default VT_ARSP_TRANS 20 # Transition speed
+param set-default VT_ARSP_BLEND 7 # Speed at which fw and mc control are blended
+param set-default VT_ARSP_TRANS 14 # Transition speed
 param set-default VT_F_TRANS_THR 1.0 # Target throttle for the transition to FW flight
 param set-default VT_QC_T_ALT_LOSS 20 # Altitude loss threshold for quad-chute triggering during VTOL transition to FW flight.
 param set-default VT_F_TRANS_DUR 8 # Duration of front transition
@@ -117,7 +117,7 @@ param set-default CA_ROTOR6_AX 1.0
 param set-default CA_ROTOR6_AZ 0.0
 param set-default CA_ROTOR6_PX -0.840004
 param set-default CA_ROTOR6_PY 0 # auf 0 gesetzt für durchschnittliche Position in der Mitte -0.47
-param set-default CA_ROTOR6_PZ -0.089
+param set-default CA_ROTOR6_PZ 0 # Achtung!!!! PX4 hat in der control allocation ein zu starkes Pitch Down Moment der Pusher berechnet und steuert zu krass nach oben, wenn man das auf echten Wert setzt!!!
 param set-default CA_ROTOR6_KM 0.1 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
 ## Rotor 9: pusher rechts cw
@@ -166,10 +166,11 @@ param set-default SIM_GZ_EC_MAX7 1500
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # SERVO MAPPING GAZEBO
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# --> Hier wird vorgegeben, welcher Servo welche Funktion in PX4 haben soll
 param set-default SIM_GZ_SV_FUNC1 201 # Zuweiszng elevator servo 1
 param set-default SIM_GZ_SV_FUNC2 202 # Zuweisung elevator servo 2
-param set-default SIM_GZ_SV_FUNC3 203 # Zuweisung left elevon
-param set-default SIM_GZ_SV_FUNC4 204 # Hier sollte der right elevon hin (Zahl passt noch nicht)
+param set-default SIM_GZ_SV_FUNC3 203 # Zuweisung left elevon Zahl ist aktuell für Aileron)
+param set-default SIM_GZ_SV_FUNC4 204 # Hier sollte der right elevon hin (Zahl ist aktuell für Aileron)
 param set-default SIM_GZ_SV_REV 3 # Servo 1 und 2 Input wird umgedreht (wieso der Wert 3 sein muss ist weird, aber stimmt laut Qground)
 
 param set-default CA_SV_CS_COUNT 4 # Number of servos
