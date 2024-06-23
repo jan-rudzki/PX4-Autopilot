@@ -64,9 +64,9 @@ param set-default MC_AIRMODE 1 # 0: Disabled, 1: Roll Pitch, 2: Roll/Pitch/Yaw (
 param set-default COM_RC_IN_MODE 1 # 0: RC transmitter only, 1: Joysick control only, 2: Either RC or joystick control, first valid input is used, 3: Either RC or joystick, first available cource used, 4: ignores any stick input
 
 # Transition
-param set-default VT_ARSP_BLEND 10 # Speed at which fw and mc control are blended
-param set-default VT_ARSP_TRANS 20 # Transition speed
-param set-default VT_F_TRANS_THR 0.7 # Target throttle for the transition to FW flight
+param set-default VT_ARSP_BLEND 22 # Speed at which fw and mc control are blended
+param set-default VT_ARSP_TRANS 24 # Transition speed
+param set-default VT_F_TRANS_THR 0.5 # Target throttle for the transition to FW flight
 param set-default VT_QC_T_ALT_LOSS 20 # Altitude loss threshold for quad-chute triggering during VTOL transition to FW flight.
 param set-default VT_F_TRANS_DUR 8 # Duration of front transition
 param set-default VT_F_TR_OL_TM 8 # Duration of front transition, if no airspeed feedback available
@@ -75,7 +75,8 @@ param set-default VT_PSHER_SLEW 0.33 # 1/s Pusher throttle ramp up slew rate
 
 # Fixed Wing Flight
 param set-default FW_THR_TRIM 0.25 # Throttle for level flight at trim speed
-param set-default FW_THR_MAX 0.6 # Maximum throttle in altitude controlled modes
+param set-default FW_AIRSPD_TRIM 24 # Default airspeed, controller will try to achieve
+param set-default FW_THR_MAX 0.7 # Maximum throttle in altitude controlled modes
 param set-default FW_THR_MIN 0.05 # Minimum throttle in altitude controlled modes. Usually at 0, can be set to small value to prevent motor from stopping during descent
 param set-default FW_P_LIM_MIN -15 # Minimum pitch angle setpoint
 param set-default FW_THR_SLEW_MAX 0 # (Default: 0) 1/s Maximum slew rate for the commaned throttle
@@ -125,7 +126,7 @@ param set-default CA_ROTOR6_AX 1.0
 param set-default CA_ROTOR6_AZ 0.0
 param set-default CA_ROTOR6_PX -0.840004
 param set-default CA_ROTOR6_PY 0 # auf 0 gesetzt für durchschnittliche Position in der Mitte -0.47
-param set-default CA_ROTOR6_PZ 0.0 # Achtung!!!! echter Wert von -0.09 verursacht Crash!! PX4 hat in der control allocation ein zu starkes Pitch Down Moment der Pusher berechnet und steuert zu krass nach oben, wenn man das auf echten Wert setzt!!!
+param set-default CA_ROTOR6_PZ -0 # Achtung!!!! echter Wert von -0.09 verursacht Crash!! PX4 hat in der control allocation ein zu starkes Pitch Down Moment der Pusher berechnet und steuert zu krass nach oben, wenn man das auf echten Wert setzt!!!
 param set-default CA_ROTOR6_KM 0.1 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
 ## Rotor 9: pusher rechts cw
