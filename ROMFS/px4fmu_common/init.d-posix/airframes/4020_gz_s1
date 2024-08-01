@@ -49,7 +49,6 @@ param set-default FW_AIRSPD_STALL 18 # Stall speed
 param set-default FW_AIRSPD_MAX 35 # Stall speed
 param set-default FW_AIRSPD_TRIM 25 # Cruise speed
 param set-default VT_FW_MIN_ALT 10 # When vehicle in FW mode drops below this altitude in m, it will instantly swith back to MC mode
-param set-default FW_R_LIM 40 # Maximum roll angle
 
 # Mission
 param set-default NAV_ACC_RAD 5 # Acceptance radius in m for waypoint
@@ -80,6 +79,7 @@ param set-default FW_THR_MAX 0.7 # Maximum throttle in altitude controlled modes
 param set-default FW_THR_MIN 0.05 # Minimum throttle in altitude controlled modes. Usually at 0, can be set to small value to prevent motor from stopping during descent
 param set-default FW_P_LIM_MIN -15 # Minimum pitch angle setpoint
 param set-default FW_THR_SLEW_MAX 0 # (Default: 0) 1/s Maximum slew rate for the commaned throttle
+param set-default FW_R_LIM 50 # Maximum roll angle
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # MOTOR CONTROL ALLOCATION
