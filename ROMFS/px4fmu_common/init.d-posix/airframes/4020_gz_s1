@@ -1,0 +1,246 @@
+#!/bin/sh
+#
+# @name Standard VTOL
+#
+# @type Standard VTOL
+#
+
+# Adaptions:
+# - cleaned up
+
+# Instructions:
+# PX4 Coordinate System:
+	# Ursprung: Im Schwerpunkt (Quelle: https://docs.px4.io/main/en/config/actuators.html)
+	# x: zeigt von CG zur Nase
+	# y: zeigt von CG nach rechts
+	# z: zeigt von CG nach unten
+
+
+. ${R}etc/init.d/rc.vtol_defaults
+
+PX4_SIMULATOR=${PX4_SIMULATOR:=gz}
+PX4_GZ_WORLD=${PX4_GZ_WORLD:=default}
+PX4_SIM_MODEL=${PX4_SIM_MODEL:=s1}
+
+# Simulation settings
+param set-default SIM_GZ_EN 1 # enables Gazebo Simulator bridge
+param set-default SENS_EN_GPSSIM 1 # 1: enables simulated GPS instance
+param set-default SENS_EN_BAROSIM 0 # 1: enables simulated barometer sensor instance
+param set-default SENS_EN_MAGSIM 1 # 1: enables simulated magnetometer instance
+param set-default SENS_EN_ARSPDSIM 1 # 1: enables simulated airspeed sensor instance
+
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# GENERAL SETTINGS
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# Airframe
+param set-default CA_AIRFRAME 2 # Standard VTOL airframe
+param set-default CA_ROTOR_COUNT 7
+param set-default VT_TYPE 2 # Tailsitter=0, Tiltrotor=1, Standard=2
+
+# ATTENTION: PARAMETER SETTING SEEMS TO NOT WORK!!!
+
+# Safety
+param set-default FD_ACT_EN 0 # 1: if enabled, failure detector will verify minimum ESC current
+param set-default FD_ACT_MOT_TOUT 500 # threshold in ms for motor failure
+param set-default COM_PREARM_MODE 2 # 0: disabled, 1: safety button, 2: always
+param set-default FD_ESCS_EN 0 # 1: Failure detector will verify that all ESCs have successfully armed after transitioning to armed state
+param set-default FW_AIRSPD_MIN 20 # Minimum forward speed user can set (stall speed + margin)
+param set-default FW_AIRSPD_STALL 18 # Stall speed
+param set-default FW_AIRSPD_MAX 35 # Stall speed
+param set-default FW_AIRSPD_TRIM 25 # Cruise speed
+param set-default VT_FW_MIN_ALT 10 # When vehicle in FW mode drops below this altitude in m, it will instantly swith back to MC mode
+
+# Mission
+param set-default NAV_ACC_RAD 5 # Acceptance radius in m for waypoint
+param set-default MIS_TAKEOFF_ALT 50 # Takeoff altitude
+param set-default VTO_LOITER_ALT 50 # VTOL relative loiter altitude
+
+# Flight states
+param set-default VT_FWD_THRUST_EN 4 # 4: Enables pusher motors to move forward constantly
+param set-default MC_AIRMODE 1 # 0: Disabled, 1: Roll Pitch, 2: Roll/Pitch/Yaw (the air-mode enables the mixer to increase the total thrust of the multirotor in order to keep attitde and rate control)
+
+# Control
+param set-default COM_RC_IN_MODE 1 # 0: RC transmitter only, 1: Joysick control only, 2: Either RC or joystick control, first valid input is used, 3: Either RC or joystick, first available cource used, 4: ignores any stick input
+
+# Transition
+param set-default VT_ARSP_BLEND 22 # Speed at which fw and mc control are blended
+param set-default VT_ARSP_TRANS 24 # Transition speed
+param set-default VT_F_TRANS_THR 0.5 # Target throttle for the transition to FW flight
+param set-default VT_QC_T_ALT_LOSS 20 # Altitude loss threshold for quad-chute triggering during VTOL transition to FW flight.
+param set-default VT_F_TRANS_DUR 8 # Duration of front transition
+param set-default VT_F_TR_OL_TM 8 # Duration of front transition, if no airspeed feedback available
+param set-default FW_PSP_OFF 5 # Pitch setpoint in degree for typical cruise: Target value for end of transition!!!!
+param set-default VT_PSHER_SLEW 0.33 # 1/s Pusher throttle ramp up slew rate
+
+# Fixed Wing Flight
+param set-default FW_THR_TRIM 0.25 # Throttle for level flight at trim speed
+param set-default FW_AIRSPD_TRIM 24 # Default airspeed, controller will try to achieve
+param set-default FW_THR_MAX 0.7 # Maximum throttle in altitude controlled modes
+param set-default FW_THR_MIN 0.05 # Minimum throttle in altitude controlled modes. Usually at 0, can be set to small value to prevent motor from stopping during descent
+param set-default FW_P_LIM_MIN -15 # Minimum pitch angle setpoint
+param set-default FW_THR_SLEW_MAX 0 # (Default: 0) 1/s Maximum slew rate for the commaned throttle
+param set-default FW_R_LIM 50 # Maximum roll angle
+
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# MOTOR CONTROL ALLOCATION
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+# Rotor 0: vorne links ccw
+param set-default CA_ROTOR0_PX 0.7519
+param set-default CA_ROTOR0_PY -0.97
+param set-default CA_ROTOR0_PZ 0.03
+param set-default CA_ROTOR0_KM 0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+
+# Rotor 1 & 2: vorne & hinten mitte links cw
+param set-default CA_ROTOR1_PX 0.07405
+param set-default CA_ROTOR1_PY -0.97
+param set-default CA_ROTOR1_PZ 0.03
+param set-default CA_ROTOR1_KM -0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+
+# Rotor 3: hinten links ccw
+param set-default CA_ROTOR2_PX -0.9
+param set-default CA_ROTOR2_PY -0.97
+param set-default CA_ROTOR2_PZ 0.03
+param set-default CA_ROTOR2_KM 0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+
+# Rotor 4: vorne rechts cw
+param set-default CA_ROTOR3_PX 0.7519
+param set-default CA_ROTOR3_PY 0.97
+param set-default CA_ROTOR3_PZ 0.03
+param set-default CA_ROTOR3_KM -0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+
+# Rotor 5 & 6: vorne & hinten mitte rechts ccw
+param set-default CA_ROTOR4_PX 0.07405
+param set-default CA_ROTOR4_PY 0.97
+param set-default CA_ROTOR4_PZ 0.03
+param set-default CA_ROTOR4_KM 0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+
+# Rotor 7: hinten rechts cw
+param set-default CA_ROTOR5_PX -0.9
+param set-default CA_ROTOR5_PY 0.97
+param set-default CA_ROTOR5_PZ 0.03
+param set-default CA_ROTOR5_KM -0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+
+# Rotor 8: pusher links + rechts ccw
+param set-default CA_ROTOR6_AX 1.0
+param set-default CA_ROTOR6_AZ 0.0
+param set-default CA_ROTOR6_PX -0.840004
+param set-default CA_ROTOR6_PY 0 # auf 0 gesetzt für durchschnittliche Position in der Mitte -0.47
+param set-default CA_ROTOR6_PZ -0 # Achtung!!!! echter Wert von -0.09 verursacht Crash!! PX4 hat in der control allocation ein zu starkes Pitch Down Moment der Pusher berechnet und steuert zu krass nach oben, wenn man das auf echten Wert setzt!!!
+param set-default CA_ROTOR6_KM 0.1 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+
+## Rotor 9: pusher rechts cw
+#param set-default CA_ROTOR7_AX 1.0
+#param set-default CA_ROTOR7_AZ 0.0
+#param set-default CA_ROTOR7_PX -0.840004
+#param set-default CA_ROTOR7_PY 0.47
+#param set-default CA_ROTOR7_PZ -0.089
+#param set-default CA_ROTOR7_KM -0.1 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# MOTOR MAPPING GAZEBO
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+param set-default SIM_GZ_EC_FUNC1 101 # Motor 1
+param set-default SIM_GZ_EC_MIN1 10
+param set-default SIM_GZ_EC_MAX1 1500
+
+param set-default SIM_GZ_EC_FUNC2 102 # Motor 2
+param set-default SIM_GZ_EC_MIN2 10
+param set-default SIM_GZ_EC_MAX2 1500
+
+param set-default SIM_GZ_EC_FUNC3 103 # Motor 3
+param set-default SIM_GZ_EC_MIN3 10
+param set-default SIM_GZ_EC_MAX3 1500
+
+param set-default SIM_GZ_EC_FUNC4 104 # Motor 4
+param set-default SIM_GZ_EC_MIN4 10
+param set-default SIM_GZ_EC_MAX4 1500
+
+param set-default SIM_GZ_EC_FUNC5 105 # Motor 5
+param set-default SIM_GZ_EC_MIN5 10
+param set-default SIM_GZ_EC_MAX5 1500
+
+param set-default SIM_GZ_EC_FUNC6 106 # Motor 6
+param set-default SIM_GZ_EC_MIN6 10
+param set-default SIM_GZ_EC_MAX6 1500
+
+param set-default SIM_GZ_EC_FUNC7 107 # Motor 7
+param set-default SIM_GZ_EC_MIN7 10
+param set-default SIM_GZ_EC_MAX7 1500
+
+#param set-default SIM_GZ_EC_FUNC8 108 # Motor 8
+#param set-default SIM_GZ_EC_MIN8 10
+#param set-default SIM_GZ_EC_MAX8 1500
+
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# SERVO MAPPING GAZEBO
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# --> Hier wird vorgegeben, welcher Servo welche Funktion in PX4 haben soll
+param set-default SIM_GZ_SV_FUNC1 201 # Zuweiszng elevator servo 1
+param set-default SIM_GZ_SV_FUNC2 202 # Zuweisung elevator servo 2
+param set-default SIM_GZ_SV_FUNC3 203 # Zuweisung left elevon Zahl ist aktuell für Aileron)
+param set-default SIM_GZ_SV_FUNC4 204 # Hier sollte der right elevon hin (Zahl ist aktuell für Aileron)
+param set-default SIM_GZ_SV_REV 3 # Servo 1 und 2 Input wird umgedreht (wieso der Wert 3 sein muss ist weird, aber stimmt laut Qground)
+
+param set-default CA_SV_CS_COUNT 4 # Number of servos
+
+# left elevator
+param set-default CA_SV_CS0_TYPE 3
+param set-default CA_SV_CS0_TRQ_P 1.0
+param set-default CA_SV_CS0_TRQ_P 0.7 # Elevator Pitch Moment Scaling --> The smaller the value, the more deflection
+param set-default CA_SV_CS1_TRQ_P 0.7 # Elevator Pitch Moment Scaling --> The smaller the value, the more deflection
+# right elevator
+param set-default CA_SV_CS1_TYPE 3
+param set-default CA_SV_CS1_TRQ_P 1.0
+# left aileron
+param set-default CA_SV_CS2_TYPE 1
+param set-default CA_SV_CS2_TRQ_R -0.5
+# right aileron
+param set-default CA_SV_CS3_TYPE 2
+param set-default CA_SV_CS3_TRQ_R 0.5
+
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# PID GAINS
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+param set-default NPFG_PERIOD 12 # period if NPFG control law in s
+
+# Fixed wing controller gains
+param set-default FW_RR_FF 0.1
+param set-default FW_RR_P 0.3
+
+param set-default FW_PR_P 2.5 # Pitch Rate P gain
+param set-default FW_PR_FF 0.2 # Direct feed forward from rate setpoint to control surface output
+param set-default FW_PR_I 0.1 # Pitch Rate I gain
+
+param set-default FW_THR_TRIM 0.25 # Throttle for level flight at trim speed
+param set-dvtefault FW_THR_MAX 0.6 # Maximum throttle in altitude controlled modes
+param set-default FW_THR_MIN 0.05 # Minimum throttle in altitude controlled modes. Usually at 0, can be set to small value to prevent motor from stopping during descent
+
+param set-default FW_T_CLMB_MAX 8
+param set-default FW_T_SINK_MAX 2.7
+param set-default FW_T_SINK_MIN 2.2
+
+# Multicopter controller gains
+param set-default MC_ROLLRATE_K 1.85
+param set-default MC_ROLLRATE_D 0.0004
+param set-default MC_ROLLRATE_I 0.2
+
+param set-default MC_PITCHRATE_K 1.85
+param set-default MC_PITCHRATE_D 0.0004
+param set-default MC_PITCHRATE_I 0.2
+
+param set-default MC_YAWRATE_K 1.5
+param set-default MC_YAWRATE_I 0.04
+
+# Attitude gains
+param set-default MC_ROLL_P 5
+param set-default MC_YAW_P 1.6
+
+
+# # Position controller gains
+# param set-default MPC_XY_P 0.8
+# param set-default MPC_XY_VEL_P_ACC 3
+# param set-default MPC_XY_VEL_I_ACC 4
+# param set-default MPC_XY_VEL_D_ACC 0.1
+
+
