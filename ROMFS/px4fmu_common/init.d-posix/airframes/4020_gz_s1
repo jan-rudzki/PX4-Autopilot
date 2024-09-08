@@ -205,12 +205,20 @@ param set-default CA_SV_CS3_TRQ_R 0.5
 param set-default NPFG_PERIOD 12 # period if NPFG control law in s
 
 # Fixed wing controller gains
-param set-default FW_RR_FF 0.1
-param set-default FW_RR_P 0.3
+param set-default FW_RR_P 0.181 # Roll rate proportional gain (developed through autotune)
+param set-default FW_RR_I 0.19 # Roll rate integrator gain (developed through autotune)
+param set-default FW_RR_D 0.0 # Roll Rate D Gain (developed through autotune)
+param set-default FW_RR_FF 0.38 # Roll rate feed forward gain (developed through autotune)
 
-param set-default FW_PR_P 2.5 # Pitch Rate P gain
-param set-default FW_PR_FF 0.2 # Direct feed forward from rate setpoint to control surface output
-param set-default FW_PR_I 0.1 # Pitch Rate I gain
+param set-default FW_PR_P 0.185 # Pitch Rate P gain (developed through autotune)
+param set-default FW_PR_I 0.19 # Pitch Rate I gain (developed through autotune)
+param set-default FW_PR_D 0.0 # Pitch rate D gain (developed through autotune)
+param set-default FW_PR_FF 1.16 # Direct feed forward from rate setpoint to control surface output (developed through autotune)
+
+param set-default FW_YR_P 0.05 # Yaw Rate P gain (developed through autotune)
+param set-default FW_YR_I 0.10 # Yaw Rate I gain (developed through autotune)
+param set-default FW_YR_D 0.00 # Yaw rate D gain (developed through autotune)
+param set-default FW_YR_FF 0.30 # Direct feed forward from rate setpoint to control surface output (developed through autotune)
 
 param set-default FW_THR_TRIM 0.25 # Throttle for level flight at trim speed
 param set-dvtefault FW_THR_MAX 0.6 # Maximum throttle in altitude controlled modes
