@@ -56,7 +56,7 @@ param set-default MIS_TAKEOFF_ALT 50 # Takeoff altitude
 param set-default VTO_LOITER_ALT 50 # VTOL relative loiter altitude
 
 # Flight states
-param set-default VT_FWD_THRUST_EN 4 # 4: Enables pusher motors to move forward constantly
+param set-default VT_FWD_THRUST_EN 0 # 0: Disabled, 4: Enables pusher motors to move forward constantly
 param set-default MC_AIRMODE 1 # 0: Disabled, 1: Roll Pitch, 2: Roll/Pitch/Yaw (the air-mode enables the mixer to increase the total thrust of the multirotor in order to keep attitde and rate control)
 
 # Control
