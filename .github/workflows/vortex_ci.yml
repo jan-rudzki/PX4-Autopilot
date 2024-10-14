@@ -2,7 +2,6 @@
 
 name: PX4 CI Build
 
-# Trigger the workflow on push or pull request events to 'vortex-dev'
 on:
   push:
     branches:
@@ -15,7 +14,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    # Define environment variables
     env:
       CCACHE_DIR: /tmp/ccache
       PX4_DIR: ${{ github.workspace }}
@@ -27,11 +25,11 @@ jobs:
         with:
           submodules: true
 
-      # Step 2: Set Up the Environment
+      # Step 2: Install Dependencies
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y git zip python3-pip cmake ninja-build gcc-arm-none-eabi g++-arm-none-eabi
+          sudo apt-get install -y git zip python3-pip cmake ninja-build gcc-arm-none-eabi
           pip3 install --upgrade pip
           pip3 install empy toml
 
@@ -71,8 +69,4 @@ jobs:
             build/px4_fmu-v6x_default/bin/*.px4
             build/px4_fmu-v6x_default/bin/*.elf
             build/px4_fmu-v6x_default/bin/*.bin
-
-      # Step 7: (Optional) Notify on Build Status
-      # You can integrate Slack or other notification services here
-      # For simplicity, this step is omitted
 
