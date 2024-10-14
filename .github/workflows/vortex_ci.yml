@@ -1,16 +1,78 @@
-name: 'Handle stale issues and PRs'
+# .github/workflows/ci.yml
+
+name: PX4 CI Build
+
+# Trigger the workflow on push or pull request events to 'vortex-dev'
 on:
-  schedule:
-    - cron: '30 1 * * *'
+  push:
+    branches:
+      - vortex-dev
+  pull_request:
+    branches:
+      - vortex-dev
 
 jobs:
-  stale:
+  build:
     runs-on: ubuntu-latest
+
+    # Define environment variables
+    env:
+      CCACHE_DIR: /tmp/ccache
+      PX4_DIR: ${{ github.workspace }}
+
     steps:
-      - uses: actions/stale@v8
+      # Step 1: Checkout the repository including submodules
+      - name: Checkout Repository
+        uses: actions/checkout@v3
         with:
-          days-before-stale: 30
-          days-before-close: -1
-          stale-issue-label: 'stale'
-          stale-pr-label: 'stale'
-          remove-stale-when-updated: true
+          submodules: true
+
+      # Step 2: Set Up the Environment
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git zip python3-pip cmake ninja-build gcc-arm-none-eabi g++-arm-none-eabi
+          pip3 install --upgrade pip
+          pip3 install empy toml
+
+      # Step 3: Configure CCache (Optional: Speeds up rebuilds)
+      - name: Set Up CCache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.CCACHE_DIR }}
+          key: ${{ runner.os }}-ccache-${{ hashFiles('**/CMakeLists.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-ccache-
+
+      - name: Initialize CCache
+        run: |
+          mkdir -p $CCACHE_DIR
+          export CCACHE_DIR=$CCACHE_DIR
+          ccache -M 200M
+          ccache -s
+
+      # Step 4: Build PX4 Firmware
+      - name: Build PX4 Firmware
+        run: |
+          cd $PX4_DIR
+          make px4_fmu-v6x_default
+
+      # Step 5: Check CCache Stats After Build
+      - name: CCache Statistics
+        run: |
+          ccache -s
+
+      # Step 6: Upload Build Artifacts
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: px4-build-${{ github.ref }}
+          path: |
+            build/px4_fmu-v6x_default/bin/*.px4
+            build/px4_fmu-v6x_default/bin/*.elf
+            build/px4_fmu-v6x_default/bin/*.bin
+
+      # Step 7: (Optional) Notify on Build Status
+      # You can integrate Slack or other notification services here
+      # For simplicity, this step is omitted
+
