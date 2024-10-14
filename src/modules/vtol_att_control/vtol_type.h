@@ -268,7 +268,7 @@ protected:
 	VtolAttitudeControl *_attc;
 	mode _common_vtol_mode;
 
-	static constexpr const int num_outputs_max = 8;
+	static constexpr const int num_outputs_max = 16;
 
 	struct vehicle_attitude_s		*_v_att;				//vehicle attitude
 	struct vehicle_attitude_setpoint_s	*_v_att_sp;			//vehicle attitude setpoint
