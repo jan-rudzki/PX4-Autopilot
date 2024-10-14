@@ -12,28 +12,48 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04  # Explicitly specify the Ubuntu version
 
     env:
       CCACHE_DIR: /tmp/ccache
       PX4_DIR: ${{ github.workspace }}
 
     steps:
-      # Step 1: Checkout the repository including submodules
+      # Step 1: Checkout Repository with Submodules
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
           submodules: true
 
+      # Step 1.1: Check Ubuntu Version
+      - name: Check Ubuntu Version
+        run: lsb_release -a
+
+      # Step 1.2: Fix Ubuntu Codename if Necessary
+      - name: Fix Ubuntu Codename
+        run: |
+          sudo sed -i 's/noble/jammy/g' /etc/apt/sources.list
+          sudo sed -i 's/noble/jammy/g' /etc/apt/sources.list.d/*.list || true
+          sudo apt-get update
+
       # Step 2: Install Dependencies
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y git zip python3-pip cmake ninja-build gcc-arm-none-eabi
+          sudo apt-get install -y git zip python3-pip cmake ninja-build gcc-arm-none-eabi python3-empy python3-toml
           pip3 install --upgrade pip
-          pip3 install empy toml
+          # Removed: pip3 install empy toml
 
-      # Step 3: Configure CCache (Optional: Speeds up rebuilds)
+      # Optional: Use a Virtual Environment
+      # Uncomment the following if you prefer using a virtual environment
+      # - name: Set Up Python Virtual Environment
+      #   run: |
+      #     python3 -m venv venv
+      #     source venv/bin/activate
+      #     pip install --upgrade pip
+      #     pip install empy toml
+
+      # Step 3: Configure CCache
       - name: Set Up CCache
         uses: actions/cache@v3
         with:
