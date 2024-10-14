@@ -80,18 +80,15 @@ jobs:
           ccache -M 2G
           ccache -s
 
-      # Step 7: Configure NuttX
-      - name: Configure NuttX
-        run: |
-          cd $PX4_DIR/platforms/nuttx/NuttX/nuttx
-          ./configure px4fmu-v6x  # Replace 'px4fmu-v6x' with your target if different
-          make olddefconfig
+      # Step 7: Make Build Script Executable (If Necessary)
+      - name: Make Build Script Executable
+        run: chmod +x ./Tools/ci/build_all_runner.sh
 
-      # Step 8: Build PX4 Firmware with Suppressed Developer Warnings
+      # Step 8: Build PX4 Firmware Using Build Scripts
       - name: Build PX4 Firmware
         run: |
           cd $PX4_DIR
-          make px4_fmu-v6x_default CFLAGS="-Wno-dev"
+          ./Tools/ci/build_all_runner.sh px4_fmu-v6x_default
 
       # Step 9: Check CCache Statistics After Build
       - name: CCache Statistics
