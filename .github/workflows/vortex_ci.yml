@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04  # Explicitly specify the Ubuntu version
+    runs-on: ubuntu-22.04  # Use the correct Ubuntu version
 
     env:
       CCACHE_DIR: /tmp/ccache
@@ -55,12 +55,12 @@ jobs:
           pip3 install --upgrade pip
           pip3 install kconfiglib pyros-genmsg symforce lxml future --break-system-packages
 
-      # Step 4.1: Verify Python Modules Installation
+      # Step 5: Verify Python Modules Installation
       - name: Verify Python Modules
         run: |
           python3 -c "import kconfiglib, genmsg, symforce, lxml, future"
 
-      # Step 5: Configure CCache
+      # Step 6: Configure CCache
       - name: Set Up CCache
         uses: actions/cache@v3
         with:
@@ -80,18 +80,25 @@ jobs:
           ccache -M 2G
           ccache -s
 
-      # Step 6: Build PX4 Firmware with Suppressed Developer Warnings
+      # Step 7: Configure NuttX
+      - name: Configure NuttX
+        run: |
+          cd $PX4_DIR/platforms/nuttx/NuttX/nuttx
+          ./configure px4fmu-v6x  # Replace 'px4fmu-v6x' with your target if different
+          make olddefconfig
+
+      # Step 8: Build PX4 Firmware with Suppressed Developer Warnings
       - name: Build PX4 Firmware
         run: |
           cd $PX4_DIR
           make px4_fmu-v6x_default CFLAGS="-Wno-dev"
 
-      # Step 7: Check CCache Statistics After Build
+      # Step 9: Check CCache Statistics After Build
       - name: CCache Statistics
         run: |
           ccache -s
 
-      # Step 8: Upload Build Artifacts
+      # Step 10: Upload Build Artifacts
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v3
         with:
