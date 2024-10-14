@@ -147,6 +147,8 @@ px4_add_module(
 		arming_status.hpp
 		beep.cpp
 		beep.hpp
+		remoteid.cpp
+		remoteid.hpp
 		rgbled.cpp
 		rgbled.hpp
 		safety_state.cpp
@@ -168,6 +170,7 @@ px4_add_module(
 		sensors/battery.cpp
 		sensors/airspeed.cpp
 		sensors/flow.cpp
+		sensors/fuel_tank_status.cpp
 		sensors/gnss_relative.cpp
 		sensors/gnss.cpp
 		sensors/mag.cpp
