@@ -1,0 +1,5 @@
+menuconfig DRIVERS_VORTEX_UART
+	bool "uart_interface"
+	default n
+	---help---
+		Enable the custom VORTEX UART Driver for logging PCU data.
