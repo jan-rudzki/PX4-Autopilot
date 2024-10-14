@@ -41,28 +41,68 @@ ActuatorEffectivenessStandardVTOL::ActuatorEffectivenessStandardVTOL(ModuleParam
 {
 }
 
+// JAN: old
+// bool
+// ActuatorEffectivenessStandardVTOL::getEffectivenessMatrix(Configuration &configuration,
+// 		EffectivenessUpdateReason external_update)
+// {
+// 	if (external_update == EffectivenessUpdateReason::NO_EXTERNAL_UPDATE) {
+// 		return false;
+// 	}
+
+// 	// Motors
+// 	configuration.selected_matrix = 0;
+
+// 	_rotors.enablePropellerTorqueNonUpwards(false);
+
+// 	const bool mc_rotors_added_successfully = _rotors.addActuators(configuration);
+// 	_upwards_motors_mask = _rotors.getUpwardsMotors();
+// 	_forwards_motors_mask = _rotors.getForwardsMotors();
+
+// 	// Control Surfaces
+// 	configuration.selected_matrix = 1;
+// 	_first_control_surface_idx = configuration.num_actuators_matrix[configuration.selected_matrix];
+// 	const bool surfaces_added_successfully = _control_surfaces.addActuators(configuration);
+
+// 	return (mc_rotors_added_successfully && surfaces_added_successfully);
+// }
+// JAN: new to s
 bool
 ActuatorEffectivenessStandardVTOL::getEffectivenessMatrix(Configuration &configuration,
 		EffectivenessUpdateReason external_update)
 {
-	if (external_update == EffectivenessUpdateReason::NO_EXTERNAL_UPDATE) {
-		return false;
+	if (_needs_update || external_update != EffectivenessUpdateReason::NO_EXTERNAL_UPDATE) {
+		// Recompute the effectiveness matrix
+
+		// Motors
+		configuration.selected_matrix = 0;
+
+		// JAN: Adjust propeller torque effectiveness based on flight phase, print flgiht phase for debugging purposes
+		PX4_INFO("_________________________");
+		PX4_INFO("Flight Phase: %d", static_cast<int>(_flight_phase));
+		PX4_INFO("_________________________");
+		if (_flight_phase == FlightPhase::HOVER_FLIGHT) {
+		_rotors.enablePropellerTorqueNonUpwards(false); // Ignore propeller torque for non-upwards motors during hover
+		} else {
+		_rotors.enablePropellerTorqueNonUpwards(true); // Use normal propeller torque
+		}
+
+		const bool mc_rotors_added_successfully = _rotors.addActuators(configuration);
+		_upwards_motors_mask = _rotors.getUpwardsMotors();
+		_forwards_motors_mask = _rotors.getForwardsMotors();
+
+		// Control Surfaces
+		configuration.selected_matrix = 1;
+		_first_control_surface_idx = configuration.num_actuators_matrix[configuration.selected_matrix];
+		const bool surfaces_added_successfully = _control_surfaces.addActuators(configuration);
+
+		_needs_update = false; // Reset the update flag
+
+		return (mc_rotors_added_successfully && surfaces_added_successfully);
 	}
-
-	// Motors
-	configuration.selected_matrix = 0;
-	_rotors.enablePropellerTorqueNonUpwards(false);
-	const bool mc_rotors_added_successfully = _rotors.addActuators(configuration);
-	_upwards_motors_mask = _rotors.getUpwardsMotors();
-	_forwards_motors_mask = _rotors.getForwardsMotors();
-
-	// Control Surfaces
-	configuration.selected_matrix = 1;
-	_first_control_surface_idx = configuration.num_actuators_matrix[configuration.selected_matrix];
-	const bool surfaces_added_successfully = _control_surfaces.addActuators(configuration);
-
-	return (mc_rotors_added_successfully && surfaces_added_successfully);
+	return false;
 }
+
 
 void ActuatorEffectivenessStandardVTOL::allocateAuxilaryControls(const float dt, int matrix_index,
 		ActuatorVector &actuator_sp)
@@ -113,4 +153,7 @@ void ActuatorEffectivenessStandardVTOL::setFlightPhase(const FlightPhase &flight
 		_stopped_motors_mask &= ~_upwards_motors_mask;
 		break;
 	}
+	// JAN: Trigger effectiveness matrix update
+    	_needs_update = true; // Set a flag indicating that the matrix needs to be updated
+
 }

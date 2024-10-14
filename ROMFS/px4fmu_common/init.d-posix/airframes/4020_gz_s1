@@ -34,7 +34,7 @@ param set-default SENS_EN_ARSPDSIM 1 # 1: enables simulated airspeed sensor inst
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # Airframe
 param set-default CA_AIRFRAME 2 # Standard VTOL airframe
-param set-default CA_ROTOR_COUNT 7
+param set-default CA_ROTOR_COUNT 8
 param set-default VT_TYPE 2 # Tailsitter=0, Tiltrotor=1, Standard=2
 
 # ATTENTION: PARAMETER SETTING SEEMS TO NOT WORK!!!
@@ -56,7 +56,7 @@ param set-default MIS_TAKEOFF_ALT 50 # Takeoff altitude
 param set-default VTO_LOITER_ALT 50 # VTOL relative loiter altitude
 
 # Flight states
-param set-default VT_FWD_THRUST_EN 4 # 4: Enables pusher motors to move forward constantly
+# param set-default VT_FWD_THRUST_EN 4 # 4: Enables pusher motors to move forward constantly
 param set-default MC_AIRMODE 1 # 0: Disabled, 1: Roll Pitch, 2: Roll/Pitch/Yaw (the air-mode enables the mixer to increase the total thrust of the multirotor in order to keep attitde and rate control)
 
 # Control
@@ -80,6 +80,7 @@ param set-default FW_THR_MIN 0.05 # Minimum throttle in altitude controlled mode
 param set-default FW_P_LIM_MIN -15 # Minimum pitch angle setpoint
 param set-default FW_THR_SLEW_MAX 0 # (Default: 0) 1/s Maximum slew rate for the commaned throttle
 param set-default FW_R_LIM 50 # Maximum roll angle
+param set-default VT_FW_DIFTHR_EN 1 # Differential Thrust for Yaw motion
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # MOTOR CONTROL ALLOCATION
@@ -130,12 +131,12 @@ param set-default CA_ROTOR6_PZ -0 # Achtung!!!! echter Wert von -0.09 verursacht
 param set-default CA_ROTOR6_KM 0.1 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
 ## Rotor 9: pusher rechts cw
-#param set-default CA_ROTOR7_AX 1.0
-#param set-default CA_ROTOR7_AZ 0.0
-#param set-default CA_ROTOR7_PX -0.840004
-#param set-default CA_ROTOR7_PY 0.47
-#param set-default CA_ROTOR7_PZ -0.089
-#param set-default CA_ROTOR7_KM -0.1 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR7_AX 1.0
+param set-default CA_ROTOR7_AZ 0.0
+param set-default CA_ROTOR7_PX -0.840004
+param set-default CA_ROTOR7_PY 0 # auf 0 gesetzt für durchschnittliche Position in der Mitte -0.47
+param set-default CA_ROTOR7_PZ 0.0
+param set-default CA_ROTOR7_KM -0.1 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # MOTOR MAPPING GAZEBO
@@ -168,9 +169,9 @@ param set-default SIM_GZ_EC_FUNC7 107 # Motor 7
 param set-default SIM_GZ_EC_MIN7 10
 param set-default SIM_GZ_EC_MAX7 1500
 
-#param set-default SIM_GZ_EC_FUNC8 108 # Motor 8
-#param set-default SIM_GZ_EC_MIN8 10
-#param set-default SIM_GZ_EC_MAX8 1500
+param set-default SIM_GZ_EC_FUNC8 108 # Motor 8
+param set-default SIM_GZ_EC_MIN8 10
+param set-default SIM_GZ_EC_MAX8 1500
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # SERVO MAPPING GAZEBO
