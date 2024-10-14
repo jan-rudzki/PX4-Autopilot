@@ -166,7 +166,7 @@ private:
 	static int checkcrc(int argc, char *argv[]);
 	static int bind(int argc, char *argv[]);
 
-	static constexpr int PX4IO_MAX_ACTUATORS = 8;
+	static constexpr int PX4IO_MAX_ACTUATORS = 16;
 
 	device::Device *const _interface;
 
