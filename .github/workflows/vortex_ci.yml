@@ -19,17 +19,18 @@ jobs:
       PX4_DIR: ${{ github.workspace }}
 
     steps:
-      # Step 1: Checkout Repository with Submodules
+      # Step 1: Checkout Repository with Submodules and Full History
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
           submodules: true
+          fetch-depth: 0  # Fetch all history to enable git describe
 
-      # Step 2: Check Ubuntu Version
+      # Step 2: Check Ubuntu Version (For Debugging)
       - name: Check Ubuntu Version
         run: lsb_release -a
 
-      # Step 3: Fix Ubuntu Codename (If Necessary)
+      # Step 3: Fix Ubuntu Codename if Incorrect
       - name: Fix Ubuntu Codename
         run: |
           sudo sed -i 's/noble/jammy/g' /etc/apt/sources.list
@@ -37,13 +38,13 @@ jobs:
           sudo add-apt-repository universe
           sudo apt-get update
 
-      # Step 4: Install Dependencies (Including ccache)
+      # Step 4: Install Dependencies Including ccache and kconfiglib
       - name: Install Dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y git zip python3-pip cmake ninja-build gcc-arm-none-eabi python3-empy python3-toml ccache
           pip3 install --upgrade pip
-          # Removed: pip3 install empy toml
+          pip3 install kconfiglib --break-system-packages
 
       # Step 5: Configure CCache
       - name: Set Up CCache
@@ -61,18 +62,25 @@ jobs:
           ccache -M 200M
           ccache -s
 
-      # Step 6: Build PX4 Firmware
+      # Step 6: Set Git Tag for PX4 (Optional)
+      - name: Set PX4_GIT_TAG
+        run: |
+          git tag -f v0.0.0
+          export PX4_GIT_TAG=$(git describe --tags --abbrev=0 || echo "v0.0.0")
+          echo "PX4_GIT_TAG=$PX4_GIT_TAG" >> $GITHUB_ENV
+
+      # Step 7: Build PX4 Firmware
       - name: Build PX4 Firmware
         run: |
           cd $PX4_DIR
           make px4_fmu-v6x_default
 
-      # Step 7: Check CCache Stats After Build
+      # Step 8: Check CCache Statistics After Build
       - name: CCache Statistics
         run: |
           ccache -s
 
-      # Step 8: Upload Build Artifacts
+      # Step 9: Upload Build Artifacts
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -81,12 +89,4 @@ jobs:
             build/px4_fmu-v6x_default/bin/*.px4
             build/px4_fmu-v6x_default/bin/*.elf
             build/px4_fmu-v6x_default/bin/*.bin
-
-      # Optional: Notify Slack on Failure
-      - name: Notify Slack on Failure
-        if: failure()
-        uses: rtCamp/action-slack-notify@v2
-        with:
-          webhook_url: ${{ secrets.SLACK_WEBHOOK }}
-          message: "PX4 CI Build Failed on ${{ github.ref }} for target px4_fmu-v6x_default"
 
