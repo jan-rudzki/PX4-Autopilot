@@ -30,7 +30,7 @@ jobs:
       - name: Check Ubuntu Version
         run: lsb_release -a
 
-      # Step 3: Fix Ubuntu Codename (If Necessary)
+      # Step 3: Fix Ubuntu Codename if Incorrect
       - name: Fix Ubuntu Codename
         run: |
           sudo sed -i 's/noble/jammy/g' /etc/apt/sources.list
@@ -42,9 +42,9 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y git zip python3-pip cmake ninja-build gcc-arm-none-eabi python3-empy python3-toml ccache
+          sudo apt-get install -y git zip python3-pip cmake ninja-build gcc-arm-none-eabi python3-empy python3-toml ccache libxml2-dev libxslt-dev
           pip3 install --upgrade pip
-          pip3 install kconfiglib pyros-genmsg symforce --break-system-packages
+          pip3 install kconfiglib pyros-genmsg symforce lxml future --break-system-packages
 
       # Step 5: Configure CCache
       - name: Set Up CCache
