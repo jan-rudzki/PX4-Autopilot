@@ -34,7 +34,7 @@ param set-default SENS_EN_ARSPDSIM 1 # 1: enables simulated airspeed sensor inst
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # Airframe
 param set-default CA_AIRFRAME 2 # Standard VTOL airframe
-param set-default CA_ROTOR_COUNT 7
+param set-default CA_ROTOR_COUNT 9
 param set-default VT_TYPE 2 # Tailsitter=0, Tiltrotor=1, Standard=2
 
 # ATTENTION: PARAMETER SETTING SEEMS TO NOT WORK!!!
@@ -52,7 +52,7 @@ param set-default VT_FW_MIN_ALT 10 # When vehicle in FW mode drops below this al
 
 # Mission
 param set-default NAV_ACC_RAD 5 # Acceptance radius in m for waypoint
-param set-default MIS_TAKEOFF_ALT 50 # Takeoff altitude
+param set-default MIS_TAKEOFF_ALT 20 # Takeoff altitude
 param set-default VTO_LOITER_ALT 50 # VTOL relative loiter altitude
 
 # Flight states
@@ -91,17 +91,23 @@ param set-default CA_ROTOR0_PY -0.97
 param set-default CA_ROTOR0_PZ 0.03
 param set-default CA_ROTOR0_KM 0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
-# Rotor 1 & 2: vorne & hinten mitte links cw
-param set-default CA_ROTOR1_PX 0.07405
+# Rotor 1: vorne mitte links cw
+param set-default CA_ROTOR1_PX 0.30
 param set-default CA_ROTOR1_PY -0.97
 param set-default CA_ROTOR1_PZ 0.03
 param set-default CA_ROTOR1_KM -0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
-# Rotor 3: hinten links ccw
+# Rotor 2: hinten mitte links ccw
+param set-default CA_ROTOR1_PX -0.15
+param set-default CA_ROTOR1_PY -0.97
+param set-default CA_ROTOR1_PZ 0.03
+param set-default CA_ROTOR1_KM 0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+
+# Rotor 3: hinten links cw
 param set-default CA_ROTOR2_PX -0.9
 param set-default CA_ROTOR2_PY -0.97
 param set-default CA_ROTOR2_PZ 0.03
-param set-default CA_ROTOR2_KM 0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR2_KM -0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
 # Rotor 4: vorne rechts cw
 param set-default CA_ROTOR3_PX 0.7519
@@ -109,11 +115,17 @@ param set-default CA_ROTOR3_PY 0.97
 param set-default CA_ROTOR3_PZ 0.03
 param set-default CA_ROTOR3_KM -0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
-# Rotor 5 & 6: vorne & hinten mitte rechts ccw
-param set-default CA_ROTOR4_PX 0.07405
+# Rotor 5: vorne mitte rechts ccw
+param set-default CA_ROTOR4_PX 0.30
 param set-default CA_ROTOR4_PY 0.97
 param set-default CA_ROTOR4_PZ 0.03
 param set-default CA_ROTOR4_KM 0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+
+# Rotor 6: hinten mitte rechts cw
+param set-default CA_ROTOR4_PX -0.15
+param set-default CA_ROTOR4_PY 0.97
+param set-default CA_ROTOR4_PZ 0.03
+param set-default CA_ROTOR4_KM -0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
 # Rotor 7: hinten rechts cw
 param set-default CA_ROTOR5_PX -0.9
@@ -136,6 +148,7 @@ param set-default CA_ROTOR6_KM 0.1 # positive value means ccw, negative value cw
 #param set-default CA_ROTOR7_PY 0.47
 #param set-default CA_ROTOR7_PZ -0.089
 #param set-default CA_ROTOR7_KM -0.1 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # MOTOR MAPPING GAZEBO
