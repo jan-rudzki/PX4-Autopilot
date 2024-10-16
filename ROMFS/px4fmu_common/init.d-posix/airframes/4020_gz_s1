@@ -34,7 +34,7 @@ param set-default SENS_EN_ARSPDSIM 1 # 1: enables simulated airspeed sensor inst
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # Airframe
 param set-default CA_AIRFRAME 2 # Standard VTOL airframe
-param set-default CA_ROTOR_COUNT 9
+param set-default CA_ROTOR_COUNT 8
 param set-default VT_TYPE 2 # Tailsitter=0, Tiltrotor=1, Standard=2
 
 # ATTENTION: PARAMETER SETTING SEEMS TO NOT WORK!!!
@@ -98,48 +98,48 @@ param set-default CA_ROTOR1_PZ 0.03
 param set-default CA_ROTOR1_KM -0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
 # Rotor 2: hinten mitte links ccw
-param set-default CA_ROTOR1_PX -0.15
-param set-default CA_ROTOR1_PY -0.97
-param set-default CA_ROTOR1_PZ 0.03
-param set-default CA_ROTOR1_KM 0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
-
-# Rotor 3: hinten links cw
-param set-default CA_ROTOR2_PX -0.9
+param set-default CA_ROTOR2_PX -0.15
 param set-default CA_ROTOR2_PY -0.97
 param set-default CA_ROTOR2_PZ 0.03
-param set-default CA_ROTOR2_KM -0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR2_KM 0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
-# Rotor 4: vorne rechts cw
-param set-default CA_ROTOR3_PX 0.7519
-param set-default CA_ROTOR3_PY 0.97
+# Rotor 3: hinten links cw
+param set-default CA_ROTOR3_PX -0.9
+param set-default CA_ROTOR3_PY -0.97
 param set-default CA_ROTOR3_PZ 0.03
 param set-default CA_ROTOR3_KM -0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
-# Rotor 5: vorne mitte rechts ccw
-param set-default CA_ROTOR4_PX 0.30
-param set-default CA_ROTOR4_PY 0.97
-param set-default CA_ROTOR4_PZ 0.03
-param set-default CA_ROTOR4_KM 0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
-
-# Rotor 6: hinten mitte rechts cw
-param set-default CA_ROTOR4_PX -0.15
+# Rotor 4: vorne rechts cw
+param set-default CA_ROTOR4_PX 0.7519
 param set-default CA_ROTOR4_PY 0.97
 param set-default CA_ROTOR4_PZ 0.03
 param set-default CA_ROTOR4_KM -0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
-# Rotor 7: hinten rechts cw
-param set-default CA_ROTOR5_PX -0.9
+# Rotor 5: vorne mitte rechts ccw
+param set-default CA_ROTOR5_PX 0.30
 param set-default CA_ROTOR5_PY 0.97
 param set-default CA_ROTOR5_PZ 0.03
-param set-default CA_ROTOR5_KM -0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR5_KM 0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
-# Rotor 8: pusher links + rechts ccw
-param set-default CA_ROTOR6_AX 1.0
-param set-default CA_ROTOR6_AZ 0.0
-param set-default CA_ROTOR6_PX -0.840004
-param set-default CA_ROTOR6_PY 0 # auf 0 gesetzt für durchschnittliche Position in der Mitte -0.47
-param set-default CA_ROTOR6_PZ -0 # Achtung!!!! echter Wert von -0.09 verursacht Crash!! PX4 hat in der control allocation ein zu starkes Pitch Down Moment der Pusher berechnet und steuert zu krass nach oben, wenn man das auf echten Wert setzt!!!
-param set-default CA_ROTOR6_KM 0.1 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+# Rotor 6: hinten mitte rechts cw
+param set-default CA_ROTOR6_PX -0.15
+param set-default CA_ROTOR6_PY 0.97
+param set-default CA_ROTOR6_PZ 0.03
+param set-default CA_ROTOR6_KM -0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+
+# Rotor 7: hinten rechts cw
+param set-default CA_ROTOR7_PX -0.9
+param set-default CA_ROTOR7_PY 0.97
+param set-default CA_ROTOR7_PZ 0.03
+param set-default CA_ROTOR7_KM -0.5 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+
+# # Rotor 8: pusher links + rechts ccw
+# param set-default CA_ROTOR8_AX 1.0
+# param set-default CA_ROTOR8_AZ 0.0
+# param set-default CA_ROTOR8_PX -0.840004
+# param set-default CA_ROTOR8_PY 0 # auf 0 gesetzt für durchschnittliche Position in der Mitte -0.47
+# param set-default CA_ROTOR8_PZ -0 # Achtung!!!! echter Wert von -0.09 verursacht Crash!! PX4 hat in der control allocation ein zu starkes Pitch Down Moment der Pusher berechnet und steuert zu krass nach oben, wenn man das auf echten Wert setzt!!!
+# param set-default CA_ROTOR8_KM 0.1 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 
 ## Rotor 9: pusher rechts cw
 #param set-default CA_ROTOR7_AX 1.0
@@ -181,9 +181,13 @@ param set-default SIM_GZ_EC_FUNC7 107 # Motor 7
 param set-default SIM_GZ_EC_MIN7 10
 param set-default SIM_GZ_EC_MAX7 1500
 
-#param set-default SIM_GZ_EC_FUNC8 108 # Motor 8
-#param set-default SIM_GZ_EC_MIN8 10
-#param set-default SIM_GZ_EC_MAX8 1500
+param set-default SIM_GZ_EC_FUNC8 108 # Motor 8
+param set-default SIM_GZ_EC_MIN8 10
+param set-default SIM_GZ_EC_MAX8 1500
+
+# param set-default SIM_GZ_EC_FUNC9 109 # Motor 9
+# param set-default SIM_GZ_EC_MIN9 10
+# param set-default SIM_GZ_EC_MAX9 1500
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # SERVO MAPPING GAZEBO
