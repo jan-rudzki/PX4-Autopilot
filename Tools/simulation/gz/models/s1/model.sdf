@@ -139,7 +139,7 @@
 <!-- Propellers -->
     <!-- Propeller 0 (vorne links)-->
     <link name='rotor_0'>
-      <pose relative_to="nose_link">-0.4481 0.97 -0.03 0.175 0 0</pose> <!-- rotation of 10° about x axis -->
+      <pose relative_to="nose_link">-0.4481 0.97 -0.03 0.174 0 0</pose> <!-- rotation of 10° about x axis -->
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass> <!-- This mass seems to be wrong -->
@@ -203,7 +203,7 @@
     </joint>
     <!-- Propeller 1 (vorne links zwei)-->
     <link name='rotor_1'>
-      <pose relative_to="nose_link">-0.9 0.97 -0.03 0 0 0</pose>
+      <pose relative_to="nose_link">-0.9 0.97 -0.03 -0.174 0 0</pose> <!-- rotation of -10° about x axis -->
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -267,7 +267,7 @@
     </joint>
     <!-- Propeller 2 (vorne links drei)-->
     <link name='rotor_2'>
-      <pose relative_to="nose_link">-1.3519 0.97 -0.03 0 0 0</pose>
+      <pose relative_to="nose_link">-1.3519 0.97 -0.03 -0.174 0 0</pose> <!-- rotation of -10° about x axis -->
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -331,7 +331,7 @@
     </joint>
     <!-- Propeller 3 (vorne links 4)-->
     <link name='rotor_3'>
-      <pose relative_to="nose_link">-2.1 0.97 -0.03 0.175 0 0</pose> <!-- rotation of +10° about x axis -->
+      <pose relative_to="nose_link">-2.1 0.97 -0.03 0.174 0 0</pose> <!-- rotation of +10° about x axis -->
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -395,7 +395,7 @@
     </joint>
     <!-- Propeller 4 (vorne rechts 1)-->
     <link name='rotor_4'>
-      <pose relative_to="nose_link">-0.4481	-0.97	-0.03 -0.175 0 0</pose> <!-- rotation of -10° about x axis -->
+      <pose relative_to="nose_link">-0.4481	-0.97	-0.03 -0.174 0 0</pose> <!-- rotation of -10° about x axis -->
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -459,7 +459,7 @@
     </joint>
     <!-- Propeller 5 (vorne rechts 2)-->
     <link name='rotor_5'>
-      <pose relative_to="nose_link">-0.9 -0.97 -0.03 0 0 0</pose>
+      <pose relative_to="nose_link">-0.9 -0.97 -0.03 0.174 0 0</pose> <!-- rotation of +10° about x axis -->
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -523,7 +523,7 @@
     </joint>
     <!-- Propeller 6 (vorne rechts 3)-->
     <link name='rotor_6'>
-      <pose relative_to="nose_link">-1.3519	-0.97	-0.03 0 0 0</pose>
+      <pose relative_to="nose_link">-1.3519	-0.97	-0.03 0.174 0 0</pose> <!-- rotation of +10° about x axis -->
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass> <!-- This mass seems to be wrong -->
@@ -587,7 +587,7 @@
     </joint>
     <!-- Propeller 7 (vorne rechts 4)-->
     <link name='rotor_7'>
-      <pose relative_to="nose_link">-2.1 -0.97 -0.03 -0.175 0 0</pose> <!-- rotation of -10° about x axis -->
+      <pose relative_to="nose_link">-2.1 -0.97 -0.03 -0.174 0 0</pose> <!-- rotation of -10° about x axis -->
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass> <!-- This mass seems to be wrong -->
@@ -1118,7 +1118,7 @@
       <turningDirection>ccw</turningDirection>
       <timeConstantUp>0.0125</timeConstantUp>
       <timeConstantDown>0.025</timeConstantDown>
-      <maxRotVelocity>800</maxRotVelocity> <!-- omega in rad/s -->
+      <maxRotVelocity>758</maxRotVelocity> <!-- omega in rad/s -->
       <motorConstant>7.2597e-05</motorConstant>
       <momentConstant>0.06</momentConstant> <!-- dragTorque = thrust*momentConstant -->
       <commandSubTopic>command/motor_speed</commandSubTopic>
@@ -1137,7 +1137,7 @@
       <turningDirection>cw</turningDirection>
       <timeConstantUp>0.0125</timeConstantUp>
       <timeConstantDown>0.025</timeConstantDown>
-      <maxRotVelocity>800</maxRotVelocity> <!-- omega in rad/s -->
+      <maxRotVelocity>785</maxRotVelocity> <!-- omega in rad/s -->
       <motorConstant>7.2597e-05</motorConstant>
       <momentConstant>0.06</momentConstant> <!-- dragTorque = thrust*momentConstant -->
       <commandSubTopic>command/motor_speed</commandSubTopic>
@@ -1156,7 +1156,7 @@
       <turningDirection>ccw</turningDirection>
       <timeConstantUp>0.0125</timeConstantUp>
       <timeConstantDown>0.025</timeConstantDown>
-      <maxRotVelocity>800</maxRotVelocity> <!-- omega in rad/s -->
+      <maxRotVelocity>785</maxRotVelocity> <!-- omega in rad/s -->
       <motorConstant>7.2597e-05</motorConstant>
       <momentConstant>0.06</momentConstant> <!-- dragTorque = thrust*momentConstant -->
       <commandSubTopic>command/motor_speed</commandSubTopic>
@@ -1175,7 +1175,7 @@
       <turningDirection>cw</turningDirection>
       <timeConstantUp>0.0125</timeConstantUp>
       <timeConstantDown>0.025</timeConstantDown>
-      <maxRotVelocity>800</maxRotVelocity> <!-- omega in rad/s -->
+      <maxRotVelocity>785</maxRotVelocity> <!-- omega in rad/s -->
       <motorConstant>7.2597e-05</motorConstant>
       <momentConstant>0.06</momentConstant> <!-- dragTorque = thrust*momentConstant -->
       <commandSubTopic>command/motor_speed</commandSubTopic>
@@ -1194,7 +1194,7 @@
       <turningDirection>cw</turningDirection>
       <timeConstantUp>0.0125</timeConstantUp>
       <timeConstantDown>0.025</timeConstantDown>
-      <maxRotVelocity>800</maxRotVelocity> <!-- omega in rad/s -->
+      <maxRotVelocity>785</maxRotVelocity> <!-- omega in rad/s -->
       <motorConstant>7.2597e-05</motorConstant>
       <momentConstant>0.06</momentConstant> <!-- dragTorque = thrust*momentConstant -->
       <commandSubTopic>command/motor_speed</commandSubTopic>
@@ -1213,7 +1213,7 @@
       <turningDirection>ccw</turningDirection>
       <timeConstantUp>0.0125</timeConstantUp>
       <timeConstantDown>0.025</timeConstantDown>
-      <maxRotVelocity>800</maxRotVelocity> <!-- omega in rad/s -->
+      <maxRotVelocity>785</maxRotVelocity> <!-- omega in rad/s -->
       <motorConstant>7.2597e-05</motorConstant>
       <momentConstant>0.06</momentConstant> <!-- dragTorque = thrust*momentConstant -->
       <commandSubTopic>command/motor_speed</commandSubTopic>
@@ -1230,9 +1230,9 @@
       <jointName>rotor_6_joint</jointName>
       <linkName>rotor_6</linkName>
       <turningDirection>cw</turningDirection>
-      <timeConstantUp>10000.0125</timeConstantUp>
+      <timeConstantUp>0.0125</timeConstantUp>
       <timeConstantDown>0.025</timeConstantDown>
-      <maxRotVelocity>800</maxRotVelocity> <!-- omega in rad/s -->
+      <maxRotVelocity>785</maxRotVelocity> <!-- omega in rad/s -->
       <motorConstant>7.2597e-05</motorConstant>
       <momentConstant>0.06</momentConstant> <!-- dragTorque = thrust*momentConstant -->
       <commandSubTopic>command/motor_speed</commandSubTopic>
@@ -1249,9 +1249,9 @@
       <jointName>rotor_7_joint</jointName>
       <linkName>rotor_7</linkName>
       <turningDirection>ccw</turningDirection>
-      <timeConstantUp>0.0125</timeConstantUp>
+      <timeConstantUp>100000.0125</timeConstantUp>
       <timeConstantDown>0.025</timeConstantDown>
-      <maxRotVelocity>800</maxRotVelocity> <!-- omega in rad/s -->
+      <maxRotVelocity>785</maxRotVelocity> <!-- omega in rad/s -->
       <motorConstant>7.2597e-05</motorConstant>
       <momentConstant>0.06</momentConstant> <!-- dragTorque = thrust*momentConstant -->
       <commandSubTopic>command/motor_speed</commandSubTopic>
