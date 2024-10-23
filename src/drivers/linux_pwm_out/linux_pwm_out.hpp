@@ -75,7 +75,7 @@ public:
 			   unsigned num_outputs, unsigned num_control_groups_updated) override;
 
 private:
-	static constexpr int MAX_ACTUATORS = 8;
+	static constexpr int MAX_ACTUATORS = 16;
 
 	MixingOutput _mixing_output{"PWM_MAIN", MAX_ACTUATORS, *this, MixingOutput::SchedulingPolicy::Auto, false};
 

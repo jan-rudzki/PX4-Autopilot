@@ -38,7 +38,8 @@
  *
  * @author Julien Lecoeur <julien.lecoeur@gmail.com>
  */
-
+#include <px4_platform_common/log.h>
+#include <stdio.h>
 #include "ControlAllocationPseudoInverse.hpp"
 
 void
@@ -58,6 +59,14 @@ ControlAllocationPseudoInverse::updatePseudoInverse()
 {
 	if (_mix_update_needed) {
 		matrix::geninv(_effectiveness, _mix);
+
+		// Print the _mix matrix using PX4_INFO JAN
+		// PX4_INFO("Printing _mix matrix:");
+		// for (int i = 0; i < NUM_ACTUATORS; ++i) {  // Use NUM_ACTUATORS directly
+		// 	for (int j = 0; j < NUM_AXES; ++j) {   // Use NUM_AXES directly
+		// 		printf("_mix(%d, %d) = %f", i, j, static_cast<double>(_mix(i, j)));
+		// 	}
+		// }
 
 		if (_normalization_needs_update && !_had_actuator_failure) {
 			updateControlAllocationMatrixScale();
