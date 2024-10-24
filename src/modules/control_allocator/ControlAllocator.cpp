@@ -40,6 +40,7 @@
  */
 
 #include "ControlAllocator.hpp"
+#include <px4_platform_common/log.h>
 
 #include <drivers/drv_hrt.h>
 #include <circuit_breaker/circuit_breaker.h>
@@ -435,6 +436,13 @@ ControlAllocator::Run()
 
 			// Do allocation
 			_control_allocation[i]->allocate();
+
+			// Print the actuator setpoints for each control allocation
+        //     		PX4_INFO("Actuator setpoints for control allocation %d:", i);
+        //     		for (size_t j = 0; j < _control_allocation[i]->_actuator_sp.size(); ++j) {
+	// 		PX4_INFO("_actuator_sp[%zu] = %f", j, (double)_control_allocation[i]->_actuator_sp(j));
+	// }
+
 			_actuator_effectiveness->allocateAuxilaryControls(dt, i, _control_allocation[i]->_actuator_sp); //flaps and spoilers
 			_actuator_effectiveness->updateSetpoint(c[i], i, _control_allocation[i]->_actuator_sp,
 								_control_allocation[i]->getActuatorMin(), _control_allocation[i]->getActuatorMax());
