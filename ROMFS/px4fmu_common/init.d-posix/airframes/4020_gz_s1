@@ -19,7 +19,7 @@
 . ${R}etc/init.d/rc.vtol_defaults
 
 PX4_SIMULATOR=${PX4_SIMULATOR:=gz}
-PX4_GZ_WORLD=${PX4_GZ_WORLD:=default}
+PX4_GZ_WORLD=${PX4_GZ_WORLD:=default} # default,
 PX4_SIM_MODEL=${PX4_SIM_MODEL:=s1}
 
 # Simulation settings
@@ -34,7 +34,7 @@ param set-default SENS_EN_ARSPDSIM 1 # 1: enables simulated airspeed sensor inst
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # Airframe
 param set-default CA_AIRFRAME 2 # Standard VTOL airframe
-param set-default CA_ROTOR_COUNT 8
+param set-default CA_ROTOR_COUNT 10
 param set-default VT_TYPE 2 # Tailsitter=0, Tiltrotor=1, Standard=2
 
 # ATTENTION: PARAMETER SETTING SEEMS TO NOT WORK!!!
@@ -80,6 +80,7 @@ param set-default FW_THR_MIN 0.05 # Minimum throttle in altitude controlled mode
 param set-default FW_P_LIM_MIN -15 # Minimum pitch angle setpoint
 param set-default FW_THR_SLEW_MAX 0 # (Default: 0) 1/s Maximum slew rate for the commaned throttle
 param set-default FW_R_LIM 50 # Maximum roll angle
+param set-default VT_FW_DIFTHR_EN 1 # Differential thrust for vtols in forward flight (1: Yaw)
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # MOTOR CONTROL ALLOCATION
@@ -141,21 +142,23 @@ param set-default CA_ROTOR7_PZ 0.03
 param set-default CA_ROTOR7_KM 0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 param set-default CA_ROTOR7_CT 50.2
 
-# # Rotor 8: pusher links + rechts ccw
-# param set-default CA_ROTOR8_AX 1.0
-# param set-default CA_ROTOR8_AZ 0.0
-# param set-default CA_ROTOR8_PX -0.840004
-# param set-default CA_ROTOR8_PY 0 # auf 0 gesetzt für durchschnittliche Position in der Mitte -0.47
-# param set-default CA_ROTOR8_PZ -0 # Achtung!!!! echter Wert von -0.09 verursacht Crash!! PX4 hat in der control allocation ein zu starkes Pitch Down Moment der Pusher berechnet und steuert zu krass nach oben, wenn man das auf echten Wert setzt!!!
-# param set-default CA_ROTOR8_KM 0.1 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+# Rotor 8: pusher links ccw
+param set-default CA_ROTOR8_AX 1.0
+param set-default CA_ROTOR8_AZ 0.0
+param set-default CA_ROTOR8_PX -0.840004
+param set-default CA_ROTOR8_PY -0.47 # auf 0 gesetzt für durchschnittliche Position in der Mitte -0.47
+param set-default CA_ROTOR8_PZ -0 # Achtung!!!! echter Wert von -0.09 verursacht Crash!! PX4 hat in der control allocation ein zu starkes Pitch Down Moment der Pusher berechnet und steuert zu krass nach oben, wenn man das auf echten Wert setzt!!!
+param set-default CA_ROTOR8_KM 0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR8_CT 50.2
 
-## Rotor 9: pusher rechts cw
-#param set-default CA_ROTOR7_AX 1.0
-#param set-default CA_ROTOR7_AZ 0.0
-#param set-default CA_ROTOR7_PX -0.840004
-#param set-default CA_ROTOR7_PY 0.47
-#param set-default CA_ROTOR7_PZ -0.089
-#param set-default CA_ROTOR7_KM -0.1 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+# Rotor 9: pusher rechts cw
+param set-default CA_ROTOR9_AX 1.0
+param set-default CA_ROTOR9_AZ 0.0
+param set-default CA_ROTOR9_PX -0.840004
+param set-default CA_ROTOR9_PY 0.47
+param set-default CA_ROTOR9_PZ -0
+param set-default CA_ROTOR9_KM -0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR9_CT 50.2
 
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -182,7 +185,7 @@ param set-default SIM_GZ_EC_MIN5 10
 param set-default SIM_GZ_EC_MAX5 1500
 
 param set-default SIM_GZ_EC_FUNC6 106 # Motor 6
-param set-default SIM_GZ_EC_MIN6 10744
+param set-default SIM_GZ_EC_MIN6 10
 param set-default SIM_GZ_EC_MAX6 1500
 
 param set-default SIM_GZ_EC_FUNC7 107 # Motor 7
@@ -193,9 +196,15 @@ param set-default SIM_GZ_EC_FUNC8 108 # Motor 8
 param set-default SIM_GZ_EC_MIN8 10
 param set-default SIM_GZ_EC_MAX8 1500
 
-# param set-default SIM_GZ_EC_FUNC9 109 # Motor 9
-# param set-default SIM_GZ_EC_MIN9 10
-# param set-default SIM_GZ_EC_MAX9 1500
+param set-default SIM_GZ_EC_FUNC9 109 # Motor 9
+param set-default SIM_GZ_EC_MIN9 10
+param set-default SIM_GZ_EC_MAX9 1500
+
+param set-default SIM_GZ_EC_FUNC10 110 # Motor 10
+param set-default SIM_GZ_EC_MIN10 10
+param set-default SIM_GZ_EC_MAX10 1500
+
+
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # SERVO MAPPING GAZEBO
