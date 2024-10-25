@@ -86,60 +86,60 @@ param set-default VT_FW_DIFTHR_EN 1 # Differential thrust for vtols in forward f
 # MOTOR CONTROL ALLOCATION
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-# Rotor 0: vorne links cw
+# Rotor 0: vorne links ccw
 param set-default CA_ROTOR0_PX 0.7519
 param set-default CA_ROTOR0_PY -0.97
 param set-default CA_ROTOR0_PZ 0.03
-param set-default CA_ROTOR0_KM -0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR0_KM 0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 param set-default CA_ROTOR0_CT 50.2
 
-# Rotor 1: vorne mitte links ccw
+# Rotor 1: vorne mitte links cw
 param set-default CA_ROTOR1_PX 0.30
 param set-default CA_ROTOR1_PY -0.97
 param set-default CA_ROTOR1_PZ 0.03
-param set-default CA_ROTOR1_KM 0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR1_KM -0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 param set-default CA_ROTOR1_CT 50.2
 
-# Rotor 2: hinten mitte links ccw
+# Rotor 2: hinten mitte links cw
 param set-default CA_ROTOR2_PX -0.15
 param set-default CA_ROTOR2_PY -0.97
 param set-default CA_ROTOR2_PZ 0.03
-param set-default CA_ROTOR2_KM 0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR2_KM -0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 param set-default CA_ROTOR2_CT 50.2
 
-# Rotor 3: hinten links cw
+# Rotor 3: hinten links ccw
 param set-default CA_ROTOR3_PX -0.9
 param set-default CA_ROTOR3_PY -0.97
 param set-default CA_ROTOR3_PZ 0.03
-param set-default CA_ROTOR3_KM -0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR3_KM 0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 param set-default CA_ROTOR3_CT 50.2
 
-# Rotor 4: vorne rechts ccw
+# Rotor 4: vorne rechts cw
 param set-default CA_ROTOR4_PX 0.7519
 param set-default CA_ROTOR4_PY 0.97
 param set-default CA_ROTOR4_PZ 0.03
-param set-default CA_ROTOR4_KM 0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR4_KM -0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 param set-default CA_ROTOR4_CT 50.2
 
-# Rotor 5: vorne mitte rechts cw
+# Rotor 5: vorne mitte rechts ccw
 param set-default CA_ROTOR5_PX 0.30
 param set-default CA_ROTOR5_PY 0.97
 param set-default CA_ROTOR5_PZ 0.03
-param set-default CA_ROTOR5_KM -0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR5_KM 0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 param set-default CA_ROTOR5_CT 50.2
 
-# Rotor 6: hinten mitte rechts cw
+# Rotor 6: hinten mitte rechts ccw
 param set-default CA_ROTOR6_PX -0.15
 param set-default CA_ROTOR6_PY 0.97
 param set-default CA_ROTOR6_PZ 0.03
-param set-default CA_ROTOR6_KM -0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR6_KM 0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 param set-default CA_ROTOR6_CT 50.2
 
-# Rotor 7: hinten rechts ccw
+# Rotor 7: hinten rechts cw
 param set-default CA_ROTOR7_PX -0.9
 param set-default CA_ROTOR7_PY 0.97
 param set-default CA_ROTOR7_PZ 0.03
-param set-default CA_ROTOR7_KM 0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR7_KM -0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 param set-default CA_ROTOR7_CT 50.2
 
 # Rotor 8: pusher links ccw
