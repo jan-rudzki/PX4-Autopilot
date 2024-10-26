@@ -139,7 +139,7 @@
 <!-- Propellers -->
     <!-- Propeller 0 (vorne links)-->
     <link name='rotor_0'>
-      <pose relative_to="nose_link">-0.4481 0.97 -0.03 0.174 0 0</pose> <!-- rotation of 10° about x axis -->
+      <pose relative_to="nose_link">-0.4481 0.97 -0.03 0.174 0 0</pose> <!-- rotation of +10° about x axis -->
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass> <!-- This mass seems to be wrong -->
@@ -482,7 +482,7 @@
         </geometry>
         <surface>
           <contact>
-            <ode/>
+            <ode/>140
           </contact>
           <friction>
             <ode/>
@@ -1249,7 +1249,7 @@
       <jointName>rotor_7_joint</jointName>
       <linkName>rotor_7</linkName>
       <turningDirection>cw</turningDirection>
-      <timeConstantUp>100000.0125</timeConstantUp>
+      <timeConstantUp>0.0125</timeConstantUp>
       <timeConstantDown>0.025</timeConstantDown>
       <maxRotVelocity>785</maxRotVelocity> <!-- omega in rad/s -->
       <motorConstant>7.2597e-05</motorConstant>
