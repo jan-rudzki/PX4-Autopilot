@@ -203,7 +203,7 @@
     </joint>
     <!-- Propeller 1 (vorne links zwei)-->
     <link name='rotor_1'>
-      <pose relative_to="nose_link">-0.9 0.97 -0.03 -0.174 0 0</pose> <!-- rotation of -10° about x axis -->
+      <pose relative_to="nose_link">-0.9 0.97 -0.03 0.174 0 0</pose> <!-- rotation of +10° about x axis -->
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -240,6 +240,7 @@
             <scale>0.001 0.001 0.001</scale>
             <uri>model://s1_copter/meshes/S1_Hover-Prop_CW.stl</uri>
           </mesh>
+          <izz>0.000167604</izz>
         </geometry>
         <material>
           <ambient>0 0 1 1.0</ambient>
@@ -404,10 +405,7 @@
           <ixy>0</ixy>
           <ixz>0</ixz>
           <iyy>0.000166704</iyy>
-          <iyz>0</iyz>
-          <izz>0.000167604</izz>
-        </inertia>
-      </inertial>
+          <iyz>0</iyz>>
       <collision name='rotor_4_collision'>
         <pose>0 0 0 0 0 0</pose>
         <geometry>
@@ -459,7 +457,7 @@
     </joint>
     <!-- Propeller 5 (vorne rechts 2)-->
     <link name='rotor_5'>
-      <pose relative_to="nose_link">-0.9 -0.97 -0.03 0.174 0 0</pose> <!-- rotation of +10° about x axis -->
+      <pose relative_to="nose_link">-0.9 -0.97 -0.03 -0.174 0 0</pose> <!-- rotation of -10° about x axis -->
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -1134,7 +1132,7 @@
         name="gz::sim::systems::MulticopterMotorModel">
       <jointName>rotor_1_joint</jointName>
       <linkName>rotor_1</linkName>
-      <turningDirection>cw</turningDirection>
+      <turningDirection>ccw</turningDirection>
       <timeConstantUp>0.0125</timeConstantUp>
       <timeConstantDown>0.025</timeConstantDown>
       <maxRotVelocity>785</maxRotVelocity> <!-- omega in rad/s -->
@@ -1210,7 +1208,7 @@
         name="gz::sim::systems::MulticopterMotorModel">
       <jointName>rotor_5_joint</jointName>
       <linkName>rotor_5</linkName>
-      <turningDirection>ccw</turningDirection>
+      <turningDirection>cw</turningDirection>
       <timeConstantUp>0.0125</timeConstantUp>
       <timeConstantDown>0.025</timeConstantDown>
       <maxRotVelocity>785</maxRotVelocity> <!-- omega in rad/s -->

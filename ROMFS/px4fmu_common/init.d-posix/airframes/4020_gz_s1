@@ -94,11 +94,11 @@ param set-default CA_ROTOR0_PZ 0.03
 param set-default CA_ROTOR0_KM 0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 param set-default CA_ROTOR0_CT 50.2
 
-# Rotor 1: vorne mitte links cw
+# Rotor 1: vorne mitte links ccw
 param set-default CA_ROTOR1_PX 0.30
 param set-default CA_ROTOR1_PY -0.97
 param set-default CA_ROTOR1_PZ 0.03
-param set-default CA_ROTOR1_KM -0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR1_KM 0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 param set-default CA_ROTOR1_CT 50.2
 
 # Rotor 2: hinten mitte links cw
@@ -122,11 +122,11 @@ param set-default CA_ROTOR4_PZ 0.03
 param set-default CA_ROTOR4_KM -0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 param set-default CA_ROTOR4_CT 50.2
 
-# Rotor 5: vorne mitte rechts ccw
+# Rotor 5: vorne mitte rechts cw
 param set-default CA_ROTOR5_PX 0.30
 param set-default CA_ROTOR5_PY 0.97
 param set-default CA_ROTOR5_PZ 0.03
-param set-default CA_ROTOR5_KM 0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR5_KM -0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 param set-default CA_ROTOR5_CT 50.2
 
 # Rotor 6: hinten mitte rechts ccw
