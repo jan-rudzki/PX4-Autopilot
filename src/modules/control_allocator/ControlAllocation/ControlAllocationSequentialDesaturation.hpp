@@ -85,6 +85,13 @@ private:
 	 */
 	float computeDesaturationGain(const ActuatorVector &desaturation_vector, const ActuatorVector &actuator_sp);
 
+	void desaturateHoverActuators(ActuatorVector &actuator_sp, const ActuatorVector &desaturation_vector,
+				      bool increase_only = false);
+	void desaturatePusherActuators(ActuatorVector &actuator_sp, const ActuatorVector &desaturation_vector,
+				       bool increase_only = false);
+	float computeHoverDesaturationGain(const ActuatorVector &desaturation_vector, const ActuatorVector &actuator_sp);
+	float computePusherDesaturationGain(const ActuatorVector &desaturation_vector, const ActuatorVector &actuator_sp);
+
 	/**
 	 * Mix roll, pitch, yaw, thrust and set the actuator setpoint.
 	 *

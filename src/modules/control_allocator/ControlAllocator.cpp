@@ -41,7 +41,7 @@
 
 #include "ControlAllocator.hpp"
 #include <px4_platform_common/log.h>
-
+#include <stdio.h>
 #include <drivers/drv_hrt.h>
 #include <circuit_breaker/circuit_breaker.h>
 #include <mathlib/math/Limits.hpp>
@@ -434,14 +434,25 @@ ControlAllocator::Run()
 
 			_control_allocation[i]->setControlSetpoint(c[i]);
 
+			// Print control setpoint for debugging
+			// PX4_INFO("Control Setpoint for Allocation %d - Roll: %f, Pitch: %f, Yaw: %f, Thrust: (%f, %f, %f)",
+			// 	i,
+			// 	(double)c[0](0) ,  // Roll control setpoint
+			// 	(double)c[0](1) ,  // Pitch control setpoint
+			// 	(double)c[0](2) ,  // Yawl setpoint
+			// 	(double)c[0](3) ,  // Thrust Xol setpoint
+			// 	(double)c[0](4) ,  // Thrust Y conttpoint
+			// 	(double)c[0](5) ); // Thrust Z control st
+			// // next line in printing
+			// printf("\n");
 			// Do allocation
 			_control_allocation[i]->allocate();
 
 			// Print the actuator setpoints for each control allocation
-        //     		PX4_INFO("Actuator setpoints for control allocation %d:", i);
-        //     		for (size_t j = 0; j < _control_allocation[i]->_actuator_sp.size(); ++j) {
-	// 		PX4_INFO("_actuator_sp[%zu] = %f", j, (double)_control_allocation[i]->_actuator_sp(j));
-	// }
+            		// PX4_INFO("Actuator setpoints for control allocation %d:", i);
+            		// for (size_t j = 0; j < _control_allocation[i]->_actuator_sp.size(); ++j) {
+			// PX4_INFO("_actuator_sp[%zu] = %f", j, (double)_control_allocation[i]->_actuator_sp(j));
+			// }
 
 			_actuator_effectiveness->allocateAuxilaryControls(dt, i, _control_allocation[i]->_actuator_sp); //flaps and spoilers
 			_actuator_effectiveness->updateSetpoint(c[i], i, _control_allocation[i]->_actuator_sp,
@@ -581,6 +592,17 @@ ControlAllocator::update_effectiveness_matrix_if_needed(EffectivenessUpdateReaso
 
 			ActuatorEffectiveness::EffectivenessMatrix &matrix = config.effectiveness_matrices[i];
 
+			// Print the matrix
+			// PX4_INFO("Effectiveness matrix for control allocation %d:", i);
+
+			// for (int row = 0; row < NUM_AXES; ++row) {
+			// PX4_INFO("Row %d:", row);
+			// // Loop through the matrix columns (actuators)
+			// 	for (int col = 0; col < config.num_actuators_matrix[i]; ++col) {
+			// 		PX4_INFO("%f", (double)matrix(row, col));  // Cast to double for better precision printing
+			// 	}
+			// }
+
 			for (int n = 0; n < NUM_AXES; n++) {
 				bool all_entries_small = true;
 
@@ -626,6 +648,18 @@ ControlAllocator::publish_control_allocator_status(int matrix_index)
 	control_allocator_status.unallocated_thrust[0] = unallocated_control(3);
 	control_allocator_status.unallocated_thrust[1] = unallocated_control(4);
 	control_allocator_status.unallocated_thrust[2] = unallocated_control(5);
+
+	// Print control setpoints for debugging
+	// PX4_INFO("Control Setpoints:");
+	// for (int i = 0; i < NUM_AXES; ++i) {
+	// 	PX4_INFO("Control Setpoint[%d]: %f", i, (double)_control_allocation[matrix_index]->getControlSetpoint()(i));
+	// }
+
+	// // Print allocated control for debugging
+	// PX4_INFO("Allocated Control:");
+	// for (int i = 0; i < NUM_AXES; ++i) {
+	// 	PX4_INFO("Allocated Control[%d]: %f", i, (double)allocated_control(i));
+	// }
 
 	// override control_allocator_status in customized saturation logic for certain effectiveness types
 	_actuator_effectiveness->getUnallocatedControl(matrix_index, control_allocator_status);
