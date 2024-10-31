@@ -129,10 +129,10 @@ void ControlAllocationSequentialDesaturation::desaturateActuators(
     float gain = computeDesaturationGain(desaturation_vector, actuator_sp);
 
     // Print initial gain
-    PX4_INFO("Desaturation gain (initial): %f", (double)gain);
+    // PX4_INFO("Desaturation gain (initial): %f", (double)gain);
 
     if (increase_only && gain < 0.f) {
-        PX4_INFO("Skipping desaturation as increase_only is true and gain is negative");
+        // PX4_INFO("Skipping desaturation as increase_only is true and gain is negative");
         return;
     }
 
@@ -142,13 +142,13 @@ void ControlAllocationSequentialDesaturation::desaturateActuators(
     }
 
     // Print actuator setpoints after first gain application
-    for (int i = 0; i < _num_actuators; i++) {
-        PX4_INFO("Actuator %d - Setpoint after first gain application: %f", i, (double)actuator_sp(i));
-    }
+    // for (int i = 0; i < _num_actuators; i++) {
+    //     PX4_INFO("Actuator %d - Setpoint after first gain application: %f", i, (double)actuator_sp(i));
+    // }
 
     // Calculate and apply a reduced gain (0.5 * gain)
     gain = 0.5f * computeDesaturationGain(desaturation_vector, actuator_sp);
-    PX4_INFO("Desaturation gain (reduced): %f", (double)gain);
+    // PX4_INFO("Desaturation gain (reduced): %f", (double)gain);
 
     for (int i = 0; i < _num_actuators; i++) {
         actuator_sp(i) += gain * desaturation_vector(i);
@@ -156,7 +156,7 @@ void ControlAllocationSequentialDesaturation::desaturateActuators(
 
     // Print actuator setpoints after reduced gain application
     for (int i = 0; i < _num_actuators; i++) {
-        PX4_INFO("Actuator %d - Final Setpoint after reduced gain application: %f", i, (double)actuator_sp(i));
+        // PX4_INFO("Actuator %d - Final Setpoint after reduced gain application: %f", i, (double)actuator_sp(i));
     }
 }
 float ControlAllocationSequentialDesaturation::computeDesaturationGain(
@@ -169,7 +169,7 @@ float ControlAllocationSequentialDesaturation::computeDesaturationGain(
     for (int i = 0; i < _num_actuators; i++) {
         // Skip actuators with weak effectiveness for desaturation
         if (fabsf(desaturation_vector(i)) < 0.2f) {
-            PX4_INFO("Skipping actuator %d for desaturation due to low effectiveness: %f", i, (double)desaturation_vector(i));
+            // PX4_INFO("Skipping actuator %d for desaturation due to low effectiveness: %f", i, (double)desaturation_vector(i));
             continue;
         }
 
@@ -179,7 +179,7 @@ float ControlAllocationSequentialDesaturation::computeDesaturationGain(
             k_max = fmaxf(k_max, k);
 
             // Print k_min and k_max after updating for current actuator
-            PX4_INFO("Actuator %d - k (below min): %f, k_min: %f, k_max: %f", i, (double)k, (double)k_min, (double)k_max);
+            // PX4_INFO("Actuator %d - k (below min): %f, k_min: %f, k_max: %f", i, (double)k, (double)k_min, (double)k_max);
         }
 
         if (actuator_sp(i) > _actuator_max(i)) {
@@ -188,13 +188,13 @@ float ControlAllocationSequentialDesaturation::computeDesaturationGain(
             k_max = fmaxf(k_max, k);
 
             // Print k_min and k_max after updating for current actuator
-            PX4_INFO("Actuator %d - k (above max): %f, k_min: %f, k_max: %f", i, (double)k, (double)k_min, (double)k_max);
+            // PX4_INFO("Actuator %d - k (above max): %f, k_min: %f, k_max: %f", i, (double)k, (double)k_min, (double)k_max);
         }
     }
 
     // Print the final computed gain
     float gain = k_min + k_max;
-    PX4_INFO("Final computed desaturation gain: %f", (double)gain);
+    // PX4_INFO("Final computed desaturation gain: %f", (double)gain);
 
     return gain;
 }
