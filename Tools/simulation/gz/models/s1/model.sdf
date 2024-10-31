@@ -139,7 +139,7 @@
 <!-- Propellers -->
     <!-- Propeller 0 (vorne links)-->
     <link name='rotor_0'>
-      <pose relative_to="nose_link">-0.4481 0.97 -0.03 0.174 0 0</pose> <!-- rotation of +10° about x axis -->
+      <pose relative_to="nose_link">-0.4481 0.97 -0.03 0.069 0 0</pose> <!-- rotation of +4° about x axis -->
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass> <!-- This mass seems to be wrong -->
@@ -267,7 +267,7 @@
     </joint>
     <!-- Propeller 2 (vorne links drei)-->
     <link name='rotor_2'>
-      <pose relative_to="nose_link">-1.3519 0.97 -0.03 0.174 0 0</pose> <!-- rotation of +10° about x axis -->
+      <pose relative_to="nose_link">-1.3519 0.97 -0.03 0.157 0 0</pose> <!-- rotation of +9° about x axis -->
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -331,7 +331,7 @@
     </joint>
     <!-- Propeller 3 (vorne links 4)-->
     <link name='rotor_3'>
-      <pose relative_to="nose_link">-2.1 0.97 -0.03 -0.122 0 0</pose> <!-- rotation of -7° about x axis -->
+      <pose relative_to="nose_link">-2.1 0.97 -0.017 0 0 0</pose> <!-- rotation of -1° about x axis -->
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -395,7 +395,7 @@
     </joint>
     <!-- Propeller 4 (vorne rechts 1)-->
     <link name='rotor_4'>
-      <pose relative_to="nose_link">-0.4481	-0.97	-0.03 -0.174 0 0</pose> <!-- rotation of -10° about x axis -->
+      <pose relative_to="nose_link">-0.4481	-0.97	-0.03 -0.070 0 0</pose> <!-- rotation of -4° about x axis -->
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -523,7 +523,7 @@
     </joint>
     <!-- Propeller 6 (vorne rechts 3)-->
     <link name='rotor_6'>
-      <pose relative_to="nose_link">-1.3519	-0.97	-0.03 -0.174 0 0</pose> <!-- rotation of -10° about x axis -->
+      <pose relative_to="nose_link">-1.3519	-0.97	-0.03 -0.157 0 0</pose> <!-- rotation of -9° about x axis -->
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass> <!-- This mass seems to be wrong -->
@@ -587,7 +587,7 @@
     </joint>
     <!-- Propeller 7 (vorne rechts 4)-->
     <link name='rotor_7'>
-      <pose relative_to="nose_link">-2.1 -0.97 -0.03 0.122 0 0</pose> <!-- rotation of +7° about x axis -->
+      <pose relative_to="nose_link">-2.1 -0.97 -0.03 0.017 0 0</pose> <!-- rotation of +1° about x axis -->
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass> <!-- This mass seems to be wrong -->
