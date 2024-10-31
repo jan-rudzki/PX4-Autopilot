@@ -200,7 +200,7 @@ ActuatorEffectivenessRotors::computeEffectivenessMatrix(const Geometry &geometry
 
 			if (!upwards) {
 				km = 0.f;
-				ct_m = 0.0f;
+				//ct_m = 0.0f;
 			}
 		}
 

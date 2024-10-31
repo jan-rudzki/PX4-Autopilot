@@ -72,8 +72,16 @@ ControlAllocationPseudoInverse::updatePseudoInverse()
 			updateControlAllocationMatrixScale();
 			_normalization_needs_update = false;
 		}
-
+		// PX4_INFO("Yaw column (before normalization):");
+		// for (int i = 0; i < _num_actuators; i++) {
+		// PX4_INFO("Actuator %d: %f", i, (double)_mix(i, 1));
+		// }
 		normalizeControlAllocationMatrix();
+
+		// PX4_INFO("Yaw column (after normalization):");
+		// for (int i = 0; i < _num_actuators; i++) {
+		// PX4_INFO("Actuator %d: %f", i, (double)_mix(i, 1));
+		// }
 		_mix_update_needed = false;
 	}
 }
