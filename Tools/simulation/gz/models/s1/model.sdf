@@ -9,7 +9,7 @@
       <pose>0 0 0.115 0 0 0</pose> <!-- Position of S1 CG Frame relative to inertial frame. sitl flight controller is at base link origin. therefore CG should be at base link origin -->
       <inertial>
         <pose>0 0 0 0 0 0</pose> <!-- Position of inertia tensor relative to base_link frame (center of gravity) should be at base link origin -->
-        <mass>24.0</mass>
+        <mass>18.0</mass>
         <inertia> <!-- Inertia characteristics of base_link -->
           <!-- Seems to be right. Check with structure/PD team-->
           <ixx>6.023</ixx>
@@ -1250,6 +1250,7 @@
       <linkName>rotor_7</linkName>
       <turningDirection>ccw</turningDirection>
       <timeConstantUp>0.0125</timeConstantUp>
+      <!-- <timeConstantUp>10000000</timeConstantUp> -->
       <timeConstantDown>0.025</timeConstantDown>
       <maxRotVelocity>744</maxRotVelocity> <!-- omega in rad/s -->
       <motorConstant>7.2597e-05</motorConstant>

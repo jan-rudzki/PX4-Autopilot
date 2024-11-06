@@ -59,7 +59,7 @@ bool GZMixingInterfaceESC::init(const std::string &model_name)
 
 	return true;
 }
-
+//jan
 bool GZMixingInterfaceESC::updateOutputs(bool stop_motors, uint16_t outputs[MAX_ACTUATORS], unsigned num_outputs,
 		unsigned num_control_groups_updated)
 {
@@ -73,12 +73,12 @@ bool GZMixingInterfaceESC::updateOutputs(bool stop_motors, uint16_t outputs[MAX_
 			break;
 		}
 	}
-
+//jan
 	if (active_output_count > 0) {
 		gz::msgs::Actuators rotor_velocity_message;
 		rotor_velocity_message.mutable_velocity()->Resize(active_output_count, 0);
 		for (unsigned i = 0; i < active_output_count; i++) {
-			rotor_velocity_message.set_velocity(i, outputs[i]);
+			rotor_velocity_message.set_velocity(i, static_cast<int16_t>(outputs[i]));
 		}
 
 		if (_actuators_pub.Valid()) {

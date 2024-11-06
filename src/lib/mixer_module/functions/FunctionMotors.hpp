@@ -76,6 +76,12 @@ public:
 
 	static inline void updateValues(uint32_t reversible, float thrust_factor, float *values, int num_values)
 	{
+		// Print initial values of the array jan
+		// PX4_INFO("Initial motor values before thrust factor adjustment:");
+		// for (int i = 0; i < num_values; ++i) {
+		// 	PX4_INFO("values[%d] = %.3f", i, (double)values[i]);
+		// }
+
 		if (thrust_factor > 0.f && thrust_factor <= 1.f) {
 			// thrust factor
 			//  rel_thrust = factor * x^2 + (1-factor) * x,
@@ -99,6 +105,11 @@ public:
 					values[i] = 0.f;
 				}
 			}
+			// Print values after thrust factor adjustment jan
+			// PX4_INFO("Motor values after thrust factor adjustment:");
+			// for (int i = 0; i < num_values; ++i) {
+			// 	PX4_INFO("values[%d] = %.3f", i, (double)values[i]);
+			// }
 		}
 
 		for (int i = 0; i < num_values; ++i) {
@@ -112,6 +123,11 @@ public:
 				}
 			}
 		}
+		// Final values jan
+		// PX4_INFO("Final motor values after reversible check:");
+		// for (int i = 0; i < num_values; ++i) {
+		// 	PX4_INFO("values[%d] = %.3f", i, (double)values[i]);
+		// }
 	}
 
 	bool reversible(OutputFunction func) const override { return _data.reversible_flags & (1u << ((int)func - (int)OutputFunction::Motor1)); }

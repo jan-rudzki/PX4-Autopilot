@@ -455,6 +455,12 @@ bool MixingOutput::update()
 		}
 	}
 
+	// info the current output values
+	// PX4_INFO("ESC calibration mode active: output values set to calibration ranges.");
+	// for (int i = 0; i < _max_num_outputs; i++) {
+	// 	PX4_INFO("Output %d: %u", i, _current_output_value[i]);
+	// }
+
 	// Send output if any function mapped or one last disabling sample
 	if (!all_disabled || !_was_all_disabled) {
 		if (!_armed.armed && !_armed.manual_lockdown) {
@@ -531,8 +537,15 @@ uint16_t MixingOutput::output_limit_calc_single(int i, float value) const
 		value = -1.f * value;
 	}
 
+	// Print min and max values for the current channel jan
+	// PX4_INFO("Channel %d: Interpolation min = %.2f, max = %.2f, input value = %.3f", i, (double)_min_value[i], (double)_max_value[i], (double)value);
+
+
 	const float output = math::interpolate(value, -1.f, 1.f,
 					       static_cast<float>(_min_value[i]), static_cast<float>(_max_value[i]));
+
+	// Print the interpolated output before constraining jan
+	// PX4_INFO("Channel %d: Interpolated output = %.3f", i, (double)output);
 
 	return math::constrain(lroundf(output), 0L, static_cast<long>(UINT16_MAX));
 }
@@ -618,9 +631,20 @@ MixingOutput::output_limit_calc(const bool armed, const int num_channels, const 
 		break;
 
 	case OutputLimitState::ON:
+		// Inserted PX4_INFO statement to print output[] values jan
+		// PX4_INFO("Output values before scaling:");
+		// for (int i = 0; i < num_channels; i++) {
+		// 	PX4_INFO("output[%d] = %.3f", i, (double)output[i]);
+		// }
+
 		for (int i = 0; i < num_channels; i++) {
 			_current_output_value[i] = output_limit_calc_single(i, output[i]);
 		}
+		// jan
+		// PX4_INFO("Output values after scaling:");
+		// for (int i = 0; i < num_channels; i++) {
+		// 	PX4_INFO("output[%d] = %.3f", i, (double)_current_output_value[i]);
+		// }
 
 		break;
 	}
