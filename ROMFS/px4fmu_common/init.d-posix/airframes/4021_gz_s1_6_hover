@@ -34,7 +34,7 @@ param set-default SENS_EN_ARSPDSIM 1 # 1: enables simulated airspeed sensor inst
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # Airframe
 param set-default CA_AIRFRAME 2 # Standard VTOL airframe
-param set-default CA_ROTOR_COUNT 7
+param set-default CA_ROTOR_COUNT 8
 param set-default VT_TYPE 2 # Tailsitter=0, Tiltrotor=1, Standard=2
 
 # ATTENTION: PARAMETER SETTING SEEMS TO NOT WORK!!!

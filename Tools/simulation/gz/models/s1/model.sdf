@@ -1252,9 +1252,9 @@
       <!-- <timeConstantUp>0.0125</timeConstantUp> -->
       <timeConstantUp>10000000</timeConstantUp>
       <timeConstantDown>0.025</timeConstantDown>
-      <maxRotVelocity>744</maxRotVelocity> <!-- omega in rad/s -->
+      <maxRotVelocity>744</maxRotVelocity> <!-- omega in rad/s-->
       <motorConstant>7.2597e-05</motorConstant>
-      <momentConstant>0.06</momentConstant> <!-- dragTorque = thrust*momentConstant -->
+      <momentConstant>0.06</momentConstant>  dragTorque = thrust*momentConstant
       <commandSubTopic>command/motor_speed</commandSubTopic>
       <motorNumber>7</motorNumber>
       <rotorDragCoefficient>0.000106428</rotorDragCoefficient>
