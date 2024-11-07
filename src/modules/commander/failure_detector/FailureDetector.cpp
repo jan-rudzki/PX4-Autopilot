@@ -146,6 +146,11 @@ void FailureInjector::manipulateEscStatus(esc_status_s &status)
 				memset(&status.esc[i], 0, sizeof(status.esc[i]));
 				status.esc[i].actuator_function = function;
 				offline |= 1 << i;
+				status.esc[i].failures |= esc_report_s::FAILURE_OVER_CURRENT; // or another relevant failure flag
+				status.esc[i].esc_rpm = 0;  // Mark RPM as zero to indicate failure
+				status.esc[i].esc_current = 0;  // Set current to zero
+
+
 
 			} else if (_esc_wrong & (1 << i_esc)) {
 				// Create wrong rerport for this motor by scaling key values up and down
@@ -189,6 +194,13 @@ bool FailureDetector::update(const vehicle_status_s &vehicle_status, const vehic
 
 	if (_esc_status_sub.update(&esc_status)) {
 		_failure_injector.manipulateEscStatus(esc_status);
+
+		// for (int i = 0; i < esc_status.esc_count; ++i) {
+		// PX4_INFO("ESC[%d] - Voltage: %.2f V, Current: %.2f A, RPM: %d, Failures: %04X",
+		// 	i, static_cast<double>(esc_status.esc[i].esc_voltage),
+		// 	static_cast<double>(esc_status.esc[i].esc_current),
+		// 	esc_status.esc[i].esc_rpm, esc_status.esc[i].failures);
+		// }
 
 		if (_param_escs_en.get()) {
 			updateEscsStatus(vehicle_status, esc_status);
@@ -283,6 +295,7 @@ void FailureDetector::updateEscsStatus(const vehicle_status_s &vehicle_status, c
 		const bool is_all_escs_armed = (all_escs_armed_mask == esc_status.esc_armed_flags);
 
 		bool is_esc_failure = !is_all_escs_armed;
+		PX4_INFO("ESC Status - All Armed: %d, ESC Failure Detected: %d", is_all_escs_armed, is_esc_failure);
 
 		for (int i = 0; i < limited_esc_count; i++) {
 			is_esc_failure = is_esc_failure || (esc_status.esc[i].failures > 0);
@@ -300,6 +313,7 @@ void FailureDetector::updateEscsStatus(const vehicle_status_s &vehicle_status, c
 		_esc_failure_hysteresis.set_state_and_update(false, time_now);
 		_status.flags.arm_escs = false;
 	}
+	PX4_INFO("ESC Status - All Armed:");
 }
 
 void FailureDetector::updateImbalancedPropStatus()

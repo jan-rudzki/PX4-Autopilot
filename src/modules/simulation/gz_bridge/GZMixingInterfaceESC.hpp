@@ -59,6 +59,10 @@ public:
 	bool updateOutputs(bool stop_motors, uint16_t outputs[MAX_ACTUATORS],
 			   unsigned num_outputs, unsigned num_control_groups_updated) override;
 
+	// New function to handle signed outputs for ESCs with reverse capability
+	bool updateOutputsSigned(bool stop_motors, int16_t outputs[MAX_ACTUATORS],
+				unsigned num_outputs, unsigned num_control_groups_updated) override;
+
 	MixingOutput &mixingOutput() { return _mixing_output; }
 
 	bool init(const std::string &model_name);

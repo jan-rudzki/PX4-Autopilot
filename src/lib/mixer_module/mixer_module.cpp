@@ -90,7 +90,7 @@ MixingOutput::MixingOutput(const char *param_prefix, uint8_t max_num_outputs, Ou
 	initParamHandles(instance_start);
 
 	for (unsigned i = 0; i < MAX_ACTUATORS; i++) {
-		_failsafe_value[i] = UINT16_MAX;
+		_failsafe_value[i] = INT16_MAX;
 	}
 
 	updateParams();
@@ -379,7 +379,7 @@ void MixingOutput::setAllMaxValues(uint16_t value)
 	}
 }
 
-void MixingOutput::setAllFailsafeValues(uint16_t value)
+void MixingOutput::setAllFailsafeValues(int16_t value)
 {
 	for (unsigned i = 0; i < MAX_ACTUATORS; i++) {
 		_param_handles[i].failsafe = PARAM_INVALID;
@@ -387,7 +387,7 @@ void MixingOutput::setAllFailsafeValues(uint16_t value)
 	}
 }
 
-void MixingOutput::setAllDisarmedValues(uint16_t value)
+void MixingOutput::setAllDisarmedValues(int16_t value)
 {
 	for (unsigned i = 0; i < MAX_ACTUATORS; i++) {
 		_param_handles[i].disarmed = PARAM_INVALID;
@@ -455,6 +455,12 @@ bool MixingOutput::update()
 		}
 	}
 
+	// info the current output values
+	// PX4_INFO("ESC calibration mode active: output values set to calibration ranges.");
+	// for (int i = 0; i < _max_num_outputs; i++) {
+	// 	PX4_INFO("Output %d: %u", i, _current_output_value[i]);
+	// }
+
 	// Send output if any function mapped or one last disabling sample
 	if (!all_disabled || !_was_all_disabled) {
 		if (!_armed.armed && !_armed.manual_lockdown) {
@@ -497,8 +503,8 @@ MixingOutput::limitAndUpdateOutputs(float outputs[MAX_ACTUATORS], bool has_updat
 	// Doing so makes calibrations consistent among different configurations and hence PWM minimum and maximum have a consistent effect
 	// hence the defaults for these parameters also make most setups work out of the box
 	if (_armed.in_esc_calibration_mode) {
-		static constexpr uint16_t PWM_CALIBRATION_LOW = 1000;
-		static constexpr uint16_t PWM_CALIBRATION_HIGH = 2000;
+		static constexpr int16_t PWM_CALIBRATION_LOW = 1000;
+		static constexpr int16_t PWM_CALIBRATION_HIGH = 2000;
 
 		for (int i = 0; i < _max_num_outputs; i++) {
 			if (_current_output_value[i] == _min_value[i]) {
@@ -512,15 +518,35 @@ MixingOutput::limitAndUpdateOutputs(float outputs[MAX_ACTUATORS], bool has_updat
 	}
 
 	/* now return the outputs to the driver */
-	if (_interface.updateOutputs(stop_motors, _current_output_value, _max_num_outputs, has_updates)) {
-		actuator_outputs_s actuator_outputs{};
-		setAndPublishActuatorOutputs(_max_num_outputs, actuator_outputs);
+	// if (_interface.updateOutputs(stop_motors, _current_output_value, _max_num_outputs, has_updates)) {
+	// 	actuator_outputs_s actuator_outputs{};
+	// 	setAndPublishActuatorOutputs(_max_num_outputs, actuator_outputs);
 
-		updateLatencyPerfCounter(actuator_outputs);
-	}
+	// 	updateLatencyPerfCounter(actuator_outputs);
+	// }
+	// bool is_uavcan_esc = dynamic_cast<UavcanMixingInterfaceESC*>(&_interface) != nullptr;
+
+	// if (is_uavcan_esc) {
+	// if (_interface.updateOutputsSigned(stop_motors, _current_output_value, _max_num_outputs, has_updates)) {
+	// 	actuator_outputs_s actuator_outputs{};
+	// 	setAndPublishActuatorOutputs(_max_num_outputs, actuator_outputs);
+	// 	updateLatencyPerfCounter(actuator_outputs);
+	// }
+	// } else {
+	// if (_interface.updateOutputs(stop_motors, reinterpret_cast<uint16_t*>(_current_output_value), _max_num_outputs, has_updates)) {
+	// 	actuator_outputs_s actuator_outputs{};
+	// 	setAndPublishActuatorOutputs(_max_num_outputs, actuator_outputs);
+	// 	updateLatencyPerfCounter(actuator_outputs);
+	// }
+	// }
+	if (_interface.updateOutputsSigned(stop_motors, _current_output_value, _max_num_outputs, has_updates)) {
+        actuator_outputs_s actuator_outputs{};
+        setAndPublishActuatorOutputs(_max_num_outputs, actuator_outputs);
+        updateLatencyPerfCounter(actuator_outputs);
+    	}
 }
 
-uint16_t MixingOutput::output_limit_calc_single(int i, float value) const
+int16_t MixingOutput::output_limit_calc_single(int i, float value) const
 {
 	// check for invalid / disabled channels
 	if (!PX4_ISFINITE(value)) {
@@ -531,10 +557,27 @@ uint16_t MixingOutput::output_limit_calc_single(int i, float value) const
 		value = -1.f * value;
 	}
 
-	const float output = math::interpolate(value, -1.f, 1.f,
-					       static_cast<float>(_min_value[i]), static_cast<float>(_max_value[i]));
+	// Print min and max values for the current channel jan
+	// PX4_INFO("Channel %d: Interpolation min = %.2f, max = %.2f, input value = %.3f", i, (double)_min_value[i], (double)_max_value[i], (double)value);
 
-	return math::constrain(lroundf(output), 0L, static_cast<long>(UINT16_MAX));
+
+	float output;
+	if (i < 8) {
+		// Use configured min/max values for channels < 8
+		output = math::interpolate(value, -1.f, 1.f,
+					static_cast<float>(_min_value[i]), static_cast<float>(_max_value[i]));
+	} else {
+		// Use fixed range for channels >= 8
+		output = math::interpolate(value, -1.f, 1.f, -8191.f, 8191.f);
+	}
+
+	// Print the interpolated output before constraining jan
+	// PX4_INFO("Channel %d: Interpolated output = %.3f", i, (double)output);
+
+	// return math::constrain(lroundf(output), 0L, static_cast<long>(UINT16_MAX));
+	// return math::constrain(lroundf(output), -8191, 8191);
+	// return math::constrain<int16_t>(static_cast<int16_t>(lroundf(output)), static_cast<int16_t>(-8191), static_cast<int16_t>(8191));
+	return math::constrain<int16_t>(static_cast<int16_t>(lroundf(output)), static_cast<int16_t>(-8191), static_cast<int16_t>(8191));
 }
 
 void
@@ -611,16 +654,27 @@ MixingOutput::output_limit_calc(const bool armed, const int num_channels, const 
 
 			for (int i = 0; i < num_channels; i++) {
 				// Ramp from disarmed value to currently desired output that would apply without ramp
-				uint16_t desired_output = output_limit_calc_single(i, output[i]);
+				int16_t desired_output = output_limit_calc_single(i, output[i]);
 				_current_output_value[i] = _disarmed_value[i] + progress * (desired_output - _disarmed_value[i]);
 			}
 		}
 		break;
 
 	case OutputLimitState::ON:
+		// Inserted PX4_INFO statement to print output[] values jan
+		// PX4_INFO("Output values before scaling:");
+		// for (int i = 0; i < num_channels; i++) {
+		// 	PX4_INFO("output[%d] = %.3f", i, (double)output[i]);
+		// }
+
 		for (int i = 0; i < num_channels; i++) {
 			_current_output_value[i] = output_limit_calc_single(i, output[i]);
 		}
+		// jan
+		// PX4_INFO("Output values after scaling:");
+		// for (int i = 0; i < num_channels; i++) {
+		// 	PX4_INFO("output[%d] = %.3f", i, (double)_current_output_value[i]);
+		// }
 
 		break;
 	}
@@ -652,12 +706,12 @@ MixingOutput::updateLatencyPerfCounter(const actuator_outputs_s &actuator_output
 	}
 }
 
-uint16_t
+int16_t
 MixingOutput::actualFailsafeValue(int index) const
 {
-	uint16_t value = 0;
+	int16_t value = 0;
 
-	if (_failsafe_value[index] == UINT16_MAX) { // if set to default, use the one provided by the function
+	if (_failsafe_value[index] == INT16_MAX) { // if set to default, use the one provided by the function
 		float default_failsafe = NAN;
 
 		if (_functions[index]) {

@@ -89,6 +89,47 @@ bool GZMixingInterfaceESC::updateOutputs(bool stop_motors, uint16_t outputs[MAX_
 	return false;
 }
 
+bool GZMixingInterfaceESC::updateOutputsSigned(bool stop_motors, int16_t outputs[MAX_ACTUATORS], unsigned num_outputs,
+                                               unsigned num_control_groups_updated)
+{
+    unsigned active_output_count = 0;
+
+    // Count active outputs as before
+    for (unsigned i = 0; i < num_outputs; i++) {
+        if (_mixing_output.isFunctionSet(i)) {
+            active_output_count++;
+        } else {
+            break;
+        }
+    }
+
+    if (active_output_count > 0) {
+        gz::msgs::Actuators rotor_velocity_message;
+        rotor_velocity_message.mutable_velocity()->Resize(active_output_count, 0);
+
+        for (unsigned i = 0; i < active_output_count; i++) {
+            float output_value;
+
+            // Rescale only for indices 8 and 9 (the pushers) from [-8191, 8191] to [-1500, 1500]
+            if (i == 8 || i == 9) {
+                output_value = static_cast<float>(outputs[i]) * (1500.0f / 8191.0f);
+            } else {
+                // For all other motors, pass the output as-is
+                output_value = static_cast<float>(outputs[i]);
+            }
+
+            rotor_velocity_message.set_velocity(i, output_value);
+        }
+
+        // Publish the message if the publisher is valid
+        if (_actuators_pub.Valid()) {
+            return _actuators_pub.Publish(rotor_velocity_message);
+        }
+    }
+
+    return false;
+}
+
 void GZMixingInterfaceESC::Run()
 {
 	pthread_mutex_lock(&_node_mutex);

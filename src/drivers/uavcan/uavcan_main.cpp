@@ -1026,8 +1026,15 @@ UavcanNode::Run()
 bool UavcanMixingInterfaceESC::updateOutputs(bool stop_motors, uint16_t outputs[MAX_ACTUATORS], unsigned num_outputs,
 		unsigned num_control_groups_updated)
 {
-	_esc_controller.update_outputs(stop_motors, outputs, num_outputs);
+	//_esc_controller.update_outputs(stop_motors, outputs, num_outputs);
 	return true;
+}
+bool UavcanMixingInterfaceESC::updateOutputsSigned(bool stop_motors, int16_t outputs[MAX_ACTUATORS],
+                                                   unsigned num_outputs, unsigned num_control_groups_updated)
+{
+    // Use int16_t outputs directly for UAVCAN
+    _esc_controller.update_outputs(stop_motors, outputs, num_outputs);
+    return true;
 }
 
 void UavcanMixingInterfaceESC::Run()

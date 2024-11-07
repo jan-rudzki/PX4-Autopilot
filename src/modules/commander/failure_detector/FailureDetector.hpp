@@ -49,6 +49,7 @@
 #include <matrix/matrix/math.hpp>
 #include <px4_platform_common/module_params.h>
 
+
 // subscriptions
 #include <uORB/Subscription.hpp>
 #include <uORB/Publication.hpp>
