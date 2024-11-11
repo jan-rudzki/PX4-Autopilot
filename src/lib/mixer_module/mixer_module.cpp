@@ -548,6 +548,11 @@ MixingOutput::limitAndUpdateOutputs(float outputs[MAX_ACTUATORS], bool has_updat
 
 int16_t MixingOutput::output_limit_calc_single(int i, float value) const
 {
+	// jan
+	// ModuleParams::updateParams();
+
+	int32_t pusher_mode = _param_ca_pusher_mode.get();
+
 	// check for invalid / disabled channels
 	if (!PX4_ISFINITE(value)) {
 		return _disarmed_value[i];
@@ -560,24 +565,46 @@ int16_t MixingOutput::output_limit_calc_single(int i, float value) const
 	// Print min and max values for the current channel jan
 	// PX4_INFO("Channel %d: Interpolation min = %.2f, max = %.2f, input value = %.3f", i, (double)_min_value[i], (double)_max_value[i], (double)value);
 
-
+	bool is_pusher_motor = (i == 8 || i == 9);
 	float output;
-	if (i < 8) {
-		// Use configured min/max values for channels < 8
-		output = math::interpolate(value, -1.f, 1.f,
-					static_cast<float>(_min_value[i]), static_cast<float>(_max_value[i]));
+
+	if (is_pusher_motor) {
+		if (pusher_mode == 2) {
+			// Case 2: Bidirectional thrust allowed
+			output = math::interpolate(value, -1.f, 1.f, -8191.f, 8191.f);
+			output = math::constrain(output, -8191.f, 8191.f);
+		} else {
+			// Cases 0 and 1: Unidirectional thrust
+			output = math::interpolate(value, -1.f, 1.f, 0.f, 8191.f);
+			output = math::constrain(output, 0.f, 8191.f);
+		}
 	} else {
-		// Use fixed range for channels >= 8
-		output = math::interpolate(value, -1.f, 1.f, -8191.f, 8191.f);
+		// Non-pusher motors
+		output = math::interpolate(value, -1.f, 1.f,
+			static_cast<float>(_min_value[i]), static_cast<float>(_max_value[i]));
+		output = math::constrain(output, static_cast<float>(_min_value[i]), static_cast<float>(_max_value[i]));
 	}
 
-	// Print the interpolated output before constraining jan
-	// PX4_INFO("Channel %d: Interpolated output = %.3f", i, (double)output);
+	return static_cast<int16_t>(lroundf(output));
 
-	// return math::constrain(lroundf(output), 0L, static_cast<long>(UINT16_MAX));
-	// return math::constrain(lroundf(output), -8191, 8191);
+	// old version jan
+	// float output;
+	// if (i < 8) {
+	// 	// Use configured min/max values for channels < 8
+	// 	output = math::interpolate(value, -1.f, 1.f,
+	// 				static_cast<float>(_min_value[i]), static_cast<float>(_max_value[i]));
+	// } else {
+	// 	// Use fixed range for channels >= 8
+	// 	output = math::interpolate(value, -1.f, 1.f, -8191.f, 8191.f);
+	// }
+
+	// // Print the interpolated output before constraining jan
+	// // PX4_INFO("Channel %d: Interpolated output = %.3f", i, (double)output);
+
+	// // return math::constrain(lroundf(output), 0L, static_cast<long>(UINT16_MAX));
+	// // return math::constrain(lroundf(output), -8191, 8191);
+	// // return math::constrain<int16_t>(static_cast<int16_t>(lroundf(output)), static_cast<int16_t>(-8191), static_cast<int16_t>(8191));
 	// return math::constrain<int16_t>(static_cast<int16_t>(lroundf(output)), static_cast<int16_t>(-8191), static_cast<int16_t>(8191));
-	return math::constrain<int16_t>(static_cast<int16_t>(lroundf(output)), static_cast<int16_t>(-8191), static_cast<int16_t>(8191));
 }
 
 void

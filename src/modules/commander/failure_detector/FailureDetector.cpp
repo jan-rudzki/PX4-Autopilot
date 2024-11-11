@@ -139,30 +139,36 @@ void FailureInjector::manipulateEscStatus(esc_status_s &status)
 		unsigned offline = 0;
 
 		for (int i = 0; i < status.esc_count; i++) {
-			const unsigned i_esc = status.esc[i].actuator_function - actuator_motors_s::ACTUATOR_FUNCTION_MOTOR1;
+			//const unsigned i_esc = status.esc[i].actuator_function - actuator_motors_s::ACTUATOR_FUNCTION_MOTOR1;
 
-			if (_esc_blocked & (1 << i_esc)) {
+			//if (_esc_blocked & (1 << i_esc)) { jan
+			if (_esc_blocked & (1 << i)) {
+				// PX4_INFO("ESC %d blocked", i);
 				unsigned function = status.esc[i].actuator_function;
 				memset(&status.esc[i], 0, sizeof(status.esc[i]));
 				status.esc[i].actuator_function = function;
 				offline |= 1 << i;
-				status.esc[i].failures |= esc_report_s::FAILURE_OVER_CURRENT; // or another relevant failure flag
-				status.esc[i].esc_rpm = 0;  // Mark RPM as zero to indicate failure
-				status.esc[i].esc_current = 0;  // Set current to zero
+				// status.esc[i].failures |= esc_report_s::FAILURE_OVER_CURRENT; // or another relevant failure flag
+				// status.esc[i].esc_rpm = 0;  // Mark RPM as zero to indicate failure
+				// status.esc[i].esc_current = 0;  // Set current to zero
 
 
 
-			} else if (_esc_wrong & (1 << i_esc)) {
+			//} else if (_esc_wrong & (1 << i_esc)) { jan
+			} else if (_esc_wrong & (1 << i)) {
 				// Create wrong rerport for this motor by scaling key values up and down
 				status.esc[i].esc_voltage *= 0.1f;
 				status.esc[i].esc_current *= 0.1f;
 				status.esc[i].esc_rpm *= 10.0f;
 			}
 		}
-
+		// PX4_INFO("ESC status manipulated: %u offline", offline);
 		status.esc_online_flags &= ~offline;
+		// PX4_INFO("ESC online flags: %u", status.esc_online_flags);
 	}
 }
+bool FailureInjector::isMotorFailureInjected() const { return _esc_blocked != 0; }
+uint16_t FailureInjector::getMotorFailureMask() const { return _esc_blocked; }
 
 FailureDetector::FailureDetector(ModuleParams *parent) :
 	ModuleParams(parent)
@@ -202,13 +208,27 @@ bool FailureDetector::update(const vehicle_status_s &vehicle_status, const vehic
 		// 	esc_status.esc[i].esc_rpm, esc_status.esc[i].failures);
 		// }
 
+		// #if defined(PX4_SIMULATION) || defined(__PX4_POSIX) || defined(PX4_SIMULATOR)
+		// bool is_sitl = true;
+		// PX4_INFO("SITL Failure Detector");
+		// #else
+		// bool is_sitl = false;
+		// #endif
+
+		// Then, you can use this in the update function:
+		// if (is_sitl || _param_escs_en.get()) {
 		if (_param_escs_en.get()) {
 			updateEscsStatus(vehicle_status, esc_status);
 		}
 
+
+
 		if (_param_fd_actuator_en.get()) {
 			updateMotorStatus(vehicle_status, esc_status);
 		}
+		#if defined(PX4_SIMULATION) || defined(__PX4_POSIX) || defined(PX4_SIMULATOR)
+		updateSITLMotorStatus();
+		#endif
 	}
 
 	if (_param_fd_imb_prop_thr.get() > 0) {
@@ -313,7 +333,6 @@ void FailureDetector::updateEscsStatus(const vehicle_status_s &vehicle_status, c
 		_esc_failure_hysteresis.set_state_and_update(false, time_now);
 		_status.flags.arm_escs = false;
 	}
-	PX4_INFO("ESC Status - All Armed:");
 }
 
 void FailureDetector::updateImbalancedPropStatus()
@@ -485,4 +504,15 @@ void FailureDetector::updateMotorStatus(const vehicle_status_s &vehicle_status, 
 		_motor_failure_esc_under_current_mask = 0;
 		_status.flags.motor = false;
 	}
+}
+
+void FailureDetector::updateSITLMotorStatus() {
+    if (_failure_injector.isMotorFailureInjected()) {
+        _status.flags.motor = true;
+        _status.flags.arm_escs = false;
+        _motor_failure_mask = _failure_injector.getMotorFailureMask();
+    } else {
+        _status.flags.motor = false;
+        _motor_failure_mask = 0;
+    }
 }

@@ -49,3 +49,17 @@ parameters:
             instance_start: 1
             num_instances: 6
             default: -1
+
+        # PUSHER_MODE:
+        #     description:
+        #         short: Pusher motor operation mode
+        #         long: |
+        #             Controls the operation mode of pusher motors.
+        #             - 0: Normal operation (unidirectional, no yaw control)
+        #             - 1: Pusher bidirectional and active in yaw control
+        #     type: int32
+        #     min: 0
+        #     max: 1
+        #     increment: 1
+        #     default: 0
+        #     reboot_required: false

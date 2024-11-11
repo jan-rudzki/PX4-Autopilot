@@ -87,6 +87,8 @@ public:
 	void update();
 
 	void manipulateEscStatus(esc_status_s &status);
+	bool isMotorFailureInjected() const;
+    	uint16_t getMotorFailureMask() const;
 private:
 	uORB::Subscription _vehicle_command_sub{ORB_ID(vehicle_command)};
 	uORB::Publication<vehicle_command_ack_s> _command_ack_pub{ORB_ID(vehicle_command_ack)};
@@ -105,13 +107,22 @@ public:
 	const failure_detector_status_u &getStatus() const { return _status; }
 	const decltype(failure_detector_status_u::flags) &getStatusFlags() const { return _status.flags; }
 	float getImbalancedPropMetric() const { return _imbalanced_prop_lpf.getState(); }
-	uint16_t getMotorFailures() const { return _motor_failure_esc_timed_out_mask | _motor_failure_esc_under_current_mask; }
+	// uint16_t getMotorFailures() const { return _motor_failure_esc_timed_out_mask | _motor_failure_esc_under_current_mask; }
+	uint16_t getMotorFailures() const {
+		#if defined(PX4_SIMULATION) || defined(__PX4_POSIX) || defined(PX4_SIMULATOR)
+		return _motor_failure_mask | _motor_failure_esc_timed_out_mask | _motor_failure_esc_under_current_mask;
+		#else
+		return _motor_failure_esc_timed_out_mask | _motor_failure_esc_under_current_mask;
+		#endif
+	}
+
 
 private:
 	void updateAttitudeStatus(const vehicle_status_s &vehicle_status);
 	void updateExternalAtsStatus();
 	void updateEscsStatus(const vehicle_status_s &vehicle_status, const esc_status_s &esc_status);
 	void updateMotorStatus(const vehicle_status_s &vehicle_status, const esc_status_s &esc_status);
+	void updateSITLMotorStatus();
 	void updateImbalancedPropStatus();
 
 	failure_detector_status_u _status{};
@@ -130,6 +141,7 @@ private:
 	uint8_t _motor_failure_esc_valid_current_mask{};  // ESC 1-8, true if ESC telemetry was valid at some point
 	uint8_t _motor_failure_esc_timed_out_mask{};      // ESC telemetry no longer available -> failure
 	uint8_t _motor_failure_esc_under_current_mask{};  // ESC drawing too little current -> failure
+	uint16_t _motor_failure_mask{0};                   // Bitmask of all motor failures
 	bool _motor_failure_esc_has_current[actuator_motors_s::NUM_CONTROLS] {false}; // true if some ESC had non-zero current (some don't support it)
 	hrt_abstime _motor_failure_undercurrent_start_time[actuator_motors_s::NUM_CONTROLS] {};
 
