@@ -37,7 +37,7 @@ param set-default SENS_EN_ARSPDSIM 1 # 1: enables simulated airspeed sensor inst
 param set-default CA_AIRFRAME 2 # Standard VTOL airframe
 param set-default CA_ROTOR_COUNT 10
 param set-default VT_TYPE 2 # Tailsitter=0, Tiltrotor=1, Standard=2
-
+param set-default CA_FAILURE_MODE 1 # 0: disabled --> ignores the failure in the control allocation, 1: enabled --> first failed motor gets removed from effectiveness matrix
 # ATTENTION: PARAMETER SETTING SEEMS TO NOT WORK!!!
 
 # Safety
