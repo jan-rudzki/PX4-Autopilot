@@ -54,6 +54,8 @@ public:
 	ControlAllocationSequentialDesaturation() : ModuleParams(nullptr) {}
 	virtual ~ControlAllocationSequentialDesaturation() = default;
 
+	// void setPusherScale(float pusher_scale) { _pusher_scale = pusher_scale; }
+
 	void allocate() override;
 
 	void updateParameters() override;
@@ -89,6 +91,8 @@ private:
 				      bool increase_only = false);
 	void desaturatePusherActuators(ActuatorVector &actuator_sp, const ActuatorVector &desaturation_vector,
 				       bool increase_only = false);
+	void desaturatePusherActuatorsSep(ActuatorVector &actuator_sp, const ActuatorVector &desaturation_vector,
+					  bool increase_only = false);
 	float computeHoverDesaturationGain(const ActuatorVector &desaturation_vector, const ActuatorVector &actuator_sp);
 	float computePusherDesaturationGain(const ActuatorVector &desaturation_vector, const ActuatorVector &actuator_sp);
 	float computeLeftPusherDesaturationGain(const ActuatorVector &desaturation_vector, const ActuatorVector &actuator_sp);
@@ -130,7 +134,11 @@ private:
 	 */
 	void mixYaw();
 
+	// float _pusher_scale{0.4f};
+
 	DEFINE_PARAMETERS(
-		(ParamInt<px4::params::MC_AIRMODE>) _param_mc_airmode   ///< air-mode
+		(ParamInt<px4::params::MC_AIRMODE>) _param_mc_airmode,   ///< air-mode
+		(ParamInt<px4::params::CA_PUSHER_MODE>) _param_ca_pusher_mode ///< pusher mode
+		// (ParamFloat<px4::params::CA_PUSHER_SCALE>) _param_ca_pusher_scale ///< pusher scale
 	);
 };

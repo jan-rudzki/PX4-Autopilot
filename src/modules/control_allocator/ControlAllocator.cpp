@@ -123,6 +123,15 @@ ControlAllocator::parameters_updated()
 		_has_slew_rate |= _params.slew_rate_servos[i] > FLT_EPSILON;
 	}
 
+	// Pass the parameter value to ControlAllocationSequentialDesaturation
+	// if (_control_allocation[0]) {
+	// 	auto *allocation_seq_desat = dynamic_cast<ControlAllocationSequentialDesaturation*>(_control_allocation[0]);
+
+	// 	if (allocation_seq_desat != nullptr) {
+	// 		allocation_seq_desat->setPusherScale(_params.pusher_scale);
+	// 	}
+	// }
+
 	// Allocation method & effectiveness source
 	// Do this first: in case a new method is loaded, it will be configured below
 	bool updated = update_effectiveness_source();
@@ -708,6 +717,8 @@ ControlAllocator::publish_actuator_controls()
 	actuator_servos.timestamp_sample = _timestamp_sample;
 
 	actuator_motors.reversible_flags = _param_r_rev.get();
+
+	// int pusher_mode = _param_ca_pusher_mode.get();
 
 	int actuator_idx = 0;
 	int actuator_idx_matrix[ActuatorEffectiveness::MAX_NUM_MATRICES] {};

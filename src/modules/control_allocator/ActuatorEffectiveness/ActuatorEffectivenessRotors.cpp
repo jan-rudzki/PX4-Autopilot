@@ -134,7 +134,6 @@ ActuatorEffectivenessRotors::addActuators(Configuration &configuration)
 		PX4_ERR("Wrong actuator ordering: servos need to be after motors");
 		return false;
 	}
-
 	int num_actuators = computeEffectivenessMatrix(_geometry,
 			    configuration.effectiveness_matrices[configuration.selected_matrix],
 			    configuration.num_actuators_matrix[configuration.selected_matrix]);
@@ -147,6 +146,12 @@ ActuatorEffectivenessRotors::computeEffectivenessMatrix(const Geometry &geometry
 		EffectivenessMatrix &effectiveness, int actuator_start_index)
 {
 	int num_actuators = 0;
+	param_t param_handle = param_find("CA_PUSHER_SCALE");
+	float pusher_scale = 1.0f; // Default value
+
+	if (param_handle != PARAM_INVALID) {
+		param_get(param_handle, &pusher_scale);
+	}
 
 	for (int i = 0; i < geometry.num_rotors; i++) {
 
@@ -200,7 +205,8 @@ ActuatorEffectivenessRotors::computeEffectivenessMatrix(const Geometry &geometry
 
 			if (!upwards) {
 				km = 0.f;
-				//ct_m = 0.0f;
+				//float _pusher_scale = _param_ca_pusher_scale.get();
+				ct_m = ct * pusher_scale;
 			}
 		}
 
