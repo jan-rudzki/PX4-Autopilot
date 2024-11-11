@@ -29,6 +29,7 @@ param set-default SENS_EN_BAROSIM 0 # 1: enables simulated barometer sensor inst
 param set-default SENS_EN_MAGSIM 1 # 1: enables simulated magnetometer instance
 param set-default SENS_EN_ARSPDSIM 1 # 1: enables simulated airspeed sensor instance
 
+
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # GENERAL SETTINGS
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
