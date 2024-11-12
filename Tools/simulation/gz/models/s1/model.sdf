@@ -977,7 +977,7 @@
      <!-- Canard Left-->
       <a0>0.0175</a0> <!-- <a0>0.0175</a0> Initital alpha of wing (should be positive). Attention! This is not alpha for cl=0!!!-->
       <cla>4.926</cla> <!-- <cla>4.926</cla> -->
-      <cda>0.3582</cda> <!-- S_mw / (S_canard + S_mw) * cda_tot_rel_to_s_mw  -->
+      <cda>0.973</cda> <!-- New approach: cd_tot_24m/s = 0.047 -> cda = cd_tot/4(deg) + 0.3 due to wrong linear assumption-->
       <cma>0.0</cma> <!--__corny: -4.6, p4: 0-->
       <alpha_stall>0.2443</alpha_stall> <!-- <14deg for safety, actually 16.2deg overal config-->
       <cla_stall>-5.766</cla_stall> <!--__corny: -5.766, p4: -2.1001, big difference-->
@@ -1001,7 +1001,7 @@
       <!-- Canard Right-->
       <a0>0.0175</a0> <!-- <a0>0.0175</a0> Initital alpha of wing (should be positive). Attention! This is not alpha for cl=0!!!-->
       <cla>4.926</cla> <!-- <cla>4.926</cla> -->
-      <cda>0.3582</cda> <!-- S_mw / (S_canard + S_mw) * cda_tot_rel_to_s_mw -->
+      <cda>0.973</cda> <!-- New approach: cd_tot_24m/s = 0.047 -> cda = cd_tot/4(deg) + 0.3 due to wrong linear assumption-->
       <cma>0.0</cma> <!--__corny: -4.6, p4: 0-->
       <alpha_stall>0.2443</alpha_stall> <!-- <14deg for safety, actually 16.2deg overal config-->
       <cla_stall>-5.766</cla_stall> <!--__corny: -5.766, p4: -2.1001, big difference-->
@@ -1026,7 +1026,7 @@
         <!-- Main Wing Left -->
       <a0>0.</a0> <!-- Initital alpha of wing. Attention! This is not alpha for cl=0!!!-->
       <cla>4.419</cla>
-      <cda>0.3582</cda> <!-- S_mw / (S_canard + S_mw) * cda_tot_rel_to_s_mw -->
+      <cda>0.973</cda> <!-- New approach: cd_tot_24m/s = 0.047 -> cda = cd_tot/4(deg) + 0.3 due to wrong linear assumption-->
       <cma>0</cma> <!--__corny: -4.6, p4: 0-->
       <alpha_stall>0.2443</alpha_stall> <!-- <14deg for safety, actually 15.3deg overal config-->
       <cla_stall>-1.428</cla_stall> <!-- __corny: -1.428/rad, p4: -2.1001-->
@@ -1050,7 +1050,7 @@
       <!-- Main Wing Right-->
       <a0>0.</a0> <!-- Initital alpha of wing. Attention! This is not alpha for cl=0!!!-->
       <cla>4.419</cla>
-      <cda>0.3582</cda> <!-- S_mw / (S_canard + S_mw) * cda_tot_rel_to_s_mw -->
+      <cda>0.973</cda> <!-- New approach: cd_tot_24m/s = 0.047 -> cda = cd_tot/4(deg) + 0.3 due to wrong linear assumption-->
       <cma>0</cma>
       <alpha_stall>0.2443</alpha_stall> <!-- <14deg for safety, actually 15.3deg overal config-->
       <cla_stall>-1.428</cla_stall> <!-- __corny: -1.428/rad, p4: -2.1001-->
@@ -1272,7 +1272,7 @@
       <turningDirection>ccw</turningDirection>
       <timeConstantUp>0.0125</timeConstantUp> <!-- setting this value high makes the motor not start -->
       <timeConstantDown>0.025</timeConstantDown>
-      <maxRotVelocity>388</maxRotVelocity> <!-- omega in rad/s -->
+      <maxRotVelocity>388</maxRotVelocity> <!-- omega in rad/s 388-->
       <motorConstant>1.703e-04</motorConstant> <!-- calculated Value by SUAVE: 1.703e-04 -->
       <momentConstant>0.01</momentConstant> <!-- dragTorque = thrust*momentConstant -->
       <commandSubTopic>command/motor_speed</commandSubTopic>
