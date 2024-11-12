@@ -575,6 +575,8 @@ int16_t MixingOutput::output_limit_calc_single(int i, float value) const
 			output = math::constrain(output, -8191.f, 8191.f);
 		} else {
 			// Cases 0 and 1: Unidirectional thrust
+			// output = math::interpolate(value, -1.f, 1.f, static_cast<float>(_min_value[i]), 8191.f);
+			// output = math::constrain(output, static_cast<float>(_min_value[i]), 8191.f);
 			output = math::interpolate(value, -1.f, 1.f, 0.f, 8191.f);
 			output = math::constrain(output, 0.f, 8191.f);
 		}
