@@ -1292,7 +1292,7 @@
       <timeConstantDown>0.025</timeConstantDown>
       <maxRotVelocity>388</maxRotVelocity> <!-- omega in rad/s -->
       <motorConstant>1.703e-04</motorConstant> <!-- calculated Value by SUAVE: 1.703e-04 -->
-      <momentConstant>0.0</momentConstant> <!-- dragTorque = thrust*momentConstant -->
+      <momentConstant>0.01</momentConstant> <!-- dragTorque = thrust*momentConstant -->
       <commandSubTopic>command/motor_speed</commandSubTopic>
       <motorNumber>9</motorNumber>
       <rotorDragCoefficient>0.000106428</rotorDragCoefficient>

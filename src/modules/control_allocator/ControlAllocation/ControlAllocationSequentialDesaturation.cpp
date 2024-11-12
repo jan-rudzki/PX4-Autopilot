@@ -214,8 +214,8 @@ void ControlAllocationSequentialDesaturation::desaturatePusherActuatorsSep(
 	float gain_l = computeLeftPusherDesaturationGain(desaturation_vector, actuator_sp);
 	float gain_r = computeRightPusherDesaturationGain(desaturation_vector, actuator_sp);
 	//print initial gains
-	PX4_INFO("Desaturation gain left pusher: %f", (double)gain_l);
-	PX4_INFO("Desaturation gain right pusher: %f", (double)gain_r);
+	// PX4_INFO("Desaturation gain left pusher: %f", (double)gain_l);
+	// PX4_INFO("Desaturation gain right pusher: %f", (double)gain_r);
 	// float _pusher_scale = _param_ca_pusher_scale.get();
 
 	if (increase_only && gain_l < 0.f && gain_r < 0.f) {
@@ -576,7 +576,7 @@ ControlAllocationSequentialDesaturation::mixYaw()
 		thrust_z(i) = _mix(i, ControlAxis::THRUST_Z);
 
         // Print yaw effectiveness and resulting actuator setpoints
-        PX4_INFO("Actuator %d - Yaw Effectiveness: %f, Resulting Actuator Setpoint: %f", i, (double)yaw(i), (double)_actuator_sp(i));
+        // PX4_INFO("Actuator %d - Yaw Effectiveness: %f, Resulting Actuator Setpoint: %f", i, (double)yaw(i), (double)_actuator_sp(i));
 	}
 
 	// Get the pusher mode parameter value
