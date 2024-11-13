@@ -37,7 +37,7 @@ param set-default SENS_EN_ARSPDSIM 1 # 1: enables simulated airspeed sensor inst
 param set-default CA_AIRFRAME 2 # Standard VTOL airframe
 param set-default CA_ROTOR_COUNT 10
 param set-default VT_TYPE 2 # Tailsitter=0, Tiltrotor=1, Standard=2
-param set-default CA_FAILURE_MODE 1 # 0: disabled --> ignores the failure in the control allocation, 1: enabled --> first failed motor gets removed from effectiveness matrix
+param set-default CA_FAILURE_MODE 0 # 0: disabled --> ignores the failure in the control allocation, 1: enabled --> first failed motor gets removed from effectiveness matrix
 # ATTENTION: PARAMETER SETTING SEEMS TO NOT WORK!!!
 
 # Safety
@@ -49,21 +49,23 @@ param set-default FW_AIRSPD_MIN 20 # Minimum forward speed user can set (stall s
 param set-default FW_AIRSPD_STALL 18 # Stall speed
 param set-default FW_AIRSPD_MAX 35 # Stall speed
 param set-default FW_AIRSPD_TRIM 25 # Cruise speed
-param set-default VT_FW_MIN_ALT 10 # When vehicle in FW mode drops below this altitude in m, it will instantly swith back to MC mode
+param set-default VT_FW_MIN_ALT 12 # When vehicle in FW mode drops below this altitude in m, it will instantly swith back to MC mode
 
 # Mission
-param set-default NAV_ACC_RAD 5 # Acceptance radius in m for waypoint
+param set-default NAV_ACC_RAD 10 # Acceptance radius in m for waypoint
 param set-default MIS_TAKEOFF_ALT 20 # Takeoff altitude
-param set-default VTO_LOITER_ALT 50 # VTOL relative loiter altitude
+param set-default VTO_LOITER_ALT 30 # VTOL relative loiter altitude
 param set-default MPC_YAWRAUTO_MAX 20 # deg/s !!! A too high value can lead to a crash !!! Yaw rate setpoint limit for autonomous modes
 
 # Position Mode
 param set-default MPC_Z_VEL_MAX_DN 2.5 # Maximum descent speed
-param set-default MPC_XY_VEL_MAX 12 # Maximum horizontsl velocity
+param set-default MPC_XY_VEL_MAX 15 # Maximum horizontal velocity
 
 # Flight states
-param set-default VT_FWD_THRUST_EN 0 # 0: Disabled, 4: Enables pusher motors to move forward constantly
-param set-default MC_AIRMODE 1 # 0: Disabled, 1: Roll Pitch, 2: Roll/Pitch/Yaw (the air-mode enables the mixer to increase the total thrust of the multirotor in order to keep attitde and rate control)
+param set-default VT_FWD_THRUST_EN 2 # 0: Disabled, 2: Enabled if distance to grounde above MPC_LAND_ALT1 ,4: Enables pusher motors to move forward constantly
+param set-default MPC_LAND_ALT1 3 # Altitude for 1. step of slow landing
+param set-default MPC_LAND_ALT2 2 # Altitude for 2. step of slow landing
+param set-default MC_AIRMODE 0 # 0: Disabled, 1: Roll Pitch, 2: Roll/Pitch/Yaw (the air-mode enables the mixer to increase the total thrust of the multirotor in order to keep attitde and rate control)
 
 # Control
 param set-default COM_RC_IN_MODE 1 # 0: RC transmitter only, 1: Joysick control only, 2: Either RC or joystick control, first valid input is used, 3: Either RC or joystick, first available cource used, 4: ignores any stick input
@@ -82,11 +84,14 @@ param set-default VT_PSHER_SLEW 0.33 # 1/s Pusher throttle ramp up slew rate
 param set-default FW_THR_TRIM 0.25 # Throttle for level flight at trim speed
 param set-default FW_AIRSPD_TRIM 24 # Default airspeed, controller will try to achieve
 param set-default FW_THR_MAX 0.7 # Maximum throttle in altitude controlled modes
-param set-default FW_THR_MIN 0.05 # Minimum throttle in altitude controlled modes. Usually at 0, can be set to small value to prevent motor from stopping during descent
+param set-default FW_THR_MIN 0.0 # Minimum throttle in altitude controlled modes. Usually at 0, can be set to small value to prevent motor from stopping during descent
 param set-default FW_P_LIM_MIN -15 # Minimum pitch angle setpoint
 param set-default FW_THR_SLEW_MAX 0 # (Default: 0) 1/s Maximum slew rate for the commaned throttle
 param set-default FW_R_LIM 50 # Maximum roll angle
 param set-default VT_FW_DIFTHR_EN 1 # Differential thrust for vtols in forward flight (1: Yaw)
+param set-default FW_T_CLMB_MAX 8
+param set-default FW_T_SINK_MAX 2.7
+param set-default FW_T_SINK_MIN 2
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # MOTOR CONTROL ALLOCATION
@@ -285,13 +290,6 @@ param set-default FW_YR_I 0.10 # Yaw Rate I gain (developed through autotune)
 param set-default FW_YR_D 0.00 # Yaw rate D gain (developed through autotune)
 param set-default FW_YR_FF 0.30 # Direct feed forward from rate setpoint to control surface output (developed through autotune)
 
-param set-default FW_THR_TRIM 0.25 # Throttle for level flight at trim speed
-param set-dvtefault FW_THR_MAX 0.6 # Maximum throttle in altitude controlled modes
-param set-default FW_THR_MIN 0.05 # Minimum throttle in altitude controlled modes. Usually at 0, can be set to small value to prevent motor from stopping during descent
-
-param set-default FW_T_CLMB_MAX 8
-param set-default FW_T_SINK_MAX 2.7
-param set-default FW_T_SINK_MIN 2.2
 
 # Multicopter controller gains
 param set-default MC_ROLLRATE_K 1.85
