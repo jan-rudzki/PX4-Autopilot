@@ -551,7 +551,8 @@ int16_t MixingOutput::output_limit_calc_single(int i, float value) const
 	// jan
 	// ModuleParams::updateParams();
 
-	int32_t pusher_mode = _param_ca_pusher_mode.get();
+	// int32_t pusher_mode = _param_ca_pusher_mode.get();
+	int32_t pusher_mode = 0;
 
 	// check for invalid / disabled channels
 	if (!PX4_ISFINITE(value)) {
@@ -575,10 +576,10 @@ int16_t MixingOutput::output_limit_calc_single(int i, float value) const
 			output = math::constrain(output, -8191.f, 8191.f);
 		} else {
 			// Cases 0 and 1: Unidirectional thrust
-			// output = math::interpolate(value, -1.f, 1.f, static_cast<float>(_min_value[i]), 8191.f);
-			// output = math::constrain(output, static_cast<float>(_min_value[i]), 8191.f);
-			output = math::interpolate(value, -1.f, 1.f, 0.f, 8191.f);
-			output = math::constrain(output, 0.f, 8191.f);
+			output = math::interpolate(value, -1.f, 1.f, static_cast<float>(_min_value[i]), 8191.f);
+			output = math::constrain(output, static_cast<float>(_min_value[i]), 8191.f);
+			// output = math::interpolate(value, -1.f, 1.f, 0.f, 8191.f);
+			// output = math::constrain(output, 0.f, 8191.f);
 		}
 	} else {
 		// Non-pusher motors
@@ -588,20 +589,6 @@ int16_t MixingOutput::output_limit_calc_single(int i, float value) const
 	}
 
 	return static_cast<int16_t>(lroundf(output));
-
-	// old version jan
-	// float output;
-	// if (i < 8) {
-	// 	// Use configured min/max values for channels < 8
-	// 	output = math::interpolate(value, -1.f, 1.f,
-	// 				static_cast<float>(_min_value[i]), static_cast<float>(_max_value[i]));
-	// } else {
-	// 	// Use fixed range for channels >= 8
-	// 	output = math::interpolate(value, -1.f, 1.f, -8191.f, 8191.f);
-	// }
-
-	// // Print the interpolated output before constraining jan
-	// // PX4_INFO("Channel %d: Interpolated output = %.3f", i, (double)output);
 
 	// // return math::constrain(lroundf(output), 0L, static_cast<long>(UINT16_MAX));
 	// // return math::constrain(lroundf(output), -8191, 8191);

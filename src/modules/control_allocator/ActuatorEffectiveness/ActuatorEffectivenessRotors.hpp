@@ -151,7 +151,6 @@ private:
 	Geometry _geometry{};
 
 	DEFINE_PARAMETERS(
-		(ParamInt<px4::params::CA_ROTOR_COUNT>) _param_ca_rotor_count,
-		(ParamFloat<px4::params::CA_PUSHER_SCALE>) _param_ca_pusher_scale ///< pusher scale
+		(ParamInt<px4::params::CA_ROTOR_COUNT>) _param_ca_rotor_count
 	)
 };
