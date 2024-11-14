@@ -71,7 +71,7 @@ bool
 ActuatorEffectivenessStandardVTOL::getEffectivenessMatrix(Configuration &configuration,
 		EffectivenessUpdateReason external_update)
 {
-	if (external_update != EffectivenessUpdateReason::NO_EXTERNAL_UPDATE) {
+	if (_needs_update || external_update != EffectivenessUpdateReason::NO_EXTERNAL_UPDATE) {
 		// Recompute the effectiveness matrix
 
 		// Motors
@@ -81,14 +81,11 @@ ActuatorEffectivenessStandardVTOL::getEffectivenessMatrix(Configuration &configu
 		// PX4_INFO("_________________________");
 		// PX4_INFO("Flight Phase: %d", static_cast<int>(_flight_phase));
 		// PX4_INFO("_________________________");
-
-		// if (_flight_phase == FlightPhase::HOVER_FLIGHT) {
-		// _rotors.enablePropellerTorqueNonUpwards(false); // Ignore propeller torque for non-upwards motors during hover
-		// } else {
-		// _rotors.enablePropellerTorqueNonUpwards(true); // Use normal propeller torque
-		// }
-
-		_rotors.enablePropellerTorqueNonUpwards(false);
+		if (_flight_phase == FlightPhase::HOVER_FLIGHT) {
+		_rotors.enablePropellerTorqueNonUpwards(false); // Ignore propeller torque for non-upwards motors during hover
+		} else {
+		_rotors.enablePropellerTorqueNonUpwards(true); // Use normal propeller torque
+		}
 
 		const bool mc_rotors_added_successfully = _rotors.addActuators(configuration);
 		_upwards_motors_mask = _rotors.getUpwardsMotors();
@@ -99,7 +96,7 @@ ActuatorEffectivenessStandardVTOL::getEffectivenessMatrix(Configuration &configu
 		_first_control_surface_idx = configuration.num_actuators_matrix[configuration.selected_matrix];
 		const bool surfaces_added_successfully = _control_surfaces.addActuators(configuration);
 
-		// _needs_update = false; // Reset the update flag
+		_needs_update = false; // Reset the update flag
 
 		return (mc_rotors_added_successfully && surfaces_added_successfully);
 	}
@@ -157,6 +154,6 @@ void ActuatorEffectivenessStandardVTOL::setFlightPhase(const FlightPhase &flight
 		break;
 	}
 	// JAN: Trigger effectiveness matrix update
-    	//_needs_update = true; // Set a flag indicating that the matrix needs to be updated
+    	_needs_update = true; // Set a flag indicating that the matrix needs to be updated
 
 }
