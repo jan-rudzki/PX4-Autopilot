@@ -70,7 +70,7 @@
 #pragma once
 
 #include <matrix/matrix/math.hpp>
-
+#include <px4_platform_common/log.h>
 #include "ActuatorEffectiveness/ActuatorEffectiveness.hpp"
 
 class ControlAllocation
@@ -144,6 +144,7 @@ public:
 	 */
 	matrix::Vector<float, NUM_AXES> getAllocatedControl() const
 	{ return (_effectiveness * (_actuator_sp - _actuator_trim)).emult(_control_allocation_scale); }
+
 
 	/**
 	 * Get the control effectiveness matrix

@@ -1,4 +1,4 @@
-__max_num_mc_motors: &max_num_mc_motors 12
+__max_num_mc_motors: &max_num_mc_motors 16
 __max_num_servos: &max_num_servos 8
 __max_num_tilts: &max_num_tilts 4
 
@@ -45,6 +45,38 @@ parameters:
                 1: Pseudo-inverse with sequential desaturation technique
                 2: Automatic
             default: 2
+
+        CA_PUSHER_SCALE:
+            description:
+                short: Pusher motor scale factor
+                long: |
+                  This parameter scales the output of the pusher motors (actuators 9 and 10).
+                  A value between 0.0 and 1.0 where 1.0 means no scaling, and 0.0 disables the pusher motors.
+            type: float
+            min: 0.0
+            max: 1.0
+            default: 0.4
+            decimal: 2
+            increment: 0.01
+            reboot_required: false
+
+        CA_PUSHER_MODE:
+            description:
+                short: Pusher motor operation mode
+                long: |
+                  Selects the operational mode of the pusher motors.
+
+                  - 0: Pushers contribute to forward thrust only when commanded (unidirectional, no yaw in hover).
+                  - 1: Pushers are active in hover for yaw control (unidirectional).
+                  - 2: Pushers run bidirectionally and are always active in yaw control (reverse thrust allowed).
+
+                  Note: Mode 2 requires the CA_R_REV parameter to be set appropriately for the pushers to run bidirectionally.
+            type: enum
+            values:
+                0: No yaw control in hover, pushers unidirectional
+                1: Yaw control in hover, pushers unidirectional
+                2: Yaw control in hover, pushers bidirectional
+            default: 0
 
         # Motor parameters
         CA_R_REV:
@@ -540,38 +572,6 @@ parameters:
             values:
                 0: Ignore
                 1: Remove first failed motor from effectiveness
-            default: 0
-            
-        CA_PUSHER_SCALE:
-            description:
-                short: Pusher motor scale factor
-                long: |
-                  This parameter scales the output of the pusher motors (actuators 9 and 10).
-                  A value between 0.0 and 1.0 where 1.0 means no scaling, and 0.0 disables the pusher motors.
-            type: float
-            min: 0.0
-            max: 1.0
-            default: 0.4
-            decimal: 2
-            increment: 0.01
-            reboot_required: false
-
-        CA_PUSHER_MODE:
-            description:
-                short: Pusher motor operation mode
-                long: |
-                  Selects the operational mode of the pusher motors.
-
-                  - 0: Pushers contribute to forward thrust only when commanded (unidirectional, no yaw in hover).
-                  - 1: Pushers are active in hover for yaw control (unidirectional).
-                  - 2: Pushers run bidirectionally and are always active in yaw control (reverse thrust allowed).
-
-                  Note: Mode 2 requires the CA_R_REV parameter to be set appropriately for the pushers to run bidirectionally.
-            type: enum
-            values:
-                0: No yaw control in hover, pushers unidirectional
-                1: Yaw control in hover, pushers unidirectional
-                2: Yaw control in hover, pushers bidirectional
             default: 0
 
 # Mixer

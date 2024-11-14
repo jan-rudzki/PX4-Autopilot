@@ -38,7 +38,7 @@
  *
  * @author Julien Lecoeur <julien.lecoeur@gmail.com>
  */
-
+#include <px4_platform_common/log.h>
 #include "ControlAllocationPseudoInverse.hpp"
 
 void
@@ -65,6 +65,7 @@ ControlAllocationPseudoInverse::updatePseudoInverse()
 		}
 
 		normalizeControlAllocationMatrix();
+
 		_mix_update_needed = false;
 	}
 }

@@ -215,11 +215,11 @@ param set-default SIM_GZ_EC_MIN8 10
 param set-default SIM_GZ_EC_MAX8 1500
 
 param set-default SIM_GZ_EC_FUNC9 109 # Motor 9
-param set-default SIM_GZ_EC_MIN9 -1500
+param set-default SIM_GZ_EC_MIN9 10
 param set-default SIM_GZ_EC_MAX9 1500
 
 param set-default SIM_GZ_EC_FUNC10 110 # Motor 10
-param set-default SIM_GZ_EC_MIN10 -1500
+param set-default SIM_GZ_EC_MIN10 10
 param set-default SIM_GZ_EC_MAX10 1500
 
 # für Motor Ausfall

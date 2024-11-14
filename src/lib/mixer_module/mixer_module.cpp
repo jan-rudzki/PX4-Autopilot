@@ -551,8 +551,7 @@ int16_t MixingOutput::output_limit_calc_single(int i, float value) const
 	// jan
 	// ModuleParams::updateParams();
 
-	// int32_t pusher_mode = _param_ca_pusher_mode.get();
-	int32_t pusher_mode = 0;
+	int32_t pusher_mode = _param_ca_pusher_mode.get();
 
 	// check for invalid / disabled channels
 	if (!PX4_ISFINITE(value)) {

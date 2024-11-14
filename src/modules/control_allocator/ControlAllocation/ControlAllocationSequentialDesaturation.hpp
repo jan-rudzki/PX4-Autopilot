@@ -44,7 +44,6 @@
 #pragma once
 
 #include "ControlAllocationPseudoInverse.hpp"
-
 #include <px4_platform_common/module_params.h>
 
 class ControlAllocationSequentialDesaturation: public ControlAllocationPseudoInverse, public ModuleParams
@@ -53,6 +52,8 @@ public:
 
 	ControlAllocationSequentialDesaturation() : ModuleParams(nullptr) {}
 	virtual ~ControlAllocationSequentialDesaturation() = default;
+
+	// void setPusherScale(float pusher_scale) { _pusher_scale = pusher_scale; }
 
 	void allocate() override;
 
@@ -85,6 +86,16 @@ private:
 	 */
 	float computeDesaturationGain(const ActuatorVector &desaturation_vector, const ActuatorVector &actuator_sp);
 
+	void desaturateHoverActuators(ActuatorVector &actuator_sp, const ActuatorVector &desaturation_vector,
+				      bool increase_only = false);
+	void desaturatePusherActuators(ActuatorVector &actuator_sp, const ActuatorVector &desaturation_vector,
+				       bool increase_only = false);
+	void desaturatePusherActuatorsSep(ActuatorVector &actuator_sp, const ActuatorVector &desaturation_vector,
+					  bool increase_only = false);
+	float computeHoverDesaturationGain(const ActuatorVector &desaturation_vector, const ActuatorVector &actuator_sp);
+	float computePusherDesaturationGain(const ActuatorVector &desaturation_vector, const ActuatorVector &actuator_sp);
+	float computeLeftPusherDesaturationGain(const ActuatorVector &desaturation_vector, const ActuatorVector &actuator_sp);
+	float computeRightPusherDesaturationGain(const ActuatorVector &desaturation_vector, const ActuatorVector &actuator_sp);
 	/**
 	 * Mix roll, pitch, yaw, thrust and set the actuator setpoint.
 	 *
@@ -122,7 +133,10 @@ private:
 	 */
 	void mixYaw();
 
+	// float _pusher_scale{0.4f};
+
 	DEFINE_PARAMETERS(
-		(ParamInt<px4::params::MC_AIRMODE>) _param_mc_airmode   ///< air-mode
+		(ParamInt<px4::params::MC_AIRMODE>) _param_mc_airmode,   ///< air-mode
+		(ParamInt<px4::params::CA_PUSHER_MODE>) _param_ca_pusher_mode ///< pusher mode
 	);
 };
