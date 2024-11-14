@@ -262,6 +262,9 @@ ActuatorEffectivenessRotors::computeEffectivenessMatrix(const Geometry &geometry
 			(double)effectiveness(3, i + actuator_start_index),
 			(double)effectiveness(4, i + actuator_start_index),
 			(double)effectiveness(5, i + actuator_start_index));
+
+
+
 	}
 
 	return num_actuators;
