@@ -78,9 +78,9 @@ ActuatorEffectivenessStandardVTOL::getEffectivenessMatrix(Configuration &configu
 		configuration.selected_matrix = 0;
 
 		// JAN: Adjust propeller torque effectiveness based on flight phase, print flgiht phase for debugging purposes
-		PX4_INFO("_________________________");
-		PX4_INFO("Flight Phase: %d", static_cast<int>(_flight_phase));
-		PX4_INFO("_________________________");
+		// PX4_INFO("_________________________");
+		// PX4_INFO("Flight Phase: %d", static_cast<int>(_flight_phase));
+		// PX4_INFO("_________________________");
 		if (_flight_phase == FlightPhase::HOVER_FLIGHT) {
 		_rotors.enablePropellerTorqueNonUpwards(false); // Ignore propeller torque for non-upwards motors during hover
 		} else {
