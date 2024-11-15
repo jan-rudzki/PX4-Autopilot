@@ -1019,49 +1019,48 @@
       <control_surface>
         <name>servo_0</name>
         <index>0</index>
-        <directon>-1</direction>
+        <direction>-1</direction>
         <CD_ctrl>0.000000</CD_ctrl>
         <CY_ctrl>0.000187</CY_ctrl>
         <CL_ctrl>0.000000</CL_ctrl>
         <Cell_ctrl>0.006419</Cell_ctrl>
         <Cem_ctrl>0.000000</Cem_ctrl>
         <Cen_ctrl>-0.000035</Cen_ctrl>
-    </control_surface>
-    <control_surface>
+      </control_surface>
+      <control_surface>
         <name>servo_1</name>
         <index>1</index>
-        <directon>-1</direction>
+        <direction>-1</direction>
         <CD_ctrl>0.000000</CD_ctrl>
         <CY_ctrl>0.000187</CY_ctrl>
         <CL_ctrl>0.000000</CL_ctrl>
         <Cell_ctrl>0.006419</Cell_ctrl>
         <Cem_ctrl>0.000000</Cem_ctrl>
         <Cen_ctrl>-0.000035</Cen_ctrl>
-    </control_surface>
-    <control_surface>
+      </control_surface>
+      <control_surface>
         <name>servo_2</name>
         <index>2</index>
-        <directon>1</direction>
+        <direction>1</direction>
         <CD_ctrl>-0.000036</CD_ctrl>
         <CY_ctrl>0.000000</CY_ctrl>
         <CL_ctrl>-0.005155</CL_ctrl>
         <Cell_ctrl>-0.000000</Cell_ctrl>
         <Cem_ctrl>0.028481</Cem_ctrl>
         <Cen_ctrl>-0.000000</Cen_ctrl>
-    </control_surface>
-    <control_surface>
+      </control_surface>
+      <control_surface>
         <name>servo_3</name>
         <index>3</index>
-        <directon>1</direction>
+        <direction>1</direction>
         <CD_ctrl>-0.000036</CD_ctrl>
         <CY_ctrl>0.000000</CY_ctrl>
         <CL_ctrl>-0.005155</CL_ctrl>
         <Cell_ctrl>-0.006419</Cell_ctrl>
         <Cem_ctrl>0.028481</Cem_ctrl>
         <Cen_ctrl>3.5e-05</Cen_ctrl>
-    </control_surface>
-
-
+      </control_surface>
+    </plugin>
 
 
 <!-- Motor Models -->

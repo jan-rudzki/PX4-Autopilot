@@ -108,6 +108,7 @@ px4_add_romfs_files(
 	17002_flightgear_tf-g2
 	4020_gz_s1
 	4021_gz_s1_6_hover
+	4022_gz_s1_advanced
 
 	# [22000, 22999] Reserve for custom models
 )

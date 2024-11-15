@@ -44,7 +44,7 @@ def main():
     ref_pt_x = reference_point.get("X")
     ref_pt_y = reference_point.get("Y")
     ref_pt_z = reference_point.get("Z")
-    num_ctrl_surfaces = 0
+    num_ctrl_surfaces = config.get("num_ctrl_surfaces")
     ctrl_surface_order = ['elevator', 'elevator', 'aileron', 'aileron']
 
     # Validate required fields
@@ -106,15 +106,16 @@ def main():
     output_dir = os.path.join(os.getcwd(), plane_name)
     os.makedirs(output_dir, exist_ok=True)
 
-    # Visualize PostScript plot
-    ps_file = os.path.join(output_dir, f"{plane_name}.ps")
-    if os.path.exists(ps_file):
-        os.system(f'evince {ps_file}')
-    else:
-        print("PostScript file not found. Skipping visualization.")
-
-    # Finally move all generated files to a new directory and show the generated geometry image:
+	# Finally move all generated files to a new directory and show the generated geometry image:
     result = subprocess.run(['pwd'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+
+    if result.returncode == 0:
+        # Save the output in a variable
+        current_path = result.stdout.strip()
+
+    # Run image plot from avl_automation directory.
+    os.system(f'mv ./{plane_name}.* ./{plane_name}' ) # move all plane_name files in plane_name folder
+    os.system(f'evince {current_path}/{plane_name}/{plane_name}.ps')
 
 if __name__ == "__main__":
     main()
