@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 
-import os
-import subprocess
-import yaml
 import argparse
-
+import avl_out_parse
+import os
+import yaml
+import subprocess
+import shutil
 """
 This script uses a pre-generated .avl file based on the provided YAML configuration.
 Ensure the .avl file exists and matches the vehicle_name specified in the YAML file.
@@ -111,6 +112,9 @@ def main():
         os.system(f'evince {ps_file}')
     else:
         print("PostScript file not found. Skipping visualization.")
+
+    # Finally move all generated files to a new directory and show the generated geometry image:
+    result = subprocess.run(['pwd'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
 if __name__ == "__main__":
     main()
