@@ -16,7 +16,7 @@ base
 
 #---------------------------------------------------------
 SURFACE
-main_wing
+main_wing2
 #Nchordwise  Cspace   Nspanwise  Sspace
 10         1.0         20      1.0
 
@@ -30,12 +30,55 @@ SECTION
 
 SECTION
 #Xle    Yle      Zle      Chord     Ainc  Nspanwise  Sspace
+1.6767  1.0914    0.08    0.3073    0.0     
+CONTROL
+aileron    -1.0   0.75   0. 0. 0.  -1
+
+SECTION
+#Xle    Yle      Zle      Chord     Ainc  Nspanwise  Sspace
+1.6954  1.6507    0.08    0.2697    0.0     
+CONTROL
+aileron    -1.0   0.75   0. 0. 0.  -1
+
+SECTION
+#Xle    Yle      Zle      Chord     Ainc  Nspanwise  Sspace
 1.6971  1.7    0.08    0.2664    0.0     
 
 
 #---------------------------------------------------------
 SURFACE
-front_wing
+main_wing2
+#Nchordwise  Cspace   Nspanwise  Sspace
+10         1.0         20      1.0
+
+YDUPLICATE
+0.0
+
+
+SECTION
+#Xle    Yle      Zle      Chord     Ainc  Nspanwise  Sspace
+1.64  0.0    0.08    0.3806    0.0     
+
+SECTION
+#Xle    Yle      Zle      Chord     Ainc  Nspanwise  Sspace
+1.6767  1.0914    0.08    0.3073    0.0     
+CONTROL
+aileron    -1.0   0.75   0. 0. 0.  -1
+
+SECTION
+#Xle    Yle      Zle      Chord     Ainc  Nspanwise  Sspace
+1.6954  1.6507    0.08    0.2697    0.0     
+CONTROL
+aileron    -1.0   0.75   0. 0. 0.  -1
+
+SECTION
+#Xle    Yle      Zle      Chord     Ainc  Nspanwise  Sspace
+1.6971  1.7    0.08    0.2664    0.0     
+
+
+#---------------------------------------------------------
+SURFACE
+front_wing2
 #Nchordwise  Cspace   Nspanwise  Sspace
 10         1.0         20      1.0
 
@@ -46,6 +89,49 @@ YDUPLICATE
 SECTION
 #Xle    Yle      Zle      Chord     Ainc  Nspanwise  Sspace
 0.04  0.0    -0.06    0.2668    1.0     
+
+SECTION
+#Xle    Yle      Zle      Chord     Ainc  Nspanwise  Sspace
+0.0706  0.5568    -0.06    0.2055    0.5791     
+CONTROL
+elevator    1.0   0.6799999999999999   0. 0. 0.  +1
+
+SECTION
+#Xle    Yle      Zle      Chord     Ainc  Nspanwise  Sspace
+0.0867  0.8497    -0.06    0.1733    0.3577     
+CONTROL
+elevator    1.0   0.6799999999999999   0. 0. 0.  +1
+
+SECTION
+#Xle    Yle      Zle      Chord     Ainc  Nspanwise  Sspace
+0.0934  0.97    -0.06    0.1601    1.0     
+
+
+#---------------------------------------------------------
+SURFACE
+front_wing2
+#Nchordwise  Cspace   Nspanwise  Sspace
+10         1.0         20      1.0
+
+YDUPLICATE
+0.0
+
+
+SECTION
+#Xle    Yle      Zle      Chord     Ainc  Nspanwise  Sspace
+0.04  0.0    -0.06    0.2668    1.0     
+
+SECTION
+#Xle    Yle      Zle      Chord     Ainc  Nspanwise  Sspace
+0.0706  0.5568    -0.06    0.2055    0.5791     
+CONTROL
+elevator    1.0   0.6799999999999999   0. 0. 0.  +1
+
+SECTION
+#Xle    Yle      Zle      Chord     Ainc  Nspanwise  Sspace
+0.0867  0.8497    -0.06    0.1733    0.3577     
+CONTROL
+elevator    1.0   0.6799999999999999   0. 0. 0.  +1
 
 SECTION
 #Xle    Yle      Zle      Chord     Ainc  Nspanwise  Sspace

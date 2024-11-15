@@ -13,3 +13,11 @@ reference_point:
   X: 1.2
   Y: 0
   Z: 0
+
+#Provide information on each of the Control Surfaces
+num_ctrl_surfaces: 4
+ctrl_surface_order:
+  - elevator
+  - elevator
+  - aileron
+  - aileron

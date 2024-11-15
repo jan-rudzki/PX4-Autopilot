@@ -45,7 +45,7 @@ def main():
     ref_pt_y = reference_point.get("Y")
     ref_pt_z = reference_point.get("Z")
     num_ctrl_surfaces = 0
-    ctrl_surface_order = []
+    ctrl_surface_order = ['elevator', 'elevator', 'aileron', 'aileron']
 
     # Validate required fields
     missing_fields = []
