@@ -3,6 +3,7 @@
 import os
 import subprocess
 import yaml
+import argparse
 
 """
 This script uses a pre-generated .avl file based on the provided YAML configuration.
@@ -10,6 +11,21 @@ Ensure the .avl file exists and matches the vehicle_name specified in the YAML f
 """
 
 def main():
+    user = os.environ.get('USER')
+    # This will find Avl on a users machine.
+    for root, dirs, _ in os.walk(f'/home/{user}/'):
+        if "Avl" in dirs:
+            target_directory_path = os.path.join(root, "Avl")
+            break
+    parent_directory_path = os.path.dirname(target_directory_path)
+    filedir = f'{parent_directory_path}/'
+    print(filedir)
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--yaml_file", help="Path to input yaml file.")
+    parser.add_argument("--avl_path", default=filedir, help="Provide an absolute AVL path. If this argument is passed, AVL will be moved there and the files will adjust their paths accordingly.")
+    inputs = parser.parse_args()
+
     # Load YAML configuration
     yaml_file = "input_s1.yml"  # Specify your YAML file here
     if not os.path.exists(yaml_file):
@@ -30,14 +46,31 @@ def main():
     num_ctrl_surfaces = 0
     ctrl_surface_order = []
 
-    if not all([plane_name, frame_type, reference_area, wing_span, reference_point]):
-        raise ValueError("Missing required configuration in YAML file.")
+    # Validate required fields
+    missing_fields = []
+    if plane_name is None:
+        missing_fields.append("vehicle_name")
+    if frame_type is None:
+        missing_fields.append("frame_type")
+    if reference_area is None:
+        missing_fields.append("reference_area")
+    if wing_span is None:
+        missing_fields.append("wing_span")
+    if ref_pt_x is None:
+        missing_fields.append("reference_point.X")
+    if ref_pt_y is None:
+        missing_fields.append("reference_point.Y")
+    if ref_pt_z is None:
+        missing_fields.append("reference_point.Z")
+
+    if missing_fields:
+        raise ValueError(f"Missing required fields in the YAML configuration: {', '.join(missing_fields)}")
 
     print(f"Vehicle Name: {plane_name}")
     print(f"Frame Type: {frame_type}")
     print(f"Reference Area: {reference_area}")
     print(f"Wing Span: {wing_span}")
-    print(f"Reference Point: {reference_point}")
+    print(f"Reference Point: X={ref_pt_x}, Y={ref_pt_y}, Z={ref_pt_z}")
 
     # Check if the corresponding .avl file exists
     avl_file = f"{plane_name}.avl"
@@ -61,20 +94,6 @@ def main():
 
         avl_out_parse.main(plane_name,frame_type,AR,mac,ref_pt_x,ref_pt_y,ref_pt_z,num_ctrl_surfaces,reference_area,ctrl_surface_order,inputs.avl_path)
 
-        # avl_out_parse.main(
-        #     plane_name=plane_name,
-        #     frame_type=frame_type,
-        #     AR=wing_span ** 2 / reference_area,  # Aspect Ratio
-        #     mac=(2 / 3) * (reference_area / wing_span),  # Mean Aerodynamic Chord
-        #     ref_pt_x=reference_point.get("X"),
-        #     ref_pt_y=reference_point.get("Y"),
-        #     ref_pt_z=reference_point.get("Z"),
-        #     num_ctrl_surfaces=None,  # Optional; if needed
-        #     area=reference_area,
-        #     ctrl_surface_order=None,  # Optional; if needed
-        #     avl_path=os.getcwd()
-        # )
-
     except TypeError as e:
         raise TypeError(
             "The function `avl_out_parse.main` received unexpected arguments. "
@@ -85,12 +104,6 @@ def main():
     # Move output files to a dedicated folder
     output_dir = os.path.join(os.getcwd(), plane_name)
     os.makedirs(output_dir, exist_ok=True)
-
-    for file in os.listdir('.'):
-        if file.startswith(plane_name):
-            os.rename(file, os.path.join(output_dir, file))
-
-    print(f"Output files saved in: {output_dir}")
 
     # Visualize PostScript plot
     ps_file = os.path.join(output_dir, f"{plane_name}.ps")
