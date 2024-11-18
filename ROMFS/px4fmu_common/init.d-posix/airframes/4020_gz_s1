@@ -50,10 +50,18 @@ param set-default FW_AIRSPD_MAX 35 # Stall speed
 param set-default FW_AIRSPD_TRIM 25 # Cruise speed
 param set-default VT_FW_MIN_ALT 10 # When vehicle in FW mode drops below this altitude in m, it will instantly swith back to MC mode
 
-# Mission
-param set-default NAV_ACC_RAD 5 # Acceptance radius in m for waypoint
+# Mission - NEU JAN
+param set-default NAV_ACC_RAD 15 # Acceptance radius in m for waypoint
 param set-default MIS_TAKEOFF_ALT 50 # Takeoff altitude
 param set-default VTO_LOITER_ALT 50 # VTOL relative loiter altitude
+param set-default MPC_YAW_MODE 3 # 3: along trajectory
+param set-default MPC_YAWRAUTO_MAX 25 # deg/s Maximum yaw rate in auto mode default = 45
+param set-default MPC_JERK_AUTO 2.0 # m/s³ Jerk limit for auto mode default = 4.0
+param set-default MPC_ACC_HOR_MAX 2.0 # m/s² Maximum horizontal acceleration default = 5.0
+param set-default MPC_ACC_HOR 2.0 # m/s² Maximum horizontal acceleration for autonomous modes default = 3.0
+param set-default MPC_JERK_MAX 5.0 # m/s³ Jerk limit for manual mode default = 8.0
+param set-default MPC_XY_TRAJ_P 0.5 # Trajectory following position controller gain default = 0.5
+
 
 # Flight states
 param set-default VT_FWD_THRUST_EN 0 # 0: Disabled, 4: Enables pusher motors to move forward constantly

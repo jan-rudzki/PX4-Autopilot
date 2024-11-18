@@ -315,7 +315,7 @@ void FailureDetector::updateEscsStatus(const vehicle_status_s &vehicle_status, c
 		const bool is_all_escs_armed = (all_escs_armed_mask == esc_status.esc_armed_flags);
 
 		bool is_esc_failure = !is_all_escs_armed;
-		PX4_INFO("ESC Status - All Armed: %d, ESC Failure Detected: %d", is_all_escs_armed, is_esc_failure);
+		// PX4_INFO("ESC Status - All Armed: %d, ESC Failure Detected: %d", is_all_escs_armed, is_esc_failure);
 
 		for (int i = 0; i < limited_esc_count; i++) {
 			is_esc_failure = is_esc_failure || (esc_status.esc[i].failures > 0);
