@@ -1060,6 +1060,8 @@
         <Cem_ctrl>0.028481</Cem_ctrl>
         <Cen_ctrl>3.5e-05</Cen_ctrl>
       </control_surface>
+      <!-- Topic-Konfiguration -->
+      <topic_name>lift_forces</topic_name>
     </plugin>
 
 
