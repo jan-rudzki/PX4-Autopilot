@@ -569,6 +569,7 @@
       <forward>1 0 0</forward>
       <upward>0 0 1</upward>
       <link_name>base_link</link_name>
+      <!-- <topic_name>lift_drag_forces</topic_name> -->
       <num_ctrl_surfaces>4</num_ctrl_surfaces>
       <control_surface>
         <name>servo_0</name>
