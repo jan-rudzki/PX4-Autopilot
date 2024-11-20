@@ -120,17 +120,13 @@ ControlAllocationSequentialDesaturation::allocate()
 
 
 
-// Jan's version for debugging
+// Jan's version
 void ControlAllocationSequentialDesaturation::desaturateActuators(
     ActuatorVector &actuator_sp,
     const ActuatorVector &desaturation_vector,
     bool increase_only)
 {
     float gain = computeDesaturationGain(desaturation_vector, actuator_sp);
-//     float _pusher_scale = _param_ca_pusher_scale.get();
-
-    // Print initial gain
-    // PX4_INFO("Desaturation gain (initial): %f", (double)gain);
 
     if (increase_only && gain < 0.f) {
         // PX4_INFO("Skipping desaturation as increase_only is true and gain is negative");
@@ -154,18 +150,13 @@ void ControlAllocationSequentialDesaturation::desaturateActuators(
     for (int i = 0; i < _num_actuators; i++) {
         actuator_sp(i) += gain * desaturation_vector(i);
     }
-//     cap i=8 and i=9 between [-0.3,0.3]
-//     for (int i = 0; i < _num_actuators; i++) {
-//         if (i == 8 || i == 9) {
-//             actuator_sp(i) = actuator_sp(i) * _pusher_scale;
-//         }
-//     }
 
     // Print actuator setpoints after reduced gain application
     // for (int i = 0; i < _num_actuators; i++) {
     //     PX4_INFO("Actuator %d - Final Setpoint after reduced gain application: %f", i, (double)actuator_sp(i));
     // }
 }
+
 float ControlAllocationSequentialDesaturation::computeDesaturationGain(
     const ActuatorVector &desaturation_vector,
     const ActuatorVector &actuator_sp)
@@ -216,7 +207,6 @@ void ControlAllocationSequentialDesaturation::desaturatePusherActuatorsSep(
 	//print initial gains
 	// PX4_INFO("Desaturation gain left pusher: %f", (double)gain_l);
 	// PX4_INFO("Desaturation gain right pusher: %f", (double)gain_r);
-	// float _pusher_scale = _param_ca_pusher_scale.get();
 
 	if (increase_only && gain_l < 0.f && gain_r < 0.f) {
 		return;
@@ -242,9 +232,6 @@ void ControlAllocationSequentialDesaturation::desaturatePusherActuatorsSep(
 	    actuator_sp(i) += gain_r * desaturation_vector(i);
 	}
 	}
-
-	// actuator_sp(8) = actuator_sp(8) * _pusher_scale;
-	// actuator_sp(9) = actuator_sp(9) * _pusher_scale;
 
 }
 
@@ -567,7 +554,7 @@ ControlAllocationSequentialDesaturation::mixYaw()
 	ActuatorVector thrust_z;
 
 	// Print yaw control setpoint and trim for debugging
-//     PX4_INFO("Yaw Control Setpoint: %f, Trim: %f", (double)_control_sp(ControlAxis::YAW), (double)_control_trim(ControlAxis::YAW));
+    	// PX4_INFO("Yaw Control Setpoint: %f, Trim: %f", (double)_control_sp(ControlAxis::YAW), (double)_control_trim(ControlAxis::YAW));
 
 
 	for (int i = 0; i < _num_actuators; i++) {
@@ -612,9 +599,9 @@ ControlAllocationSequentialDesaturation::mixYaw()
 	_actuator_max = max_prev;
 
     // Print actuator setpoints after yaw desaturation
-//     for (int i = 0; i < _num_actuators; i++) {
-//         PX4_INFO("Actuator %d - Setpoint after yaw desaturation: %f", i, (double)_actuator_sp(i));
-//     }
+    // for (int i = 0; i < _num_actuators; i++) {
+    // 		PX4_INFO("Actuator %d - Setpoint after yaw desaturation: %f", i, (double)_actuator_sp(i));
+    // }
 
 	// reduce thrust only
 	desaturateActuators(_actuator_sp, thrust_z, true);

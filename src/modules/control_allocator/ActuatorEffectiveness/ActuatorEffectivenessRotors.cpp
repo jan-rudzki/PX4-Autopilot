@@ -184,7 +184,7 @@ ActuatorEffectivenessRotors::computeEffectivenessMatrix(const Geometry &geometry
 		float ct_m = ct;
 
 		// JAN: Determine if the rotor is a pusher propeller
-        	bool is_pusher = (fabsf(axis(0)) > 0.9f); // Assuming pusher propellers have axis along X-axis
+        	// bool is_pusher = (fabsf(axis(0)) > 0.9f); // Assuming pusher propellers have axis along X-axis
 
 		// JAN: Adjust km (propeller torque effect) for pusher propellers during hover flight
         	// if (is_pusher) {
@@ -196,9 +196,9 @@ ActuatorEffectivenessRotors::computeEffectivenessMatrix(const Geometry &geometry
 			km = 0.f;
 		}
 		// JAN: print propeller_torque_disabled_non_upwards for debugging purposes
-		PX4_INFO("########");
-		PX4_INFO("propeller_torque_disabled_non_upwards: %d", geometry.propeller_torque_disabled_non_upwards);
-		PX4_INFO("########");
+		// PX4_INFO("########");
+		// PX4_INFO("propeller_torque_disabled_non_upwards: %d", geometry.propeller_torque_disabled_non_upwards);
+		// PX4_INFO("########");
 
 		if (geometry.propeller_torque_disabled_non_upwards) {
 			bool upwards = fabsf(axis(0)) < 0.1f && fabsf(axis(1)) < 0.1f && axis(2) < -0.5f;
@@ -249,22 +249,19 @@ ActuatorEffectivenessRotors::computeEffectivenessMatrix(const Geometry &geometry
 		}
 
 		// Debugging Jan: Print the effectiveness vector for motor i
-		PX4_INFO("Motor %d (Index %d) %s:", i, i + actuator_start_index, is_pusher ? "[Pusher]" : "[Hover]");
-		PX4_INFO("  Position: X = %.4f, Y = %.4f, Z = %.4f",
-			(double)position(0), (double)position(1), (double)position(2));
-		PX4_INFO("  Axis: X = %.4f, Y = %.4f, Z = %.4f",
-			(double)axis(0), (double)axis(1), (double)axis(2));
-		PX4_INFO("  Moments: Roll = %.4f, Pitch = %.4f, Yaw = %.4f",
-			(double)effectiveness(0, i + actuator_start_index),
-			(double)effectiveness(1, i + actuator_start_index),
-			(double)effectiveness(2, i + actuator_start_index));
-		PX4_INFO("  Forces: X = %.4f, Y = %.4f, Z = %.4f",
-			(double)effectiveness(3, i + actuator_start_index),
-			(double)effectiveness(4, i + actuator_start_index),
-			(double)effectiveness(5, i + actuator_start_index));
-
-
-
+		// PX4_INFO("Motor %d (Index %d) %s:", i, i + actuator_start_index, is_pusher ? "[Pusher]" : "[Hover]");
+		// PX4_INFO("  Position: X = %.4f, Y = %.4f, Z = %.4f",
+		// 	(double)position(0), (double)position(1), (double)position(2));
+		// PX4_INFO("  Axis: X = %.4f, Y = %.4f, Z = %.4f",
+		// 	(double)axis(0), (double)axis(1), (double)axis(2));
+		// PX4_INFO("  Moments: Roll = %.4f, Pitch = %.4f, Yaw = %.4f",
+		// 	(double)effectiveness(0, i + actuator_start_index),
+		// 	(double)effectiveness(1, i + actuator_start_index),
+		// 	(double)effectiveness(2, i + actuator_start_index));
+		// PX4_INFO("  Forces: X = %.4f, Y = %.4f, Z = %.4f",
+		// 	(double)effectiveness(3, i + actuator_start_index),
+		// 	(double)effectiveness(4, i + actuator_start_index),
+		// 	(double)effectiveness(5, i + actuator_start_index));
 	}
 
 	return num_actuators;

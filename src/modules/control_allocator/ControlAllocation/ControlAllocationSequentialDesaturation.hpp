@@ -44,7 +44,6 @@
 #pragma once
 
 #include "ControlAllocationPseudoInverse.hpp"
-
 #include <px4_platform_common/module_params.h>
 
 class ControlAllocationSequentialDesaturation: public ControlAllocationPseudoInverse, public ModuleParams
@@ -139,6 +138,5 @@ private:
 	DEFINE_PARAMETERS(
 		(ParamInt<px4::params::MC_AIRMODE>) _param_mc_airmode,   ///< air-mode
 		(ParamInt<px4::params::CA_PUSHER_MODE>) _param_ca_pusher_mode ///< pusher mode
-		// (ParamFloat<px4::params::CA_PUSHER_SCALE>) _param_ca_pusher_scale ///< pusher scale
 	);
 };

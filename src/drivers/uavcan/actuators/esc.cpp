@@ -154,7 +154,7 @@ UavcanEscController::esc_status_sub_cb(const uavcan::ReceivedDataStructure<uavca
 	}
 }
 
-uint8_t
+uint16_t
 UavcanEscController::check_escs_status()
 {
 	int esc_status_flags = 0;

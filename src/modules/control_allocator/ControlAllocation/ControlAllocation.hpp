@@ -71,8 +71,6 @@
 
 #include <matrix/matrix/math.hpp>
 #include <px4_platform_common/log.h>
-
-
 #include "ActuatorEffectiveness/ActuatorEffectiveness.hpp"
 
 class ControlAllocation
@@ -144,43 +142,9 @@ public:
 	 *
 	 * @return Control vector
 	 */
-	// matrix::Vector<float, NUM_AXES> getAllocatedControl() const
-	// { return (_effectiveness * (_actuator_sp - _actuator_trim)).emult(_control_allocation_scale); }
 	matrix::Vector<float, NUM_AXES> getAllocatedControl() const
-	{
-		// Calculate actuator setpoint minus trim
-		matrix::Vector<float, NUM_ACTUATORS> actuator_delta = _actuator_sp - _actuator_trim;
+	{ return (_effectiveness * (_actuator_sp - _actuator_trim)).emult(_control_allocation_scale); }
 
-		// Print actuator delta for debugging
-		// PX4_INFO("Actuator Delta:");
-		// for (int i = 0; i < NUM_ACTUATORS; ++i) {
-		// 	PX4_INFO("actuator_delta[%d] = %f", i, static_cast<double>(actuator_delta(i)));
-		// }
-
-		// Apply effectiveness matrix
-		matrix::Vector<float, NUM_AXES> effectiveness_result = _effectiveness * actuator_delta;
-
-		// Print effectiveness matrix and result for debugging
-		// PX4_INFO("Effectiveness Matrix:");
-		// for (int row = 0; row < NUM_AXES; ++row) {
-		// 	for (int col = 0; col < NUM_ACTUATORS; ++col) {
-		// 		PX4_INFO("effectiveness[%d, %d] = %f", row, col, static_cast<double>(_effectiveness(row, col)));
-		// 	}
-		// 	PX4_INFO("effectiveness_result[%d] = %f", row, static_cast<double>(effectiveness_result(row)));
-		// }
-
-		// Apply control allocation scale (element-wise multiplication)
-		matrix::Vector<float, NUM_AXES> allocated_control = effectiveness_result.emult(_control_allocation_scale);
-
-		// Print allocated control and scaling for debugging
-		// PX4_INFO("Control Allocation Scale:");
-		// for (int i = 0; i < NUM_AXES; ++i) {
-		// 	PX4_INFO("control_allocation_scale[%d] = %f", i, static_cast<double>(_control_allocation_scale(i)));
-		// 	PX4_INFO("allocated_control[%d] = %f", i, static_cast<double>(allocated_control(i)));
-		// }
-
-		return allocated_control;
-	}
 
 	/**
 	 * Get the control effectiveness matrix
