@@ -17,7 +17,7 @@ reference_point:
 #Provide information on each of the Control Surfaces
 num_ctrl_surfaces: 4
 ctrl_surface_order:
-  - elevator
-  - elevator
   - aileron
   - aileron
+  - elevator
+  - elevator
