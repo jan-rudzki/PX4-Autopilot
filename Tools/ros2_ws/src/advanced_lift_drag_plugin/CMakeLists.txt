@@ -6,6 +6,7 @@ project(advanced_lift_drag_plugin)
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
 find_package(gz-sim7 REQUIRED)
 
 
@@ -29,12 +30,13 @@ add_library(AdvancedLiftDrag SHARED src/AdvancedLiftDrag.cc)
 ament_target_dependencies(AdvancedLiftDrag
   rclcpp
   std_msgs
+  geometry_msgs
   gz-sim7
 )
 
 install(TARGETS AdvancedLiftDrag DESTINATION lib)
 
-ament_export_dependencies(rclcpp std_msgs gz-sim7)
+ament_export_dependencies(rclcpp std_msgs geometry_msgs gz-sim7)
 ament_package()
 
 

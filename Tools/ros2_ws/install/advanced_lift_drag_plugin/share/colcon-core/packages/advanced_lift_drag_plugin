@@ -1,1 +1,1 @@
-gz-sim7:rclcpp:std_msgs
+geometry_msgs:gz-sim7:rclcpp:std_msgs

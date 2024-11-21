@@ -46,6 +46,7 @@
 #include <gz/common/Console.hh> // JAN: added for GZ_LOG
 #include <rclcpp/rclcpp.hpp> // JAN: added for ROS2 logging
 #include <std_msgs/msg/float64.hpp> // JAN: added for ROS2 logging
+#include <geometry_msgs/msg/vector3.hpp> // JAN: added for ROS2 logging
 
 #include <sdf/Element.hh>
 
@@ -90,7 +91,15 @@ class gz::sim::systems::AdvancedLiftDragPrivate
   public: rclcpp::Node::SharedPtr rosNode;
   public: rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr alphaPub;
   public: rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr clPub;
+  public: rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr cdPub;
   public: rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr liftForcePub;
+  public: rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr speedInLDPlanePub;
+  public: rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr clCtrlTotPub;
+  public: rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr aControlAngleElevPub;
+  public: rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr aControlAngleAilPub;
+  public: rclcpp::Publisher<geometry_msgs::msg::Vector3>::SharedPtr dragPub;
+  public: rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr dragLengthPub;
+  public: rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr sigmaPub;
   
   public:
 	/// \brief ROS 2 executor for spinning the node
@@ -312,8 +321,15 @@ void AdvancedLiftDragPrivate::Load(const EntityComponentManager &_ecm,
   this->rosNode = rclcpp::Node::make_shared("advanced_lift_drag_plugin");
   this->alphaPub = this->rosNode->create_publisher<std_msgs::msg::Float64>("~/alpha", 10);
   this->clPub = this->rosNode->create_publisher<std_msgs::msg::Float64>("~/cl", 10);
+  this->cdPub = this->rosNode->create_publisher<std_msgs::msg::Float64>("~/cd", 10);
   this->liftForcePub = this->rosNode->create_publisher<std_msgs::msg::Float64>("~/lift_force", 10);
-
+  this->speedInLDPlanePub = this->rosNode->create_publisher<std_msgs::msg::Float64>("~/speed_in_ld_plane", 10);
+  this->clCtrlTotPub = this->rosNode->create_publisher<std_msgs::msg::Float64>("~/cl_ctrl_tot", 10);
+  this->aControlAngleElevPub = this->rosNode->create_publisher<std_msgs::msg::Float64>("~/a_control_angle_elev", 10);
+  this->aControlAngleAilPub = this->rosNode->create_publisher<std_msgs::msg::Float64>("~/a_control_angle_ail", 10);
+  this->dragPub = this->rosNode->create_publisher<geometry_msgs::msg::Vector3>("~/drag", 10);
+  this->dragLengthPub = this->rosNode->create_publisher<std_msgs::msg::Float64>("~/drag_magnitude", 10);
+  this->sigmaPub = this->rosNode->create_publisher<std_msgs::msg::Float64>("~/sigma", 10);
 
   this->CL0 = _sdf->Get<double>("CL0", this->CL0).first;
   this->CD0 = _sdf->Get<double>("CD0", this->CD0).first;
@@ -499,19 +515,19 @@ AdvancedLiftDrag::~AdvancedLiftDrag()
     // Stop the ROS 2 executor if you're using one
 	if (this->dataPtr->executor)
 	{
-	this->dataPtr->executor->cancel();
+		this->dataPtr->executor->cancel();
 	}
 
 	// Join the ROS 2 spinning thread if you're using one
 	if (this->dataPtr->rosSpinThread.joinable())
 	{
-	this->dataPtr->rosSpinThread.join();
+		this->dataPtr->rosSpinThread.join();
 	}
 
 	// Shutdown ROS 2 if it is still running
 	if (rclcpp::ok())
 	{
-	rclcpp::shutdown();
+		rclcpp::shutdown();
 	}
 
     // Any other cleanup code (if needed)
@@ -676,6 +692,9 @@ void AdvancedLiftDragPrivate::Update(EntityComponentManager &_ecm)
   double Cem_ctrl_tot = 0;
   double Cen_ctrl_tot = 0;
 
+  double controlAngle_elevators = 0.0;
+  double controlAngle_ailerons = 0.0;
+
   for(int i = 0; i < this->num_ctrl_surfaces; i++){
     double controlAngle = 0.0;
     if (controlJointPosition_vec[i] && !controlJointPosition_vec[
@@ -684,6 +703,12 @@ void AdvancedLiftDragPrivate::Update(EntityComponentManager &_ecm)
       components::JointPosition *tmp_controlJointPosition =
       controlJointPosition_vec[i];
       controlAngle = tmp_controlJointPosition->Data()[0] * 180 / GZ_PI;
+    }
+    if (i == 2){
+      controlAngle_elevators = controlAngle;
+    }
+    else if (i == 0){
+      controlAngle_ailerons = controlAngle;
     }
 
     // AVL's and Gazebo's direction of "positive" deflection may be different.
@@ -705,16 +730,12 @@ void AdvancedLiftDragPrivate::Update(EntityComponentManager &_ecm)
   // AVL outputs a "CZ_elev", but the Z axis is down. This plugin
   // uses CL_elev, which is the negative of CZ_elev
   CL = CL+CL_ctrl_tot;
-  // Jan debug
-//   gzdbg << "Lift Coefficient (CL): " << CL << "\n";
 
   // Compute lift force at cp
   gz::math::Vector3d lift = (CL * dyn_pres + (this->CLp * (
     rr*span/2) * half_rho_vel) + (this->CLq * (pr*this->mac/2) *
     half_rho_vel) + (this->CLr * (yr*span/2) * half_rho_vel)) *
     (this->area * (-1 * stability_z_axis));
-  // jan debug GZ_LOG for lift
-//   gzdbg << "Lift Force: " << lift << "\n";
 
   // Compute CD at cp, check for stall
   double CD{0.0};
@@ -731,7 +752,6 @@ void AdvancedLiftDragPrivate::Update(EntityComponentManager &_ecm)
   // https://aip.scitation.org/doi/pdf/10.1063/1.5011207
   // I halved the drag numbers to make sure it would work with my
   // flat plate drag model.
-
 
   // To estimate the flat plate coefficient of drag, I fit a sigmoid function
   // to the data in Ostowari and Naik. The form I used was:
@@ -836,20 +856,69 @@ void AdvancedLiftDragPrivate::Update(EntityComponentManager &_ecm)
   Link link(this->linkEntity);
   link.AddWorldWrench(_ecm, force, totalTorque);
 
-  // Publish angle of attack
-  std_msgs::msg::Float64 alphaMsg;
-  alphaMsg.data = this->alpha;
-  this->alphaPub->publish(alphaMsg);
+  if (rclcpp::ok())
+  {
+    // Publish AoA
+    std_msgs::msg::Float64 alphaMsg;
+    alphaMsg.data = this->alpha;
+    this->alphaPub->publish(alphaMsg);
 
-  // Publish lift coefficient
-  std_msgs::msg::Float64 clMsg;
-  clMsg.data = CL;
-  this->clPub->publish(clMsg);
+    // Publish lift coefficient
+    std_msgs::msg::Float64 clMsg;
+    clMsg.data = CL;
+    this->clPub->publish(clMsg);
 
-  // Publish lift force magnitude
-  std_msgs::msg::Float64 liftForceMsg;
-  liftForceMsg.data = lift.Length();
-  this->liftForcePub->publish(liftForceMsg);
+    // Publish drag coefficient
+    std_msgs::msg::Float64 cdMsg;
+    cdMsg.data = CD;
+    this->cdPub->publish(cdMsg);
+
+    // Publish lift force magnitude
+    std_msgs::msg::Float64 liftForceMsg;
+    liftForceMsg.data = lift.Length();
+    this->liftForcePub->publish(liftForceMsg);
+
+    // Publish speed in LD plane
+    std_msgs::msg::Float64 speedInLDPlaneMsg;
+    speedInLDPlaneMsg.data = speedInLDPlane;
+//     speedInLDPlaneMsg.data = static_cast<float>(speedInLDPlane);
+    this->speedInLDPlanePub->publish(speedInLDPlaneMsg);
+
+    // Publish CL_ctrl_tot
+    std_msgs::msg::Float64 clCtrlTotMsg;
+    clCtrlTotMsg.data = CL_ctrl_tot;
+    this->clCtrlTotPub->publish(clCtrlTotMsg);
+
+    // Publish control angle of elevators
+    std_msgs::msg::Float64 controlAngleElevatorsMsg;
+    controlAngleElevatorsMsg.data = controlAngle_elevators;
+    this->aControlAngleElevPub->publish(controlAngleElevatorsMsg);
+
+    // Publish control angle of ailerungs
+    std_msgs::msg::Float64 controlAngleAileronsMsg;
+    controlAngleAileronsMsg.data = controlAngle_ailerons;
+    this->aControlAngleAilPub->publish(controlAngleAileronsMsg);
+
+    // Publish the drag force vector in stability frame
+    geometry_msgs::msg::Vector3 dragMsg;
+    dragMsg.x = drag.X();
+    dragMsg.y = drag.Y();
+    dragMsg.z = drag.Z();
+    this->dragPub->publish(dragMsg);
+
+    // Publish the magnitude of the drag force
+    std_msgs::msg::Float64 dragLengthMsg;
+    dragLengthMsg.data = drag.Length();
+    this->dragLengthPub->publish(dragLengthMsg);
+
+    // Publish sigma
+    std_msgs::msg::Float64 sigmaMsg;
+    sigmaMsg.data = sigma;
+    this->sigmaPub->publish(sigmaMsg);
+
+    // Process any incoming messages
+    rclcpp::spin_some(this->rosNode);
+  }
 
   rclcpp::spin_some(this->rosNode);
 }

@@ -1,6 +1,6 @@
 # generated from ament_cmake_export_dependencies/cmake/ament_cmake_export_dependencies-extras.cmake.in
 
-set(_exported_dependencies "rclcpp;std_msgs;gz-sim7")
+set(_exported_dependencies "rclcpp;std_msgs;geometry_msgs;gz-sim7")
 
 find_package(ament_cmake_libraries QUIET REQUIRED)
 
