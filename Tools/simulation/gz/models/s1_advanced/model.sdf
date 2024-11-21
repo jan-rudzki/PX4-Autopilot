@@ -8,7 +8,7 @@
       <!-- 0 0 0.115 0 0 0 -->
       <pose>0 0 0.115 0 0 0</pose> <!-- Position of S1 CG Frame relative to inertial frame. sitl flight controller is at base link origin. therefore CG should be at base link origin -->
       <inertial>
-        <pose>0 0 0 0 0 0</pose> <!-- Position of inertia tensor relative to base_link frame (center of gravity) should be at base link origin -->
+        <pose>0.01 0 0 0 0 0</pose> <!-- Position of inertia tensor relative to base_link frame (center of gravity) should be at base link origin -->
         <mass>16.0</mass>
         <inertia> <!-- Inertia characteristics of base_link -->
           <!-- Seems to be right. Check with structure/PD team-->
@@ -912,6 +912,11 @@
         </ode>
       </physics>
     </joint>
+    <plugin
+      filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>servo_0</joint_name>
+      <sub_topic>servo_0</sub_topic>
+    </plugin>
     <joint name='servo_1' type='revolute'>
       <parent>base_link</parent>
       <child>right_elevon</child>
@@ -931,6 +936,11 @@
         </ode>
       </physics>
     </joint>
+    <plugin
+      filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>servo_1</joint_name>
+      <sub_topic>servo_1</sub_topic>
+    </plugin>
     <!-- Ailerons -->
     <joint name='servo_2' type='revolute'>
       <parent>base_link</parent>
@@ -951,6 +961,11 @@
         </ode>
       </physics>
     </joint>
+    <plugin
+      filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>servo_2</joint_name>
+      <sub_topic>servo_2</sub_topic>
+    </plugin>
     <joint name='servo_3' type='revolute'>
       <parent>base_link</parent>
       <child>right_aileron</child>
@@ -970,7 +985,11 @@
         </ode>
       </physics>
     </joint>
-
+    <plugin
+      filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>servo_3</joint_name>
+      <sub_topic>servo_3</sub_topic>
+    </plugin>
 
     <!-- Advanced Lift Drag -->
     <!-- <plugin filename="/home/jan/Desktop/PX4/PX4-Autopilot/Tools/gazebo_plugins/advanced_lift_drag/build/libAdvancedLiftDrag.so" name="gz::sim::systems::AdvancedLiftDrag"> -->
@@ -980,7 +999,8 @@
       <AR>10.509090909090908</AR>
       <eff>0.95</eff>
       <CLa>6.435583</CLa>
-      <CD0>0.01359</CD0> <!-- Value extracted from SUAVE -->
+      <!-- <CD0>0.01359</CD0> Value extracted from SUAVE -->
+      <CD0>0.03987</CD0>
       <Cem0>0.11420</Cem0>
       <Cema>-0.609373</Cema>
       <CYb>-0.365857</CYb>
@@ -992,7 +1012,7 @@
       <Cellp>-0.617281</Cellp>
       <Cemp>-0.000003</Cemp>
       <Cenp>0.008975</Cenp>
-      <CDq>-0.223381</CDq>
+      <CDq>0.223381</CDq> <!-- was negative bevore but may be wrong -->
       <CYq>-0.000001</CYq>
       <CLq>-15.304629</CLq>
       <Cellq>0.000001</Cellq>
@@ -1031,7 +1051,7 @@
       <control_surface>
         <name>servo_3</name>
         <index>3</index>
-        <direction>-1</direction>
+        <direction>1</direction>
         <CD_ctrl>0.000000</CD_ctrl>
         <CY_ctrl>0.000187</CY_ctrl>
         <CL_ctrl>0.000000</CL_ctrl>
@@ -1042,10 +1062,10 @@
       <control_surface>
         <name>servo_0</name>
         <index>0</index>
-        <direction>1</direction>
+        <direction>-1</direction>
         <CD_ctrl>-0.000036</CD_ctrl>
         <CY_ctrl>0.000000</CY_ctrl>
-        <CL_ctrl>-0.005155</CL_ctrl>
+        <CL_ctrl>0.005155</CL_ctrl>
         <Cell_ctrl>-0.000000</Cell_ctrl>
         <Cem_ctrl>0.028481</Cem_ctrl>
         <Cen_ctrl>-0.000000</Cen_ctrl>
@@ -1053,11 +1073,11 @@
       <control_surface>
         <name>servo_1</name>
         <index>1</index>
-        <direction>1</direction>
+        <direction>-1</direction>
         <CD_ctrl>-0.000036</CD_ctrl>
         <CY_ctrl>0.000000</CY_ctrl>
-        <CL_ctrl>-0.005155</CL_ctrl>
-        <Cell_ctrl>-0.00000</Cell_ctrl>
+        <CL_ctrl>0.005155</CL_ctrl>
+        <Cell_ctrl>-0.000000</Cell_ctrl>
         <Cem_ctrl>0.028481</Cem_ctrl>
         <Cen_ctrl>3.5e-05</Cen_ctrl>
       </control_surface>

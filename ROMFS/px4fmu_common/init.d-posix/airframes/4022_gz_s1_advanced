@@ -258,10 +258,10 @@ param set-default CA_SV_CS_COUNT 4 # Number of servos
 param set-default CA_SV_CS0_TYPE 3
 param set-default CA_SV_CS0_TRQ_P 1.0
 param set-default CA_SV_CS0_TRQ_P 0.7 # Elevator Pitch Moment Scaling --> The smaller the value, the more deflection
-param set-default CA_SV_CS1_TRQ_P 0.7 # Elevator Pitch Moment Scaling --> The smaller the value, the more deflection
 # right elevator
 param set-default CA_SV_CS1_TYPE 3
 param set-default CA_SV_CS1_TRQ_P 1.0
+param set-default CA_SV_CS1_TRQ_P 0.7
 # left aileron
 param set-default CA_SV_CS2_TYPE 1
 param set-default CA_SV_CS2_TRQ_R -0.5
