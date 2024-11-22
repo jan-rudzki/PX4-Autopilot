@@ -253,24 +253,6 @@ void MulticopterMotorModel::Configure(const Entity &_entity,
     return;
   }
 
-  // ROS 2 initialization
-  if (!rclcpp::ok())
-  {
-    rclcpp::init(0, nullptr);
-  }
-
-  this->dataPtr->rosNode = rclcpp::Node::make_shared("multicopter_motor_model");
-  this->dataPtr->executor = std::make_shared<rclcpp::executors::SingleThreadedExecutor>();
-  this->dataPtr->executor->add_node(this->dataPtr->rosNode);
-
-  // publishers
-  this->dataPtr->thrustPub = this->dataPtr->rosNode->create_publisher<std_msgs::msg::Float64>("~/thrust", 10);
-
-  // Start spinning in a separate thread
-  this->dataPtr->rosSpinThread = std::thread([this]() {
-    this->dataPtr->executor->spin();
-  });
-
   auto sdfClone = _sdf->Clone();
 
   this->dataPtr->robotNamespace.clear();
@@ -415,6 +397,31 @@ void MulticopterMotorModel::Configure(const Entity &_entity,
   }
   this->dataPtr->node.Subscribe(topic,
       &MulticopterMotorModelPrivate::OnActuatorMsg, this->dataPtr.get());
+
+  // ROS 2 initialization
+  if (!rclcpp::ok())
+  {
+    rclcpp::init(0, nullptr);
+  }
+
+  std::string nodeName = "multicopter_motor_model_" + std::to_string(this->dataPtr->actuatorNumber);
+  this->dataPtr->rosNode = rclcpp::Node::make_shared(nodeName);
+
+//   this->dataPtr->rosNode = rclcpp::Node::make_shared("multicopter_motor_model");
+  this->dataPtr->executor = std::make_shared<rclcpp::executors::SingleThreadedExecutor>();
+  this->dataPtr->executor->add_node(this->dataPtr->rosNode);
+
+  // publishers
+//   this->dataPtr->thrustPub = this->dataPtr->rosNode->create_publisher<std_msgs::msg::Float64>("~/thrust", 10);
+  std::string topicName = "~/motor_" + std::to_string(this->dataPtr->actuatorNumber) + "/thrust";
+  this->dataPtr->thrustPub = this->dataPtr->rosNode->create_publisher<std_msgs::msg::Float64>(topicName, 10);
+  // gzdbg actuator number:jan
+//   gzdbg << "actuator number: " << this->dataPtr->actuatorNumber << std::endl;
+
+  // Start spinning in a separate thread
+  this->dataPtr->rosSpinThread = std::thread([this]() {
+    this->dataPtr->executor->spin();
+  });
 }
 
 //////////////////////////////////////////////////

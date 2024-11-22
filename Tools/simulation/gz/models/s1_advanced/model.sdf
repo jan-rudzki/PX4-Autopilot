@@ -1091,7 +1091,7 @@
 <!-- Motor Models -->
     <!-- Motor 0 -->
     <!-- plugin filename="libMulticopterMotorModel.so" name="gz::sim::systems::MulticopterMotorModel"> -->
-    <plugin name="gz::sim::v7::systems::MulticopterMotorModel" filename="libMulticopterMotorModel.so">
+    <plugin name="gz::sim::systems::MulticopterMotorModel" filename="libMulticopterMotorModel.so">
       <jointName>rotor_0_joint</jointName>
       <linkName>rotor_0</linkName>
       <turningDirection>ccw</turningDirection>
