@@ -8,7 +8,7 @@
       <!-- 0 0 0.115 0 0 0 -->
       <pose>0 0 0.115 0 0 0</pose> <!-- Position of S1 CG Frame relative to inertial frame. sitl flight controller is at base link origin. therefore CG should be at base link origin -->
       <inertial>
-        <pose>0.01 0 0 0 0 0</pose> <!-- Position of inertia tensor relative to base_link frame (center of gravity) should be at base link origin -->
+        <pose>0 0 0 0 0 0</pose> <!-- Position of inertia tensor relative to base_link frame (center of gravity) should be at base link origin -->
         <mass>24.0</mass>
         <inertia> <!-- Inertia characteristics of base_link -->
           <!-- Seems to be right. Check with structure/PD team-->
@@ -993,7 +993,10 @@
 
     <!-- Advanced Lift Drag -->
     <!-- <plugin filename="/home/jan/Desktop/PX4/PX4-Autopilot/Tools/gazebo_plugins/advanced_lift_drag/build/libAdvancedLiftDrag.so" name="gz::sim::systems::AdvancedLiftDrag"> -->
-    <plugin filename="/home/jan/Desktop/PX4/PX4-Autopilot/Tools/ros2_ws/install/advanced_lift_drag_plugin/lib/libAdvancedLiftDrag.so" name="gz::sim::systems::AdvancedLiftDrag">
+    <!-- <plugin filename="/home/jan/Desktop/PX4/PX4-Autopilot/Tools/ros2_ws/install/advanced_lift_drag_plugin/lib/libAdvancedLiftDrag.so" -->
+    <!-- plugin filename="libAdvancedLiftDragROS.so" -->
+    <plugin filename="libAdvancedLiftDragROS.so"
+            name="gz::sim::systems::AdvancedLiftDrag">
       <a0>0.00000</a0>
       <CL0>0.02262</CL0>
       <AR>10.509090909090908</AR>
@@ -1036,7 +1039,7 @@
       <upward>0 0 1</upward>
       <link_name>base_link</link_name>
       <!-- Control Surfaces -->
-      <num_ctrl_surfaces>4</num_ctrl_surfaces>
+      <num_ctrl_surfaces>2</num_ctrl_surfaces>
       <control_surface>
         <name>servo_2</name>
         <index>2</index>
@@ -1048,7 +1051,7 @@
         <Cem_ctrl>0.000000</Cem_ctrl>
         <Cen_ctrl>-0.000035</Cen_ctrl>
       </control_surface>
-      <control_surface>
+      <!-- <control_surface>
         <name>servo_3</name>
         <index>3</index>
         <direction>1</direction>
@@ -1058,7 +1061,7 @@
         <Cell_ctrl>0.006419</Cell_ctrl>
         <Cem_ctrl>0.000000</Cem_ctrl>
         <Cen_ctrl>-0.000035</Cen_ctrl>
-      </control_surface>
+      </control_surface> -->
       <control_surface>
         <name>servo_0</name>
         <index>0</index>
@@ -1070,7 +1073,7 @@
         <Cem_ctrl>0.028481</Cem_ctrl>
         <Cen_ctrl>-0.000000</Cen_ctrl>
       </control_surface>
-      <control_surface>
+      <!-- <control_surface>
         <name>servo_1</name>
         <index>1</index>
         <direction>-1</direction>
@@ -1080,16 +1083,14 @@
         <Cell_ctrl>-0.000000</Cell_ctrl>
         <Cem_ctrl>0.028481</Cem_ctrl>
         <Cen_ctrl>3.5e-05</Cen_ctrl>
-      </control_surface>
+      </control_surface> -->
     </plugin>
 
 
 
 <!-- Motor Models -->
     <!-- Motor 0 -->
-    <plugin
-        filename="gz-sim-multicopter-motor-model-system"
-        name="gz::sim::systems::MulticopterMotorModel">
+    <plugin filename="libMulticopterMotorModel.so" name="gz::sim::systems::MulticopterMotorModel">
       <jointName>rotor_0_joint</jointName>
       <linkName>rotor_0</linkName>
       <turningDirection>ccw</turningDirection>
@@ -1106,9 +1107,7 @@
       <motorType>velocity</motorType>
     </plugin>
     <!-- Motor 1 -->
-    <plugin
-        filename="gz-sim-multicopter-motor-model-system"
-        name="gz::sim::systems::MulticopterMotorModel">
+    <plugin filename="libMulticopterMotorModel.so" name="gz::sim::systems::MulticopterMotorModel">
       <jointName>rotor_1_joint</jointName>
       <linkName>rotor_1</linkName>
       <turningDirection>cw</turningDirection>
@@ -1125,9 +1124,7 @@
       <motorType>velocity</motorType>
     </plugin>
     <!-- Motor 2 -->
-    <plugin
-        filename="gz-sim-multicopter-motor-model-system"
-        name="gz::sim::systems::MulticopterMotorModel">
+    <plugin filename="libMulticopterMotorModel.so" name="gz::sim::systems::MulticopterMotorModel">
       <jointName>rotor_2_joint</jointName>
       <linkName>rotor_2</linkName>
       <turningDirection>cw</turningDirection>
@@ -1144,9 +1141,7 @@
       <motorType>velocity</motorType>
     </plugin>
     <!-- Motor 3 -->
-    <plugin
-        filename="gz-sim-multicopter-motor-model-system"
-        name="gz::sim::systems::MulticopterMotorModel">
+    <plugin filename="libMulticopterMotorModel.so" name="gz::sim::systems::MulticopterMotorModel">
       <jointName>rotor_3_joint</jointName>
       <linkName>rotor_3</linkName>
       <turningDirection>ccw</turningDirection>
@@ -1163,9 +1158,7 @@
       <motorType>velocity</motorType>
     </plugin>
     <!-- Motor 4 -->
-    <plugin
-        filename="gz-sim-multicopter-motor-model-system"
-        name="gz::sim::systems::MulticopterMotorModel">
+    <plugin filename="libMulticopterMotorModel.so" name="gz::sim::systems::MulticopterMotorModel">
       <jointName>rotor_4_joint</jointName>
       <linkName>rotor_4</linkName>
       <turningDirection>cw</turningDirection>
@@ -1182,9 +1175,7 @@
       <motorType>velocity</motorType>
     </plugin>
     <!-- Motor 5 -->
-    <plugin
-        filename="gz-sim-multicopter-motor-model-system"
-        name="gz::sim::systems::MulticopterMotorModel">
+    <plugin filename="libMulticopterMotorModel.so" name="gz::sim::systems::MulticopterMotorModel">
       <jointName>rotor_5_joint</jointName>
       <linkName>rotor_5</linkName>
       <turningDirection>ccw</turningDirection>
@@ -1201,9 +1192,7 @@
       <motorType>velocity</motorType>
     </plugin>
     <!-- Motor 6 -->
-    <plugin
-        filename="gz-sim-multicopter-motor-model-system"
-        name="gz::sim::systems::MulticopterMotorModel">
+    <plugin filename="libMulticopterMotorModel.so" name="gz::sim::systems::MulticopterMotorModel">
       <jointName>rotor_6_joint</jointName>
       <linkName>rotor_6</linkName>
       <turningDirection>ccw</turningDirection>
@@ -1220,9 +1209,7 @@
       <motorType>velocity</motorType>
     </plugin>
     <!-- Motor 7 -->
-    <plugin
-        filename="gz-sim-multicopter-motor-model-system"
-        name="gz::sim::systems::MulticopterMotorModel">
+    <plugin filename="libMulticopterMotorModel.so" name="gz::sim::systems::MulticopterMotorModel">
       <jointName>rotor_7_joint</jointName>
       <linkName>rotor_7</linkName>
       <turningDirection>cw</turningDirection>
@@ -1230,7 +1217,7 @@
       <timeConstantDown>0.025</timeConstantDown>
       <maxRotVelocity>785</maxRotVelocity> <!-- omega in rad/s -->
       <motorConstant>7.2597e-05</motorConstant>
-      <momentConstant>0.06</momentConstant>  dragTorque = thrust*momentConstant
+      <momentConstant>0.06</momentConstant>  <!--dragTorque = thrust*momentConstant -->
       <commandSubTopic>command/motor_speed</commandSubTopic>
       <motorNumber>7</motorNumber>
       <rotorDragCoefficient>0.000106428</rotorDragCoefficient>
@@ -1241,16 +1228,14 @@
 
 
     <!-- Motor 8: Pusher Motor left -->
-    <plugin
-        filename="gz-sim-multicopter-motor-model-system"
-        name="gz::sim::systems::MulticopterMotorModel">
+    <plugin filename="libMulticopterMotorModel.so" name="gz::sim::systems::MulticopterMotorModel">
       <jointName>rotor_8_joint</jointName>
       <linkName>rotor_8</linkName>
       <turningDirection>ccw</turningDirection>
       <timeConstantUp>0.0125</timeConstantUp> <!-- setting this value high makes the motor not start -->
       <timeConstantDown>0.025</timeConstantDown>
       <maxRotVelocity>388</maxRotVelocity> <!-- omega in rad/s 388-->
-      <motorConstant>1.703e-04</motorConstant> <!-- calculated Value by SUAVE: 1.703e-04 -->
+      <motorConstant>1.203e-04</motorConstant> <!-- 1.703e-04 bevore-->
       <momentConstant>0.01</momentConstant> <!-- dragTorque = thrust*momentConstant -->
       <commandSubTopic>command/motor_speed</commandSubTopic>
       <motorNumber>8</motorNumber>
@@ -1262,16 +1247,14 @@
     <!-- <plugin filename="/home/jan/Desktop/PX4/PX4-Autopilot/Tools/ros2_ws/install/advanced_lift_drag_plugin/lib/libAdvancedLiftDrag.so" name="gz::sim::systems::AdvancedLiftDrag"> -->
 
     <!-- Motor 9: Pusher Motor right -->
-    <plugin
-        filename="/home/jan/Desktop/PX4/PX4-Autopilot/Tools/ros2_ws/build/multicopter_motor_model_plugin/libMulticopterMotorModel.so"
-        name="gz::sim::systems::MulticopterMotorModel">
+    <plugin filename="libMulticopterMotorModel.so" name="gz::sim::systems::MulticopterMotorModel">
       <jointName>rotor_9_joint</jointName>
       <linkName>rotor_9</linkName>
       <turningDirection>cw</turningDirection>
       <timeConstantUp>0.0125</timeConstantUp> <!-- setting this value high makes the motor not start -->
       <timeConstantDown>0.025</timeConstantDown>
       <maxRotVelocity>388</maxRotVelocity> <!-- omega in rad/s -->
-      <motorConstant>1.703e-04</motorConstant> <!-- calculated Value by SUAVE: 1.703e-04 -->
+      <motorConstant>1.203e-04</motorConstant> <!-- 1.703e-04 bevore-->
       <momentConstant>0.01</momentConstant> <!-- dragTorque = thrust*momentConstant -->
       <commandSubTopic>command/motor_speed</commandSubTopic>
       <motorNumber>9</motorNumber>

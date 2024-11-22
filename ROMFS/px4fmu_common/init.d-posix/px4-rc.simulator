@@ -4,6 +4,42 @@
 # Simulator IMU data provided at 250 Hz
 param set-default IMU_INTEG_RATE 250
 
+# Jan's extension to source ros2 and set necessary environment variables
+# Determine the directory of this script
+# SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+# # Infer the PX4-Autopilot root directory
+# PX4_ROOT_DIR="$(cd "${SCRIPT_DIR}/../../../../../.." && pwd)"
+
+# echo "PX4-Autopilot directory detected at: ${PX4_ROOT_DIR}"
+
+# # Check if ROS 2 is installed by verifying the existence of the global setup script
+# if [ -f /opt/ros/humble/setup.bash ]; then
+#     echo "ROS 2 detected. Setting up ROS 2 environment."
+
+#     # Source ROS 2 environment
+#     . /opt/ros/humble/setup.bash
+
+#     # Check if the ROS 2 workspace for Gazebo plugins exists
+#     if [ -f "${PX4_ROOT_DIR}/Tools/gz_ros2_plugins/install/setup.bash" ]; then
+#         echo "ROS 2 workspace found. Sourcing workspace setup."
+
+#         # Source your ROS 2 workspace
+#         . "${PX4_ROOT_DIR}/Tools/gz_ros2_plugins/install/setup.bash"
+
+#         # Set Gazebo Sim plugin path to include ROS 2 plugins
+#         export GZ_SIM_SYSTEM_PLUGIN_PATH="${PX4_ROOT_DIR}/Tools/gz_ros2_plugins/install/advanced_lift_drag_plugin/lib:${GZ_SIM_SYSTEM_PLUGIN_PATH}"
+#     else
+#         echo "ROS 2 workspace not found. Skipping workspace setup."
+#     fi
+# else
+#     echo "ROS 2 not found. Skipping ROS 2 environment setup."
+# fi
+
+# # Set Gazebo Sim plugin path to include non-ROS 2 plugins
+# export GZ_SIM_SYSTEM_PLUGIN_PATH="${PX4_ROOT_DIR}/Tools/gz_plugins/lib:${GZ_SIM_SYSTEM_PLUGIN_PATH}"
+# # end of Jan's extension
+
 if [ "$PX4_SIMULATOR" = "sihsim" ] || [ "$(param show -q SYS_AUTOSTART)" -eq "0" ]; then
 
 	echo "INFO  [init] SIH simulator"
@@ -82,7 +118,7 @@ elif [ "$PX4_SIMULATOR" = "gz" ] || [ "$(param show -q SIM_GZ_EN)" = "1" ]; then
 
 			echo "INFO  [init] starting gazebo with world: ${PX4_GZ_WORLDS}/${PX4_GZ_WORLD}.sdf"
 
-			${gz_command} ${gz_sub_command} --verbose=1 -r -s "${PX4_GZ_WORLDS}/${PX4_GZ_WORLD}.sdf" &
+			${gz_command} ${gz_sub_command} --verbose=4 -r -s "${PX4_GZ_WORLDS}/${PX4_GZ_WORLD}.sdf" &
 
 			if [ -z "${HEADLESS}" ]; then
 				# HEADLESS not set, starting gui
