@@ -1,0 +1,4 @@
+source;share/multicopter_motor_model/local_setup.bash
+source;share/multicopter_motor_model/local_setup.dsv
+source;share/multicopter_motor_model/local_setup.sh
+source;share/multicopter_motor_model/local_setup.zsh
