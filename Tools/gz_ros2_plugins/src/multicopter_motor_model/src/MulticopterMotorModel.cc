@@ -230,6 +230,9 @@ class gz::sim::systems::MulticopterMotorModelPrivate
 
   // ROS2 publisher for motor thrust; add new publishers for motor velocity and motor position here
   public: rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr thrustPub;
+  public: rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr dragPub;
+  public: rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr velocityPub;
+  public: rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr inputPub;
 };
 
 //////////////////////////////////////////////////
@@ -407,16 +410,27 @@ void MulticopterMotorModel::Configure(const Entity &_entity,
   std::string nodeName = "multicopter_motor_model_" + std::to_string(this->dataPtr->actuatorNumber);
   this->dataPtr->rosNode = rclcpp::Node::make_shared(nodeName);
 
-//   this->dataPtr->rosNode = rclcpp::Node::make_shared("multicopter_motor_model");
+  // this->dataPtr->rosNode = rclcpp::Node::make_shared("multicopter_motor_model");
   this->dataPtr->executor = std::make_shared<rclcpp::executors::SingleThreadedExecutor>();
   this->dataPtr->executor->add_node(this->dataPtr->rosNode);
 
   // publishers
-//   this->dataPtr->thrustPub = this->dataPtr->rosNode->create_publisher<std_msgs::msg::Float64>("~/thrust", 10);
+  // this->dataPtr->thrustPub = this->dataPtr->rosNode->create_publisher<std_msgs::msg::Float64>("~/thrust", 10);
   std::string topicName = "~/motor_" + std::to_string(this->dataPtr->actuatorNumber) + "/thrust";
   this->dataPtr->thrustPub = this->dataPtr->rosNode->create_publisher<std_msgs::msg::Float64>(topicName, 10);
-  // gzdbg actuator number:jan
-//   gzdbg << "actuator number: " << this->dataPtr->actuatorNumber << std::endl;
+
+  // Publisher for drag force
+  std::string dragTopicName = "~/motor_" + std::to_string(this->dataPtr->actuatorNumber) + "/drag";
+  this->dataPtr->dragPub = this->dataPtr->rosNode->create_publisher<std_msgs::msg::Float64>(dragTopicName, 10);
+
+  // Publisher for motor velocity
+  std::string velocityTopicName = "~/motor_" + std::to_string(this->dataPtr->actuatorNumber) + "/velocity";
+  this->dataPtr->velocityPub = this->dataPtr->rosNode->create_publisher<std_msgs::msg::Float64>(velocityTopicName, 10);
+
+  // Publisher for motor input
+  std::string inputTopicName = "~/motor_" + std::to_string(this->dataPtr->actuatorNumber) + "/input";
+  this->dataPtr->inputPub = this->dataPtr->rosNode->create_publisher<std_msgs::msg::Float64>(inputTopicName, 10);
+
 
   // Start spinning in a separate thread
   this->dataPtr->rosSpinThread = std::thread([this]() {
@@ -717,12 +731,37 @@ void MulticopterMotorModelPrivate::UpdateForcesAndMoments(
                                 / this->rotorVelocitySlowdownSim});
 
       // Publish the values
-      if (this->rosNode && this->thrustPub)
+      if (this->rosNode)
       {
-	// publish the thrust
-	std_msgs::msg::Float64 thrustMsg;
-	thrustMsg.data = thrust;
-	this->thrustPub->publish(thrustMsg);
+        if (this->thrustPub)
+        {
+          // publish the thrust
+          std_msgs::msg::Float64 thrustMsg;
+          thrustMsg.data = thrust;
+          this->thrustPub->publish(thrustMsg);
+        }
+        if (this->dragPub)
+        {
+          // publish the drag
+          std_msgs::msg::Float64 dragMsg;
+          dragMsg.data = airDrag.Length();
+          this->dragPub->publish(dragMsg);
+        }
+	if (this->velocityPub)
+	{
+	  // publish the motor velocity
+	  std_msgs::msg::Float64 velocityMsg;
+	  velocityMsg.data = realMotorVelocity;
+	  this->velocityPub->publish(velocityMsg);
+	}
+	if (this->inputPub)
+	{
+	  // publish the motor input
+	  std_msgs::msg::Float64 inputMsg;
+	  inputMsg.data = this->refMotorInput;
+	  this->inputPub->publish(inputMsg);
+	}
+
       }
     }
   }
