@@ -38,6 +38,8 @@ param set-default CA_AIRFRAME 2 # Standard VTOL airframe
 param set-default CA_ROTOR_COUNT 10
 param set-default VT_TYPE 2 # Tailsitter=0, Tiltrotor=1, Standard=2
 param set-default CA_FAILURE_MODE 0 # 0: disabled --> ignores the failure in the control allocation, 1: enabled --> first failed motor gets removed from effectiveness matrix
+param set-default CA_PUSHER_MODE 1 # 0: no jaw control in hover unless during VT_FWD_THRUST_EN, 1: yaw control in hover unidirectional, 2: yaw control in hover bidirectional
+param set-default CA_PUSHER_SCALE 0.1 # Pusher effectiveness scaling factor
 # ATTENTION: PARAMETER SETTING SEEMS TO NOT WORK!!!
 
 # Safety
@@ -81,9 +83,9 @@ param set-default FW_PSP_OFF 2 # Pitch setpoint in degree for typical cruise: Ta
 param set-default VT_PSHER_SLEW 0.33 # 1/s Pusher throttle ramp up slew rate
 
 # Fixed Wing Flight
-param set-default FW_THR_TRIM 0.25 # Throttle for level flight at trim speed
+param set-default FW_THR_TRIM 0.6 # Throttle for level flight at trim speed
 param set-default FW_AIRSPD_TRIM 24 # Default airspeed, controller will try to achieve
-param set-default FW_THR_MAX 0.7 # Maximum throttle in altitude controlled modes
+param set-default FW_THR_MAX 1.0 # Maximum throttle in altitude controlled modes
 param set-default FW_THR_MIN 0.0 # Minimum throttle in altitude controlled modes. Usually at 0, can be set to small value to prevent motor from stopping during descent
 param set-default FW_P_LIM_MIN -15 # Minimum pitch angle setpoint
 param set-default FW_THR_SLEW_MAX 0 # (Default: 0) 1/s Maximum slew rate for the commaned throttle
@@ -226,12 +228,12 @@ param set-default SIM_GZ_EC_MIN8 10
 param set-default SIM_GZ_EC_MAX8 1500
 
 param set-default SIM_GZ_EC_FUNC9 109 # Motor 9
-param set-default SIM_GZ_EC_MIN9 -1500
-param set-default SIM_GZ_EC_MAX9 1500
+param set-default SIM_GZ_EC_MIN9 10
+param set-default SIM_GZ_EC_MAX9 390
 
 param set-default SIM_GZ_EC_FUNC10 110 # Motor 10
-param set-default SIM_GZ_EC_MIN10 -1500
-param set-default SIM_GZ_EC_MAX10 1500
+param set-default SIM_GZ_EC_MIN10 10
+param set-default SIM_GZ_EC_MAX10 390
 
 # für Motor Ausfall
 # param set-default SIM_GZ_EC_FUNC8 108 # Motor 9
@@ -256,12 +258,10 @@ param set-default CA_SV_CS_COUNT 4 # Number of servos
 
 # left elevator
 param set-default CA_SV_CS0_TYPE 3
-param set-default CA_SV_CS0_TRQ_P 1.0
-param set-default CA_SV_CS0_TRQ_P 0.7 # Elevator Pitch Moment Scaling --> The smaller the value, the more deflection
+param set-default CA_SV_CS0_TRQ_P 1.0 #0.7 # Elevator Pitch Moment Scaling --> The smaller the value, the more deflection
 # right elevator
 param set-default CA_SV_CS1_TYPE 3
-param set-default CA_SV_CS1_TRQ_P 1.0
-param set-default CA_SV_CS1_TRQ_P 0.7
+param set-default CA_SV_CS1_TRQ_P 1.0 #0.7
 # left aileron
 param set-default CA_SV_CS2_TYPE 1
 param set-default CA_SV_CS2_TRQ_R -0.5

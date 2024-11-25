@@ -112,7 +112,7 @@ bool GZMixingInterfaceESC::updateOutputsSigned(bool stop_motors, int16_t outputs
 
             // Rescale only for indices 8 and 9 (the pushers) from [-8191, 8191] to [-1500, 1500]
             if (i == 8 || i == 9) {
-                output_value = static_cast<float>(outputs[i]) * (1500.0f / 8191.0f);
+                output_value = static_cast<float>(outputs[i]) * (390.0f / 8191.0f);
             } else {
                 // For all other motors, pass the output as-is
                 output_value = static_cast<float>(outputs[i]);
