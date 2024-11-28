@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-2f2454a1046c5d80ae7a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10.2"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "multicopter_motor_model",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "MulticopterMotorModel::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MulticopterMotorModel-6d1bf91670336b7ca5cd.json",
+					"name" : "MulticopterMotorModel",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "multicopter_motor_model_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-multicopter_motor_model_uninstall-5ca5cc4bf2bd2015a171.json",
+					"name" : "multicopter_motor_model_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-fa891715a791dc77a7bf.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/cornelius/PX4/Tools/gz_ros2_plugins/build/multicopter_motor_model",
+		"source" : "/home/cornelius/PX4/Tools/gz_ros2_plugins/src/multicopter_motor_model"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

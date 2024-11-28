@@ -2,7 +2,7 @@
 # ament_cmake_core/cmake/uninstall_target/ament_cmake_uninstall_target.cmake.in
 
 function(ament_cmake_uninstall_target_remove_empty_directories path)
-  set(install_space "/home/jan/Desktop/PX4/PX4-Autopilot/Tools/gz_ros2_plugins/install/advanced_lift_drag_plugin")
+  set(install_space "/home/cornelius/PX4/Tools/gz_ros2_plugins/install/advanced_lift_drag_plugin")
   if(install_space STREQUAL "")
     message(FATAL_ERROR "The CMAKE_INSTALL_PREFIX variable must not be empty")
   endif()
@@ -29,7 +29,7 @@ function(ament_cmake_uninstall_target_remove_empty_directories path)
 endfunction()
 
 # uninstall files installed using the standard install() function
-set(install_manifest "/home/jan/Desktop/PX4/PX4-Autopilot/Tools/gz_ros2_plugins/build/advanced_lift_drag_plugin/install_manifest.txt")
+set(install_manifest "/home/cornelius/PX4/Tools/gz_ros2_plugins/build/advanced_lift_drag_plugin/install_manifest.txt")
 if(NOT EXISTS "${install_manifest}")
   message(FATAL_ERROR "Cannot find install manifest: ${install_manifest}")
 endif()

@@ -7,7 +7,7 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
-find_package(gz-sim7 REQUIRED)
+find_package(gz-sim8 REQUIRED)
 
 
 # Set C++ standard
@@ -18,7 +18,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
  	${rclcpp_INCLUDE_DIRS}
  	${std_msgs_INCLUDE_DIRS}
  	${geometry_msgs_INCLUDE_DIRS}
- 	${gz-sim7_INCLUDE_DIRS}
+ 	${gz-sim8_INCLUDE_DIRS}
  	${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
@@ -35,14 +35,14 @@ ament_target_dependencies(AdvancedLiftDrag
   rclcpp
   std_msgs
   geometry_msgs
-  gz-sim7
+  gz-sim8
 )
 
 install(TARGETS AdvancedLiftDrag
 	DESTINATION lib
 	)
 
-ament_export_dependencies(rclcpp std_msgs geometry_msgs gz-sim7)
+ament_export_dependencies(rclcpp std_msgs geometry_msgs gz-sim8)
 ament_package()
 
 

@@ -2,7 +2,7 @@
 
 # since this file is sourced use either the provided AMENT_CURRENT_PREFIX
 # or fall back to the destination set at configure time
-: ${AMENT_CURRENT_PREFIX:="/home/jan/Desktop/PX4/PX4-Autopilot/Tools/gz_ros2_plugins/install/multicopter_motor_model"}
+: ${AMENT_CURRENT_PREFIX:="/home/cornelius/PX4/Tools/gz_ros2_plugins/install/multicopter_motor_model"}
 if [ ! -d "$AMENT_CURRENT_PREFIX" ]; then
   if [ -z "$COLCON_CURRENT_PREFIX" ]; then
     echo "The compile time prefix path '$AMENT_CURRENT_PREFIX' doesn't " \

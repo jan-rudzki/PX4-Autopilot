@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-3c076cebf109d7648f49.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10.2"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "advanced_lift_drag_plugin",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "AdvancedLiftDrag::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-AdvancedLiftDrag-dc47fca9d6b12701a7c4.json",
+					"name" : "AdvancedLiftDrag",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "advanced_lift_drag_plugin_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-advanced_lift_drag_plugin_uninstall-3cd61dbef75a429de565.json",
+					"name" : "advanced_lift_drag_plugin_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-34869bd49ad59bf3e969.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/cornelius/PX4/Tools/gz_ros2_plugins/build/advanced_lift_drag_plugin",
+		"source" : "/home/cornelius/PX4/Tools/gz_ros2_plugins/src/advanced_lift_drag_plugin"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

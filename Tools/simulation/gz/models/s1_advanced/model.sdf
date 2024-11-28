@@ -1091,7 +1091,7 @@
 <!-- Motor Models -->
     <!-- Motor 0 -->
     <!-- plugin filename="libMulticopterMotorModel.so" name="gz::sim::systems::MulticopterMotorModel"> -->
-    <plugin name="gz::sim::systems::MulticopterMotorModel" filename="libMulticopterMotorModel.so">
+    <plugin name="gz::sim::v8::systems::MulticopterMotorModel" filename="libMulticopterMotorModel.so">
       <jointName>rotor_0_joint</jointName>
       <linkName>rotor_0</linkName>
       <turningDirection>ccw</turningDirection>
@@ -1108,9 +1108,7 @@
       <motorType>velocity</motorType>
     </plugin>
     <!-- Motor 1 -->
-    <plugin
-        filename="gz-sim-multicopter-motor-model-system"
-        name="gz::sim::systems::MulticopterMotorModel">
+    <plugin name="gz::sim::v8::systems::MulticopterMotorModel" filename="libMulticopterMotorModel.so">
       <jointName>rotor_1_joint</jointName>
       <linkName>rotor_1</linkName>
       <turningDirection>cw</turningDirection>
@@ -1128,7 +1126,7 @@
     </plugin>
     <!-- Motor 2 -->
     <!-- plugin filename="libMulticopterMotorModel.so" name="gz::sim::systems::MulticopterMotorModel"> -->
-    <plugin name="gz::sim::v7::systems::MulticopterMotorModel" filename="libMulticopterMotorModel.so">
+    <plugin name="gz::sim::v8::systems::MulticopterMotorModel" filename="libMulticopterMotorModel.so">
       <jointName>rotor_2_joint</jointName>
       <linkName>rotor_2</linkName>
       <turningDirection>cw</turningDirection>
@@ -1146,7 +1144,7 @@
     </plugin>
     <!-- Motor 3 -->
     <!-- plugin filename="libMulticopterMotorModel.so" name="gz::sim::systems::MulticopterMotorModel"> -->
-    <plugin name="gz::sim::v7::systems::MulticopterMotorModel" filename="libMulticopterMotorModel.so">
+     <plugin name="gz::sim::v8::systems::MulticopterMotorModel" filename="libMulticopterMotorModel.so">
       <jointName>rotor_3_joint</jointName>
       <linkName>rotor_3</linkName>
       <turningDirection>ccw</turningDirection>
@@ -1164,7 +1162,7 @@
     </plugin>
     <!-- Motor 4 -->
     <!-- plugin filename="libMulticopterMotorModel.so" name="gz::sim::systems::MulticopterMotorModel"> -->
-    <plugin name="gz::sim::v7::systems::MulticopterMotorModel" filename="libMulticopterMotorModel.so">
+    <plugin name="gz::sim::v8::systems::MulticopterMotorModel" filename="libMulticopterMotorModel.so">
       <jointName>rotor_4_joint</jointName>
       <linkName>rotor_4</linkName>
       <turningDirection>cw</turningDirection>
@@ -1182,7 +1180,7 @@
     </plugin>
     <!-- Motor 5 -->
     <!-- plugin filename="libMulticopterMotorModel.so" name="gz::sim::systems::MulticopterMotorModel"> -->
-    <plugin name="gz::sim::v7::systems::MulticopterMotorModel" filename="libMulticopterMotorModel.so">
+    <plugin name="gz::sim::v8::systems::MulticopterMotorModel" filename="libMulticopterMotorModel.so">
       <jointName>rotor_5_joint</jointName>
       <linkName>rotor_5</linkName>
       <turningDirection>ccw</turningDirection>
@@ -1200,7 +1198,7 @@
     </plugin>
     <!-- Motor 6 -->
     <!-- plugin filename="libMulticopterMotorModel.so" name="gz::sim::systems::MulticopterMotorModel"> -->
-    <plugin name="gz::sim::v7::systems::MulticopterMotorModel" filename="libMulticopterMotorModel.so">
+    <plugin name="gz::sim::v8::systems::MulticopterMotorModel" filename="libMulticopterMotorModel.so">
       <jointName>rotor_6_joint</jointName>
       <linkName>rotor_6</linkName>
       <turningDirection>ccw</turningDirection>
@@ -1218,7 +1216,7 @@
     </plugin>
     <!-- Motor 7 -->
     <!-- plugin filename="libMulticopterMotorModel.so" name="gz::sim::systems::MulticopterMotorModel"> -->
-    <plugin name="gz::sim::v7::systems::MulticopterMotorModel" filename="libMulticopterMotorModel.so">
+    <plugin name="gz::sim::v8::systems::MulticopterMotorModel" filename="libMulticopterMotorModel.so">
       <jointName>rotor_7_joint</jointName>
       <linkName>rotor_7</linkName>
       <turningDirection>cw</turningDirection>
@@ -1238,7 +1236,7 @@
 
     <!-- Motor 8: Pusher Motor left -->
     <!-- plugin filename="libMulticopterMotorModel.so" name="gz::sim::systems::MulticopterMotorModel"> -->
-    <plugin name="gz::sim::v7::systems::MulticopterMotorModel" filename="libMulticopterMotorModel.so">
+    <plugin name="gz::sim::v8::systems::MulticopterMotorModel" filename="libMulticopterMotorModel.so">
       <jointName>rotor_8_joint</jointName>
       <linkName>rotor_8</linkName>
       <turningDirection>ccw</turningDirection>
@@ -1258,7 +1256,7 @@
 
     <!-- Motor 9: Pusher Motor right -->
     <!-- plugin filename="libMulticopterMotorModel.so" name="gz::sim::systems::MulticopterMotorModel"> -->
-    <plugin name="gz::sim::v7::systems::MulticopterMotorModel" filename="libMulticopterMotorModel.so">
+    <plugin name="gz::sim::v8::systems::MulticopterMotorModel" filename="libMulticopterMotorModel.so">
       <jointName>rotor_9_joint</jointName>
       <linkName>rotor_9</linkName>
       <turningDirection>cw</turningDirection>
