@@ -4,3 +4,7 @@ export PX4_GZ_MODELS=@PX4_SOURCE_DIR@/Tools/simulation/gz/models
 export PX4_GZ_WORLDS=@PX4_SOURCE_DIR@/Tools/simulation/gz/worlds
 
 export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:$PX4_GZ_MODELS:$PX4_GZ_WORLDS
+
+export GZ_SIM_SYSTEM_PLUGIN_PATH=@PX4_SOURCE_DIR@/Tools/gz_ros2_plugins/install/advanced_lift_drag_plugin/lib:@PX4_SOURCE_DIR@/Tools/gz_ros2_plugins/install/multicopter_motor_model/lib:$GZ_SIM_SYSTEM_PLUGIN_PATH
+
+source /opt/ros/humble/setup.bash

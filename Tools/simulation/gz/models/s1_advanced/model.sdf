@@ -482,7 +482,7 @@
         </geometry>
         <surface>
           <contact>
-            <ode/>140
+            <ode/>
           </contact>
           <friction>
             <ode/>
@@ -995,7 +995,7 @@
     <!-- <plugin filename="/home/jan/Desktop/PX4/PX4-Autopilot/Tools/gazebo_plugins/advanced_lift_drag/build/libAdvancedLiftDrag.so" name="gz::sim::systems::AdvancedLiftDrag"> -->
     <!-- <plugin filename="/home/jan/Desktop/PX4/PX4-Autopilot/Tools/ros2_ws/install/advanced_lift_drag_plugin/lib/libAdvancedLiftDrag.so" -->
     <!-- plugin filename="libAdvancedLiftDragROS.so" -->
-    <plugin filename="libAdvancedLiftDragROS.so"
+    <plugin filename="libAdvancedLiftDrag.so"
             name="gz::sim::systems::AdvancedLiftDrag">
       <a0>0.00000</a0>
       <CL0>0.02262</CL0>
