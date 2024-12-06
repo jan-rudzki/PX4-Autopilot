@@ -1,5 +1,5 @@
-Tools/gz_ros2_plugins_original/*
-!Tools/gz_ros2_plugins_original/src/
+Tools/gz_ros2_plugins/*
+!Tools/gz_ros2_plugins/src/
 /build/
 /build/
 /log/
