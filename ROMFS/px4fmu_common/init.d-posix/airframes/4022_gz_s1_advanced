@@ -33,13 +33,16 @@ param set-default SENS_EN_ARSPDSIM 1 # 1: enables simulated airspeed sensor inst
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # GENERAL SETTINGS
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-# Airframe
+# Control Allopation
 param set-default CA_AIRFRAME 2 # Standard VTOL airframe
 param set-default CA_ROTOR_COUNT 10
 param set-default VT_TYPE 2 # Tailsitter=0, Tiltrotor=1, Standard=2
-param set-default CA_FAILURE_MODE 0 # 0: disabled --> ignores the failure in the control allocation, 1: enabled --> first failed motor gets removed from effectiveness matrix
+param set-default CA_FAILURE_MODE 1 # 0: disabled --> ignores the failure in the control allocation, 1: enabled --> first failed motor gets removed from effectiveness matrix
 param set-default CA_PUSHER_MODE 1 # 0: no jaw control in hover unless during VT_FWD_THRUST_EN, 1: yaw control in hover unidirectional, 2: yaw control in hover bidirectional
-param set-default CA_PUSHER_SCALE 0.1 # Pusher effectiveness scaling factor
+param set-default CA_PUSHER_SCALE 0.3 # Pusher effectiveness scaling factor
+param set-default THR_MDL_FAC 1.0 # Thrust curve model factor
+param set-default WV_EN 0 # 1: enables weather vane
+param set-default VT_FWD_THRUST_SC 2 # scale for fwd thrust in hover mode
 # ATTENTION: PARAMETER SETTING SEEMS TO NOT WORK!!!
 
 # Safety
@@ -75,7 +78,7 @@ param set-default COM_RC_IN_MODE 1 # 0: RC transmitter only, 1: Joysick control 
 # Transition
 param set-default VT_ARSP_BLEND 22 # Speed at which fw and mc control are blended
 param set-default VT_ARSP_TRANS 24 # Transition speed
-param set-default VT_F_TRANS_THR 0.5 # Target throttle for the transition to FW flight
+param set-default VT_F_TRANS_THR 1.0 # Target throttle for the transition to FW flight
 param set-default VT_QC_T_ALT_LOSS 10 # Altitude loss threshold for quad-chute triggering during VTOL transition to FW flight.
 param set-default VT_F_TRANS_DUR 8 # Duration of front transition
 param set-default VT_F_TR_OL_TM 8 # Duration of front transition, if no airspeed feedback available
@@ -275,15 +278,15 @@ param set-default CA_SV_CS3_TRQ_R 0.5
 param set-default NPFG_PERIOD 12 # period if NPFG control law in s
 
 # Fixed wing controller gains
-param set-default FW_RR_P 0.181 # Roll rate proportional gain (developed through autotune)
+param set-default FW_RR_P 0.186 # corny alt: 0.181 # Roll rate proportional gain (developed through autotune)
 param set-default FW_RR_I 0.19 # Roll rate integrator gain (developed through autotune)
 param set-default FW_RR_D 0.0 # Roll Rate D Gain (developed through autotune)
-param set-default FW_RR_FF 0.38 # Roll rate feed forward gain (developed through autotune)
+param set-default FW_RR_FF 0.186 # corny alt: 0.38 # Roll rate feed forward gain (developed through autotune)
 
-param set-default FW_PR_P 0.185 # Pitch Rate P gain (developed through autotune)
-param set-default FW_PR_I 0.19 # Pitch Rate I gain (developed through autotune)
+param set-default FW_PR_P 0.193 # corny alt: 0.185 # Pitch Rate P gain (developed through autotune)
+param set-default FW_PR_I 0.191 # Pitch Rate I gain (developed through autotune)
 param set-default FW_PR_D 0.0 # Pitch rate D gain (developed through autotune)
-param set-default FW_PR_FF 1.16 # Direct feed forward from rate setpoint to control surface output (developed through autotune)
+param set-default FW_PR_FF 0.2 # corny alt: 1.16 # Direct feed forward from rate setpoint to control surface output (developed through autotune)
 
 param set-default FW_YR_P 0.05 # Yaw Rate P gain (developed through autotune)
 param set-default FW_YR_I 0.10 # Yaw Rate I gain (developed through autotune)
@@ -291,21 +294,56 @@ param set-default FW_YR_D 0.00 # Yaw rate D gain (developed through autotune)
 param set-default FW_YR_FF 0.30 # Direct feed forward from rate setpoint to control surface output (developed through autotune)
 
 
-# Multicopter controller gains
-param set-default MC_ROLLRATE_K 1.85
-param set-default MC_ROLLRATE_D 0.0004
-param set-default MC_ROLLRATE_I 0.2
+# Multicopter controller gains früher.
+param set-default MC_ROLLRATE_K 0.85 # 24kg: 1.85 # 3 in echt
+param set-default MC_ROLLRATE_D 0.0004 # 0.0028 in echt
+param set-default MC_ROLLRATE_I 0.2 # 0.1 in echt
+#param set-default MC_ROLLRATE_P 1.0 # 0.15 in echt def
 
-param set-default MC_PITCHRATE_K 1.85
-param set-default MC_PITCHRATE_D 0.0004
-param set-default MC_PITCHRATE_I 0.2
+param set-default MC_PITCHRATE_K 1.4 # 24kg: 1.85 # 2.45 in echt
+param set-default MC_PITCHRATE_D 0.0004 # 0.0028 in echt
+param set-default MC_PITCHRATE_I 0.2 # 0.1 in echt
+#param set-default MC_PITCHRATE_P 1.0 # 0.15 in echt def
 
-param set-default MC_YAWRATE_K 1.5
-param set-default MC_YAWRATE_I 0.04
+param set-default MC_YAWRATE_K 1.5 # 2.8 in echt
+param set-default MC_YAWRATE_I 0.04 # 0.0 in echt
+#param set-default MC_YAWRATE_P 1.0 # 0.2 in echt def
 
 # Attitude gains
-param set-default MC_ROLL_P 5
-param set-default MC_YAW_P 1.6
+param set-default MC_ROLL_P 5 # 3.0 in echt
+param set-default MC_PITCH_P 6.5 # 3.0 in echt
+param set-default MC_YAW_P 1.6 # 1.0 in echt
+
+# Velocity controller gains
+param set-default MPC_XY_VEL_P_ACC 1.8 # 1.8 in echt def.
+param set-default MPC_XY_VEL_I_ACC 0.4 # 0.4 in echt def.
+param set-default MPC_XY_VEL_D_ACC 0.2 # 0.2 in echt def.
+
+# Position controller gains
+param set-default MPC_XY_P 0.95 # 0.3 in echt def = 0.95
+# -------------------------------------
+# Multicopter controller gains neu paralell form
+# param set-default MC_ROLLRATE_K 1
+# param set-default MC_ROLLRATE_D 0.0004
+# param set-default MC_ROLLRATE_I 0.2
+# param set-default MC_ROLLRATE_P 0.3
+
+# param set-default MC_PITCHRATE_K 1
+# param set-default MC_PITCHRATE_D 0.0004
+# param set-default MC_PITCHRATE_I 0.2
+# param set-default MC_PITCHRATE_P 0.15
+
+# param set-default MC_YAWRATE_K 1
+# param set-default MC_YAWRATE_I 0.04
+# param set-default MC_YAWRATE_P 0.4
+
+# # Attitude gains
+# param set-default MC_ROLL_P 5
+# param set-default MC_PITCH_P 6.5
+# param set-default MC_YAW_P 1.6
+
+# # responsiveness
+# SYS_VEHICLE_RESP 0.4 # 0.4: 40% of the maximum responsiveness
 
 
 # # Position controller gains
