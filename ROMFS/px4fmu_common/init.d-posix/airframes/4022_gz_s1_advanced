@@ -295,15 +295,15 @@ param set-default FW_YR_FF 0.30 # Direct feed forward from rate setpoint to cont
 
 
 # Multicopter controller gains früher.
-param set-default MC_ROLLRATE_K 0.85 # 24kg: 1.85 # 3 in echt
+param set-default MC_ROLLRATE_K 3 #1.85 # 24kg: 1.85 # 3 in echt
 param set-default MC_ROLLRATE_D 0.0004 # 0.0028 in echt
 param set-default MC_ROLLRATE_I 0.2 # 0.1 in echt
 #param set-default MC_ROLLRATE_P 1.0 # 0.15 in echt def
 
-param set-default MC_PITCHRATE_K 1.4 # 24kg: 1.85 # 2.45 in echt
+param set-default MC_PITCHRATE_K 3 # 24kg: 1.85 # 2.45 in echt
 param set-default MC_PITCHRATE_D 0.0004 # 0.0028 in echt
 param set-default MC_PITCHRATE_I 0.2 # 0.1 in echt
-#param set-default MC_PITCHRATE_P 1.0 # 0.15 in echt def
+param set-default MC_PITCHRATE_P 0.5 # 0.15 in echt def
 
 param set-default MC_YAWRATE_K 1.5 # 2.8 in echt
 param set-default MC_YAWRATE_I 0.04 # 0.0 in echt
