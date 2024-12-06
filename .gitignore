@@ -1,2 +1,11 @@
 Tools/gz_ros2_plugins_original/*
 !Tools/gz_ros2_plugins_original/src/
+/build/
+/build/
+/log/
+*/__pycache__/
+/build/
+/log/
+*/__pycache__/
+*.pyc
+Tools/gz_sim_plugins/*/build/
