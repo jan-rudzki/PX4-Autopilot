@@ -1235,7 +1235,6 @@
       <motorType>velocity</motorType>
     </plugin>
 
-
     <!-- Motor 8: Pusher Motor left -->
     <!-- plugin filename="libMulticopterMotorModel.so" name="gz::sim::systems::MulticopterMotorModel"> -->
     <plugin name="gz::sim::systems::MulticopterMotorModel" filename="libMulticopterMotorModel.so">

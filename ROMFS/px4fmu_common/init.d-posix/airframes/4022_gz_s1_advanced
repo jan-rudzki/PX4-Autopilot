@@ -200,35 +200,35 @@ param set-default CA_ROTOR9_CT 50.2
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 param set-default SIM_GZ_EC_FUNC1 101 # Motor 1
 param set-default SIM_GZ_EC_MIN1 10
-param set-default SIM_GZ_EC_MAX1 1500
+param set-default SIM_GZ_EC_MAX1 785
 
 param set-default SIM_GZ_EC_FUNC2 102 # Motor 2
 param set-default SIM_GZ_EC_MIN2 10
-param set-default SIM_GZ_EC_MAX2 1500
+param set-default SIM_GZ_EC_MAX2 785
 
 param set-default SIM_GZ_EC_FUNC3 103 # Motor 3
 param set-default SIM_GZ_EC_MIN3 10
-param set-default SIM_GZ_EC_MAX3 1500
+param set-default SIM_GZ_EC_MAX3 785
 
 param set-default SIM_GZ_EC_FUNC4 104 # Motor 4
 param set-default SIM_GZ_EC_MIN4 10
-param set-default SIM_GZ_EC_MAX4 1500
+param set-default SIM_GZ_EC_MAX4 785
 
 param set-default SIM_GZ_EC_FUNC5 105 # Motor 5
 param set-default SIM_GZ_EC_MIN5 10
-param set-default SIM_GZ_EC_MAX5 1500
+param set-default SIM_GZ_EC_MAX5 785
 
 param set-default SIM_GZ_EC_FUNC6 106 # Motor 6
 param set-default SIM_GZ_EC_MIN6 10
-param set-default SIM_GZ_EC_MAX6 1500
+param set-default SIM_GZ_EC_MAX6 785
 
 param set-default SIM_GZ_EC_FUNC7 107 # Motor 7
 param set-default SIM_GZ_EC_MIN7 10
-param set-default SIM_GZ_EC_MAX7 1500
+param set-default SIM_GZ_EC_MAX7 785
 
 param set-default SIM_GZ_EC_FUNC8 108 # Motor 8
 param set-default SIM_GZ_EC_MIN8 10
-param set-default SIM_GZ_EC_MAX8 1500
+param set-default SIM_GZ_EC_MAX8 785
 
 param set-default SIM_GZ_EC_FUNC9 109 # Motor 9
 param set-default SIM_GZ_EC_MIN9 10
