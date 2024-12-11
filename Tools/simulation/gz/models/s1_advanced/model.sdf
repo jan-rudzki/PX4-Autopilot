@@ -1068,9 +1068,11 @@
         <direction>-1</direction>
         <CD_ctrl>-0.000036</CD_ctrl>
         <CY_ctrl>0.000000</CY_ctrl>
-        <CL_ctrl>0.005155</CL_ctrl>
+        <!-- <CL_ctrl>0.005155</CL_ctrl> -->
+        <CL_ctrl>0.0025155</CL_ctrl>
         <Cell_ctrl>-0.000000</Cell_ctrl>
-        <Cem_ctrl>0.028481</Cem_ctrl>
+        <!-- <Cem_ctrl>0.028481</Cem_ctrl> -->
+        <Cem_ctrl>0.0142405</Cem_ctrl>
         <Cen_ctrl>-0.000000</Cen_ctrl>
       </control_surface>
       <!-- <control_surface>

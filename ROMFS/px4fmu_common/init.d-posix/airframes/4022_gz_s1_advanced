@@ -57,14 +57,27 @@ param set-default FW_AIRSPD_TRIM 25 # Cruise speed
 param set-default VT_FW_MIN_ALT 12 # When vehicle in FW mode drops below this altitude in m, it will instantly swith back to MC mode
 
 # Mission
-param set-default NAV_ACC_RAD 10 # Acceptance radius in m for waypoint
-param set-default MIS_TAKEOFF_ALT 20 # Takeoff altitude
-param set-default VTO_LOITER_ALT 30 # VTOL relative loiter altitude
-param set-default MPC_YAWRAUTO_MAX 20 # deg/s !!! A too high value can lead to a crash !!! Yaw rate setpoint limit for autonomous modes
+# param set-default NAV_ACC_RAD 10 # Acceptance radius in m for waypoint
+# param set-default MIS_TAKEOFF_ALT 20 # Takeoff altitude
+# param set-default VTO_LOITER_ALT 30 # VTOL relative loiter altitude
+# param set-default MPC_YAWRAUTO_MAX 20 # deg/s !!! A too high value can lead to a crash !!! Yaw rate setpoint limit for autonomous modes
 
 # Position Mode
 param set-default MPC_Z_VEL_MAX_DN 2.5 # Maximum descent speed
 param set-default MPC_XY_VEL_MAX 15 # Maximum horizontal velocity
+# Mission MC
+param set-default NAV_ACC_RAD 15 # Acceptance radius in m for waypoint also in FW
+param set-default MIS_TAKEOFF_ALT 50 # Takeoff altitude
+param set-default VTO_LOITER_ALT 50 # VTOL relative loiter altitude
+param set-default MPC_YAW_MODE 3 # 3: along trajectory
+param set-default MPC_YAWRAUTO_MAX 25 # deg/s Maximum yaw rate in auto mode default = 45
+param set-default MPC_JERK_AUTO 2.0 # m/s³ Jerk limit for auto mode default = 4.0
+param set-default MPC_ACC_HOR_MAX 2.0 # m/s² Maximum horizontal acceleration default = 5.0
+param set-default MPC_ACC_HOR 2.0 # m/s² Maximum horizontal acceleration for autonomous modes default = 3.0
+param set-default MPC_JERK_MAX 5.0 # m/s³ Jerk limit for manual mode default = 8.0
+param set-default MPC_XY_TRAJ_P 0.5 # Trajectory following position controller gain default = 0.5
+# Mission FW
+param set-default NAV_LOITER_RAD 100 # Loiter radius in m
 
 # Flight states
 param set-default VT_FWD_THRUST_EN 2 # 0: Disabled, 2: Enabled if distance to grounde above MPC_LAND_ALT1 ,4: Enables pusher motors to move forward constantly
@@ -92,7 +105,7 @@ param set-default FW_THR_MAX 1.0 # Maximum throttle in altitude controlled modes
 param set-default FW_THR_MIN 0.0 # Minimum throttle in altitude controlled modes. Usually at 0, can be set to small value to prevent motor from stopping during descent
 param set-default FW_P_LIM_MIN -15 # Minimum pitch angle setpoint
 param set-default FW_THR_SLEW_MAX 0 # (Default: 0) 1/s Maximum slew rate for the commaned throttle
-param set-default FW_R_LIM 50 # Maximum roll angle
+param set-default FW_R_LIM 40 # Maximum roll angle
 param set-default VT_FW_DIFTHR_EN 1 # Differential thrust for vtols in forward flight (1: Yaw)
 param set-default FW_T_CLMB_MAX 8
 param set-default FW_T_SINK_MAX 2.7
@@ -200,35 +213,35 @@ param set-default CA_ROTOR9_CT 50.2
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 param set-default SIM_GZ_EC_FUNC1 101 # Motor 1
 param set-default SIM_GZ_EC_MIN1 10
-param set-default SIM_GZ_EC_MAX1 1500
+param set-default SIM_GZ_EC_MAX1 785
 
 param set-default SIM_GZ_EC_FUNC2 102 # Motor 2
 param set-default SIM_GZ_EC_MIN2 10
-param set-default SIM_GZ_EC_MAX2 1500
+param set-default SIM_GZ_EC_MAX2 785
 
 param set-default SIM_GZ_EC_FUNC3 103 # Motor 3
 param set-default SIM_GZ_EC_MIN3 10
-param set-default SIM_GZ_EC_MAX3 1500
+param set-default SIM_GZ_EC_MAX3 785
 
 param set-default SIM_GZ_EC_FUNC4 104 # Motor 4
 param set-default SIM_GZ_EC_MIN4 10
-param set-default SIM_GZ_EC_MAX4 1500
+param set-default SIM_GZ_EC_MAX4 785
 
 param set-default SIM_GZ_EC_FUNC5 105 # Motor 5
 param set-default SIM_GZ_EC_MIN5 10
-param set-default SIM_GZ_EC_MAX5 1500
+param set-default SIM_GZ_EC_MAX5 785
 
 param set-default SIM_GZ_EC_FUNC6 106 # Motor 6
 param set-default SIM_GZ_EC_MIN6 10
-param set-default SIM_GZ_EC_MAX6 1500
+param set-default SIM_GZ_EC_MAX6 785
 
 param set-default SIM_GZ_EC_FUNC7 107 # Motor 7
 param set-default SIM_GZ_EC_MIN7 10
-param set-default SIM_GZ_EC_MAX7 1500
+param set-default SIM_GZ_EC_MAX7 785
 
 param set-default SIM_GZ_EC_FUNC8 108 # Motor 8
 param set-default SIM_GZ_EC_MIN8 10
-param set-default SIM_GZ_EC_MAX8 1500
+param set-default SIM_GZ_EC_MAX8 785
 
 param set-default SIM_GZ_EC_FUNC9 109 # Motor 9
 param set-default SIM_GZ_EC_MIN9 10
