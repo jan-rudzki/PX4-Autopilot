@@ -70,7 +70,7 @@ param set-default NAV_ACC_RAD 15 # Acceptance radius in m for waypoint also in F
 param set-default MIS_TAKEOFF_ALT 50 # Takeoff altitude
 param set-default VTO_LOITER_ALT 50 # VTOL relative loiter altitude
 param set-default MPC_YAW_MODE 3 # 3: along trajectory
-param set-default MPC_YAWRAUTO_MAX 25 # deg/s Maximum yaw rate in auto mode default = 45
+param set-default MPC_YAWRAUTO_MAX 20 # deg/s Maximum yaw rate in auto mode default = 45
 param set-default MPC_JERK_AUTO 2.0 # m/s³ Jerk limit for auto mode default = 4.0
 param set-default MPC_ACC_HOR_MAX 2.0 # m/s² Maximum horizontal acceleration default = 5.0
 param set-default MPC_ACC_HOR 2.0 # m/s² Maximum horizontal acceleration for autonomous modes default = 3.0
@@ -318,7 +318,7 @@ param set-default MC_PITCHRATE_D 0.0004 # 0.0028 in echt
 param set-default MC_PITCHRATE_I 0.2 # 0.1 in echt
 param set-default MC_PITCHRATE_P 0.5 # 0.15 in echt def
 
-param set-default MC_YAWRATE_K 1.5 # 2.8 in echt
+param set-default MC_YAWRATE_K 1.8 # 2.8 in echt
 param set-default MC_YAWRATE_I 0.04 # 0.0 in echt
 #param set-default MC_YAWRATE_P 1.0 # 0.2 in echt def
 

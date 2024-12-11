@@ -67,6 +67,25 @@ ControlAllocationPseudoInverse::updatePseudoInverse()
 		normalizeControlAllocationMatrix();
 
 		_mix_update_needed = false;
+		if (_yaw_simple) {
+			// Set yaw effectiveness for all actuators to CA_MC_YAW_H & _P
+
+			if (_num_actuators > 4) {
+				for (int i = 0; i < (_num_actuators-2); i++) {
+
+					if (_mix(i, 2) > 0) {
+						_mix(i, 2) = _mc_yaw_hover;
+					} else {
+						_mix(i, 2) = -_mc_yaw_hover;
+					}
+				}
+				for (int i = 8; i < _num_actuators; i++) {
+
+					_mix(i, 2) = _mix(i,2) * _mc_yaw_pusher;
+				}
+			}
+		}
+
 
 		// px4_info the elements of the _mix matrix
 		for (int i = 0; i < _num_actuators; i++) {

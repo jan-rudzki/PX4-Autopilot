@@ -78,6 +78,45 @@ parameters:
                 2: Yaw control in hover, pushers bidirectional
             default: 0
 
+        CA_YAW_SIMPLE:
+            description:
+                short: Simplification of the MC yaw CA
+                long: |
+                  When set to TRUE simplifies the control allocation such that the entries of the pseudoinverse are set to CA_MC_YAW_H for hover motors and multiplied by CA_MC_YAW_P for the pushers.
+
+                  - 0: Disabled
+                  - 1: Enabled
+            type: boolean
+            default: 0
+
+        CA_MC_YAW_H:
+            description:
+                short: Hover motor yaw contribution
+                long: |
+                  Defines the contribution of the hover motors to the yaw control.
+                  The value replaces the corresponding entry in the pseudoinverse matrix.
+                  This parameter is only effective when CA_YAW_SIMPLE is set to TRUE.
+            type: float
+            decimal: 2
+            increment: 0.01
+            min: 0
+            max: 1
+            default: 0.00
+
+        CA_MC_YAW_P:
+            description:
+                short: Pusher motor yaw contribution
+                long: |
+                  Defines the contribution of the pusher motors to the yaw control.
+                  This value is multiplied with the corresponding entry in the pseudoinverse matrix.
+                  This parameter is only effective when CA_YAW_SIMPLE is set to TRUE.
+            type: float
+            decimal: 2
+            increment: 0.01
+            min: 0
+            max: 1
+            default: 0.00
+
         # Motor parameters
         CA_R_REV:
             description:
