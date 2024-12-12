@@ -616,4 +616,9 @@ void
 ControlAllocationSequentialDesaturation::updateParameters()
 {
 	updateParams();
+
+	// After updating your parameters, pass them to pseudo-inverse:
+	setPseudoInverseParams(_param_yaw_simple.get(),
+				_param_mc_yaw_hover.get(),
+				_param_mc_yaw_pusher.get());
 }

@@ -100,7 +100,7 @@ class gz::sim::systems::AdvancedLiftDragPrivate
   public: rclcpp::Publisher<geometry_msgs::msg::Vector3>::SharedPtr dragPub;
   public: rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr dragLengthPub;
   public: rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr sigmaPub;
-  
+
   public:
 	/// \brief ROS 2 executor for spinning the node
 	rclcpp::executors::SingleThreadedExecutor::SharedPtr executor;
@@ -704,7 +704,7 @@ void AdvancedLiftDragPrivate::Update(EntityComponentManager &_ecm)
       controlJointPosition_vec[i];
       controlAngle = tmp_controlJointPosition->Data()[0] * 180 / GZ_PI;
     }
-    if (i == 2){
+    if (i == 1){
       controlAngle_elevators = controlAngle;
     }
     else if (i == 0){

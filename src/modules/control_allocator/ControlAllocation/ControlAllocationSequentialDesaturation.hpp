@@ -137,6 +137,9 @@ private:
 
 	DEFINE_PARAMETERS(
 		(ParamInt<px4::params::MC_AIRMODE>) _param_mc_airmode,   ///< air-mode
-		(ParamInt<px4::params::CA_PUSHER_MODE>) _param_ca_pusher_mode ///< pusher mode
+		(ParamInt<px4::params::CA_PUSHER_MODE>) _param_ca_pusher_mode, ///< pusher mode
+		(ParamBool<px4::params::CA_YAW_SIMPLE>) _param_yaw_simple,
+		(ParamFloat<px4::params::CA_MC_YAW_H>) _param_mc_yaw_hover,
+		(ParamFloat<px4::params::CA_MC_YAW_P>) _param_mc_yaw_pusher
 	);
 };

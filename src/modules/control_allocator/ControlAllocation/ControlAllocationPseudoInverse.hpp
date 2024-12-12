@@ -50,6 +50,7 @@
 class ControlAllocationPseudoInverse: public ControlAllocation
 {
 public:
+
 	ControlAllocationPseudoInverse() = default;
 	virtual ~ControlAllocationPseudoInverse() = default;
 
@@ -58,10 +59,20 @@ public:
 				    const ActuatorVector &actuator_trim, const ActuatorVector &linearization_point, int num_actuators,
 				    bool update_normalization_scale) override;
 
+	void setPseudoInverseParams(bool yaw_simple, float mc_yaw_hover, float mc_yaw_pusher) {
+		_yaw_simple = yaw_simple;
+		_mc_yaw_hover = mc_yaw_hover;
+		_mc_yaw_pusher = mc_yaw_pusher;
+    	}
+
 protected:
 	matrix::Matrix<float, NUM_ACTUATORS, NUM_AXES> _mix;
 
 	bool _mix_update_needed{false};
+
+	bool _yaw_simple{false};
+	float _mc_yaw_hover{0.f};
+	float _mc_yaw_pusher{0.f};
 
 	/**
 	 * Recalculate pseudo inverse if required.
@@ -73,4 +84,10 @@ private:
 	void normalizeControlAllocationMatrix();
 	void updateControlAllocationMatrixScale();
 	bool _normalization_needs_update{false};
+
+	// DEFINE_PARAMETERS(
+	// 	(ParamBool<px4::params::CA_YAW_SIMPLE>) _param_yaw_simple,
+	// 	(ParamFloat<px4::params::CA_MC_YAW_H>) _param_mc_yaw_hover,
+	// 	(ParamFloat<px4::params::CA_MC_YAW_P>) _param_mc_yaw_pusher
+	// )
 };
