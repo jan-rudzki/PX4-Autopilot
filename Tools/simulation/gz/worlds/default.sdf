@@ -12,6 +12,7 @@
     <plugin name="gz::sim::systems::Contact" filename="gz-sim-contact-system"/>
     <plugin name="gz::sim::systems::Imu" filename="gz-sim-imu-system"/>
     <plugin name="gz::sim::systems::AirPressure" filename="gz-sim-air-pressure-system"/>
+    <plugin name="gz::sim::systems::AirSpeed" filename="gz-sim-air-speed-system"/>
     <plugin name="gz::sim::systems::ApplyLinkWrench" filename="gz-sim-apply-link-wrench-system"/>
     <plugin name="gz::sim::systems::NavSat" filename="gz-sim-navsat-system"/>
     <plugin name="gz::sim::systems::Sensors" filename="gz-sim-sensors-system">
@@ -234,11 +235,16 @@
     <spherical_coordinates>
       <surface_model>EARTH_WGS84</surface_model>
       <world_frame_orientation>ENU</world_frame_orientation>
+<<<<<<< HEAD
       <!-- <latitude_deg>47.397971057728974</latitude_deg> -->
       <!-- <longitude_deg> 8.546163739800146</longitude_deg> -->
       <!-- Changed Location to Eching -->
       <latitude_deg>48.284155</latitude_deg>
       <longitude_deg>11.616761</longitude_deg>
+=======
+      <latitude_deg>47.397971057728974</latitude_deg>
+      <longitude_deg> 8.546163739800146</longitude_deg>
+>>>>>>> main
       <elevation>0</elevation>
     </spherical_coordinates>
   </world>

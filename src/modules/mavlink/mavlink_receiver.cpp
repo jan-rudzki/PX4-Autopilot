@@ -224,10 +224,6 @@ MavlinkReceiver::handle_message(mavlink_message_t *msg)
 		handle_message_adsb_vehicle(msg);
 		break;
 
-	case MAVLINK_MSG_ID_COLLISION:
-		handle_message_collision(msg);
-		break;
-
 	case MAVLINK_MSG_ID_GPS_RTCM_DATA:
 		handle_message_gps_rtcm_data(msg);
 		break;
@@ -566,10 +562,10 @@ void MavlinkReceiver::handle_message_command_both(mavlink_message_t *msg, const 
 	uint8_t progress = 0; // TODO: should be 255, 0 for backwards compatibility
 
 	if (!target_ok) {
-		// Reject alien commands only if there is no forwarding or we've never seen target component before
 		if (!_mavlink.get_forwarding_on()
 		    || !_mavlink.component_was_seen(cmd_mavlink.target_system, cmd_mavlink.target_component, _mavlink)) {
-			acknowledge(msg->sysid, msg->compid, cmd_mavlink.command, vehicle_command_ack_s::VEHICLE_CMD_RESULT_FAILED);
+			PX4_INFO("Ignore command %d from %d/%d to %d/%d",
+				 cmd_mavlink.command, msg->sysid, msg->compid, cmd_mavlink.target_system, cmd_mavlink.target_component);
 		}
 
 		return;
@@ -802,6 +798,16 @@ MavlinkReceiver::handle_message_command_ack(mavlink_message_t *msg)
 {
 	mavlink_command_ack_t ack;
 	mavlink_msg_command_ack_decode(msg, &ack);
+
+	// We should not clog the command_ack queue with acks that are not for us.
+	// Therefore, we drop them early and move on.
+	bool target_ok = evaluate_target_ok(0, ack.target_system, ack.target_component);
+
+	if (!target_ok) {
+		PX4_DEBUG("Drop ack %d for %d from %d/%d to %d/%d\n",
+			  ack.result, ack.command, msg->sysid, msg->compid, ack.target_system, ack.target_component);
+		return;
+	}
 
 	MavlinkCommandSender::instance().handle_mavlink_command_ack(ack, msg->sysid, msg->compid, _mavlink.get_channel());
 
@@ -2616,26 +2622,6 @@ MavlinkReceiver::handle_message_adsb_vehicle(mavlink_message_t *msg)
 	//PX4_INFO("code: %d callsign: %s, vel: %8.4f, tslc: %d", (int)t.ICAO_address, t.callsign, (double)t.hor_velocity, (int)t.tslc);
 
 	_transponder_report_pub.publish(t);
-}
-
-void
-MavlinkReceiver::handle_message_collision(mavlink_message_t *msg)
-{
-	mavlink_collision_t collision;
-	mavlink_msg_collision_decode(msg, &collision);
-
-	collision_report_s collision_report{};
-
-	collision_report.timestamp = hrt_absolute_time();
-	collision_report.src = collision.src;
-	collision_report.id = collision.id;
-	collision_report.action = collision.action;
-	collision_report.threat_level = collision.threat_level;
-	collision_report.time_to_minimum_delta = collision.time_to_minimum_delta;
-	collision_report.altitude_minimum_delta = collision.altitude_minimum_delta;
-	collision_report.horizontal_minimum_delta = collision.horizontal_minimum_delta;
-
-	_collision_report_pub.publish(collision_report);
 }
 
 void
