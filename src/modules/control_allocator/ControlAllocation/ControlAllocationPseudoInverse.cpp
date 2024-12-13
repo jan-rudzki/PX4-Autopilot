@@ -87,17 +87,17 @@ ControlAllocationPseudoInverse::updatePseudoInverse()
 		}
 
 
-		// px4_info the elements of the _mix matrix
-		for (int i = 0; i < _num_actuators; i++) {
-			PX4_INFO("Mix %d: %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f",
-				 i,
-				 (double)_mix(i, 0),
-				 (double)_mix(i, 1),
-				 (double)_mix(i, 2),
-				 (double)_mix(i, 3),
-				 (double)_mix(i, 4),
-				 (double)_mix(i, 5));
-		}
+		// // px4_info the elements of the _mix matrix
+		// for (int i = 0; i < _num_actuators; i++) {
+		// 	PX4_INFO("Mix %d: %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f",
+		// 		 i,
+		// 		 (double)_mix(i, 0),
+		// 		 (double)_mix(i, 1),
+		// 		 (double)_mix(i, 2),
+		// 		 (double)_mix(i, 3),
+		// 		 (double)_mix(i, 4),
+		// 		 (double)_mix(i, 5));
+		// }
 	}
 }
 

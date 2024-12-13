@@ -158,7 +158,7 @@
     <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
     <atmosphere type="adiabatic"/>
     <scene>
-      <grid>false</grid>
+      <grid>true</grid>
       <ambient>0.4 0.4 0.4 1</ambient>
       <background>0.7 0.7 0.7 1</background>
       <shadows>true</shadows>
@@ -239,7 +239,7 @@
       <!-- Changed Location to Eching -->
       <latitude_deg>48.284155</latitude_deg>
       <longitude_deg>11.616761</longitude_deg>
-      <elevation>0</elevation>
+      <elevation>500</elevation>
     </spherical_coordinates>
   </world>
 </sdf>
