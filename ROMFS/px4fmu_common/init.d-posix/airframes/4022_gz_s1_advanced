@@ -296,10 +296,10 @@ param set-default FW_RR_I 0.19 # Roll rate integrator gain (developed through au
 param set-default FW_RR_D 0.0 # Roll Rate D Gain (developed through autotune)
 param set-default FW_RR_FF 0.186 # corny alt: 0.38 # Roll rate feed forward gain (developed through autotune)
 
-param set-default FW_PR_P 0.193 # corny alt: 0.185 # Pitch Rate P gain (developed through autotune)
+param set-default FW_PR_P 0.9 # corny alt: 0.193 # Pitch Rate P gain (developed through autotune)
 param set-default FW_PR_I 0.191 # Pitch Rate I gain (developed through autotune)
 param set-default FW_PR_D 0.0 # Pitch rate D gain (developed through autotune)
-param set-default FW_PR_FF 0.2 # corny alt: 1.16 # Direct feed forward from rate setpoint to control surface output (developed through autotune)
+param set-default FW_PR_FF 0.5 # corny alt: 1.16 # Direct feed forward from rate setpoint to control surface output (developed through autotune), 0.5 default
 
 param set-default FW_YR_P 0.05 # Yaw Rate P gain (developed through autotune)
 param set-default FW_YR_I 0.10 # Yaw Rate I gain (developed through autotune)
