@@ -69,8 +69,13 @@ param set-default MPC_XY_VEL_MAX 15 # Maximum horizontal velocity
 param set-default NAV_ACC_RAD 15 # Acceptance radius in m for waypoint also in FW
 param set-default MIS_TAKEOFF_ALT 50 # Takeoff altitude
 param set-default VTO_LOITER_ALT 50 # VTOL relative loiter altitude
+param set-default MPC_LAND_ALT1 5 # Altitude for 1. step of slow landing
+param set-default MPC_LAND_ALT2 3 # Altitude for 2. step of slow landing
+param set-default MPC_LAND_SPEED 0.4 # Speed for slow landing
+param set-default MPC_Z_VEL_MAX_DN 1.5 # Maximum descent speed
 param set-default MPC_YAW_MODE 3 # 3: along trajectory
-param set-default MPC_YAWRAUTO_MAX 20 # deg/s Maximum yaw rate in auto mode default = 45
+param set-default MPC_YAWRAUTO_MAX 10 # deg/s Maximum yaw rate in auto mode default = 45
+param set-default MPC_YAWRAUTO_ACC 5 # deg/s² Maximum yaw acceleration in auto mode default = 45
 param set-default MPC_JERK_AUTO 2.0 # m/s³ Jerk limit for auto mode default = 4.0
 param set-default MPC_ACC_HOR_MAX 2.0 # m/s² Maximum horizontal acceleration default = 5.0
 param set-default MPC_ACC_HOR 2.0 # m/s² Maximum horizontal acceleration for autonomous modes default = 3.0
@@ -78,19 +83,19 @@ param set-default MPC_JERK_MAX 5.0 # m/s³ Jerk limit for manual mode default = 
 param set-default MPC_XY_TRAJ_P 0.5 # Trajectory following position controller gain default = 0.5
 # Mission FW
 param set-default NAV_LOITER_RAD 100 # Loiter radius in m
+param set-default RTL_DESCEND_ALT 40 # Altitude at which the vehicle will descend during RTL
+param set-default RTL_RETURN_ALT 40 # Altitude at which the vehicle will return to home during RTL
 
-# Flight states
+# MC Flight states
 param set-default VT_FWD_THRUST_EN 2 # 0: Disabled, 2: Enabled if distance to grounde above MPC_LAND_ALT1 ,4: Enables pusher motors to move forward constantly
-param set-default MPC_LAND_ALT1 3 # Altitude for 1. step of slow landing
-param set-default MPC_LAND_ALT2 2 # Altitude for 2. step of slow landing
 param set-default MC_AIRMODE 0 # 0: Disabled, 1: Roll Pitch, 2: Roll/Pitch/Yaw (the air-mode enables the mixer to increase the total thrust of the multirotor in order to keep attitde and rate control)
 
 # Control
 param set-default COM_RC_IN_MODE 1 # 0: RC transmitter only, 1: Joysick control only, 2: Either RC or joystick control, first valid input is used, 3: Either RC or joystick, first available cource used, 4: ignores any stick input
 
 # Transition
-param set-default VT_ARSP_BLEND 22 # Speed at which fw and mc control are blended
-param set-default VT_ARSP_TRANS 24 # Transition speed
+param set-default VT_ARSP_BLEND 17 #22 # Speed at which fw and mc control are blended
+param set-default VT_ARSP_TRANS 21 #24 # Transition speed
 param set-default VT_F_TRANS_THR 1.0 # Target throttle for the transition to FW flight
 param set-default VT_QC_T_ALT_LOSS 10 # Altitude loss threshold for quad-chute triggering during VTOL transition to FW flight.
 param set-default VT_F_TRANS_DUR 8 # Duration of front transition
@@ -98,14 +103,19 @@ param set-default VT_F_TR_OL_TM 8 # Duration of front transition, if no airspeed
 param set-default FW_PSP_OFF 2 # Pitch setpoint in degree for typical cruise: Target value for end of transition!!!!
 param set-default VT_PSHER_SLEW 0.33 # 1/s Pusher throttle ramp up slew rate
 
+# Backtrasition
+param set-default VT_B_DEC_I 0.08 # Integral gain for back transition
+param set-default VT_B_DEC_MSS 2.0 # Deceleration setpoint for back transition
+param set-default VT_B_TRANS_DUR 10 # Duration of back transition
+
 # Fixed Wing Flight
-param set-default FW_THR_TRIM 0.6 # Throttle for level flight at trim speed
+param set-default FW_THR_TRIM 0.5 # Throttle for level flight at trim speed
 param set-default FW_AIRSPD_TRIM 24 # Default airspeed, controller will try to achieve
 param set-default FW_THR_MAX 1.0 # Maximum throttle in altitude controlled modes
 param set-default FW_THR_MIN 0.0 # Minimum throttle in altitude controlled modes. Usually at 0, can be set to small value to prevent motor from stopping during descent
 param set-default FW_P_LIM_MIN -15 # Minimum pitch angle setpoint
 param set-default FW_THR_SLEW_MAX 0 # (Default: 0) 1/s Maximum slew rate for the commaned throttle
-param set-default FW_R_LIM 40 # Maximum roll angle
+param set-default FW_R_LIM 50 # Maximum roll angle
 param set-default VT_FW_DIFTHR_EN 1 # Differential thrust for vtols in forward flight (1: Yaw)
 param set-default FW_T_CLMB_MAX 8
 param set-default FW_T_SINK_MAX 2.7
@@ -119,94 +129,75 @@ param set-default FW_T_SINK_MIN 2
 param set-default CA_ROTOR0_PX 0.7519
 param set-default CA_ROTOR0_PY -0.97
 param set-default CA_ROTOR0_PZ 0.03
-param set-default CA_ROTOR0_KM 0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
-param set-default CA_ROTOR0_CT 50.2
+param set-default CA_ROTOR0_KM 0.022 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR0_CT 48
 
 # Rotor 1: vorne mitte links cw
 param set-default CA_ROTOR1_PX 0.30
 param set-default CA_ROTOR1_PY -0.97
 param set-default CA_ROTOR1_PZ 0.03
-param set-default CA_ROTOR1_KM -0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
-param set-default CA_ROTOR1_CT 50.2
+param set-default CA_ROTOR1_KM -0.022 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR1_CT 48
 
 # Rotor 2: hinten mitte links cw
 param set-default CA_ROTOR2_PX -0.15
 param set-default CA_ROTOR2_PY -0.97
 param set-default CA_ROTOR2_PZ 0.03
-param set-default CA_ROTOR2_KM -0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
-param set-default CA_ROTOR2_CT 50.2
+param set-default CA_ROTOR2_KM -0.022 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR2_CT 48
 
 # Rotor 3: hinten links ccw
 param set-default CA_ROTOR3_PX -0.9
 param set-default CA_ROTOR3_PY -0.97
 param set-default CA_ROTOR3_PZ 0.03
-param set-default CA_ROTOR3_KM 0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
-param set-default CA_ROTOR3_CT 50.2
+param set-default CA_ROTOR3_KM 0.022 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR3_CT 48
 
 # Rotor 4: vorne rechts cw
 param set-default CA_ROTOR4_PX 0.7519
 param set-default CA_ROTOR4_PY 0.97
 param set-default CA_ROTOR4_PZ 0.03
-param set-default CA_ROTOR4_KM -0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
-param set-default CA_ROTOR4_CT 50.2
+param set-default CA_ROTOR4_KM -0.022 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR4_CT 48
 
 # Rotor 5: vorne mitte rechts ccw
 param set-default CA_ROTOR5_PX 0.30
 param set-default CA_ROTOR5_PY 0.97
 param set-default CA_ROTOR5_PZ 0.03
-param set-default CA_ROTOR5_KM 0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
-param set-default CA_ROTOR5_CT 50.2
+param set-default CA_ROTOR5_KM 0.022 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR5_CT 48
 
 # Rotor 6: hinten mitte rechts ccw
 param set-default CA_ROTOR6_PX -0.15
 param set-default CA_ROTOR6_PY 0.97
 param set-default CA_ROTOR6_PZ 0.03
-param set-default CA_ROTOR6_KM 0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
-param set-default CA_ROTOR6_CT 50.2
+param set-default CA_ROTOR6_KM 0.022 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR6_CT 48
 
 # Rotor 7: hinten rechts cw
 param set-default CA_ROTOR7_PX -0.9
 param set-default CA_ROTOR7_PY 0.97
 param set-default CA_ROTOR7_PZ 0.03
-param set-default CA_ROTOR7_KM -0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
-param set-default CA_ROTOR7_CT 50.2
+param set-default CA_ROTOR7_KM -0.022 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR7_CT 48
 
 # Rotor 8: pusher links ccw
 param set-default CA_ROTOR8_AX 1.0
 param set-default CA_ROTOR8_AZ 0.0
 param set-default CA_ROTOR8_PX -0.840004
 param set-default CA_ROTOR8_PY -0.47 # auf 0 gesetzt für durchschnittliche Position in der Mitte -0.47
-param set-default CA_ROTOR8_PZ -0 # Achtung!!!! echter Wert von -0.09 verursacht Crash!! PX4 hat in der control allocation ein zu starkes Pitch Down Moment der Pusher berechnet und steuert zu krass nach oben, wenn man das auf echten Wert setzt!!!
+param set-default CA_ROTOR8_PZ -0.0 # Achtung!!!! echter Wert von -0.09 verursacht Crash!! PX4 hat in der control allocation ein zu starkes Pitch Down Moment der Pusher berechnet und steuert zu krass nach oben, wenn man das auf echten Wert setzt!!!
 param set-default CA_ROTOR8_KM 0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
-param set-default CA_ROTOR8_CT 50.2
+param set-default CA_ROTOR8_CT 100
 
 # Rotor 9: pusher rechts cw
 param set-default CA_ROTOR9_AX 1.0
 param set-default CA_ROTOR9_AZ 0.0
 param set-default CA_ROTOR9_PX -0.840004
 param set-default CA_ROTOR9_PY 0.47
-param set-default CA_ROTOR9_PZ -0
+param set-default CA_ROTOR9_PZ 0.
 param set-default CA_ROTOR9_KM -0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
-param set-default CA_ROTOR9_CT 50.2
-
-
-# für hover ausfall:
-# Rotor 8: pusher links ccw
-# param set-default CA_ROTOR7_AX 1.0
-# param set-default CA_ROTOR7_AZ 0.0
-# param set-default CA_ROTOR7_PX -0.840004
-# param set-default CA_ROTOR7_PY -0.47 # auf 0 gesetzt für durchschnittliche Position in der Mitte -0.47
-# param set-default CA_ROTOR7_PZ -0 # Achtung!!!! echter Wert von -0.09 verursacht Crash!! PX4 hat in der control allocation ein zu starkes Pitch Down Moment der Pusher berechnet und steuert zu krass nach oben, wenn man das auf echten Wert setzt!!!
-# param set-default CA_ROTOR7_KM 0.1 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
-
-# ## Rotor 9: pusher rechts cw
-# param set-default CA_ROTOR8_AX 1.0
-# param set-default CA_ROTOR8_AZ 0.0
-# param set-default CA_ROTOR8_PX -0.840004
-# param set-default CA_ROTOR8_PY 0.47 # auf 0 gesetzt für durchschnittliche Position in der Mitte -0.47
-# param set-default CA_ROTOR8_PZ 0.0
-# param set-default CA_ROTOR8_KM -0.1 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
-
+param set-default CA_ROTOR9_CT 100
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # MOTOR MAPPING GAZEBO
@@ -251,15 +242,6 @@ param set-default SIM_GZ_EC_FUNC10 110 # Motor 10
 param set-default SIM_GZ_EC_MIN10 10
 param set-default SIM_GZ_EC_MAX10 390
 
-# für Motor Ausfall
-# param set-default SIM_GZ_EC_FUNC8 108 # Motor 9
-# param set-default SIM_GZ_EC_MIN8 10
-# param set-default SIM_GZ_EC_MAX8 1500
-
-# param set-default SIM_GZ_EC_FUNC9 109 # Motor 10
-# param set-default SIM_GZ_EC_MIN9 10
-# param set-default SIM_GZ_EC_MAX9 1500
-
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # SERVO MAPPING GAZEBO
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -296,10 +278,10 @@ param set-default FW_RR_I 0.19 # Roll rate integrator gain (developed through au
 param set-default FW_RR_D 0.0 # Roll Rate D Gain (developed through autotune)
 param set-default FW_RR_FF 0.186 # corny alt: 0.38 # Roll rate feed forward gain (developed through autotune)
 
-param set-default FW_PR_P 0.9 # corny alt: 0.193 # Pitch Rate P gain (developed through autotune)
-param set-default FW_PR_I 0.191 # Pitch Rate I gain (developed through autotune)
+param set-default FW_PR_P 0.8 # corny alt: 0.193 # Pitch Rate P gain (developed through autotune)
+param set-default FW_PR_I 0.19 # Pitch Rate I gain (developed through autotune)
 param set-default FW_PR_D 0.0 # Pitch rate D gain (developed through autotune)
-param set-default FW_PR_FF 0.5 # corny alt: 1.16 # Direct feed forward from rate setpoint to control surface output (developed through autotune), 0.5 default
+param set-default FW_PR_FF 0.3 # corny alt: 1.16 # Direct feed forward from rate setpoint to control surface output (developed through autotune), 0.5 default
 
 param set-default FW_YR_P 0.05 # Yaw Rate P gain (developed through autotune)
 param set-default FW_YR_I 0.10 # Yaw Rate I gain (developed through autotune)
@@ -309,23 +291,23 @@ param set-default FW_YR_FF 0.30 # Direct feed forward from rate setpoint to cont
 
 # Multicopter controller gains früher.
 param set-default MC_ROLLRATE_K 3 #1.85 # 24kg: 1.85 # 3 in echt
-param set-default MC_ROLLRATE_D 0.0004 # 0.0028 in echt
-param set-default MC_ROLLRATE_I 0.2 # 0.1 in echt
+param set-default MC_ROLLRATE_D 0.0028 # 0.0028 in echt
+param set-default MC_ROLLRATE_I 0.1 # 0.1 in echt
 #param set-default MC_ROLLRATE_P 1.0 # 0.15 in echt def
 
-param set-default MC_PITCHRATE_K 3 # 24kg: 1.85 # 2.45 in echt
-param set-default MC_PITCHRATE_D 0.0004 # 0.0028 in echt
-param set-default MC_PITCHRATE_I 0.2 # 0.1 in echt
-param set-default MC_PITCHRATE_P 0.5 # 0.15 in echt def
+param set-default MC_PITCHRATE_K 2.45 # 24kg: 1.85 # 2.45 in echt
+param set-default MC_PITCHRATE_D 0.0028 # 0.0028 in echt
+param set-default MC_PITCHRATE_I 0.1 # 0.1 in echt
+param set-default MC_PITCHRATE_P 0.15 # 0.15 in echt def
 
 param set-default MC_YAWRATE_K 2.8 # 2.8 in echt
 param set-default MC_YAWRATE_I 0.04 # 0.0 in echt
 #param set-default MC_YAWRATE_P 1.0 # 0.2 in echt def
 
 # Attitude gains
-param set-default MC_ROLL_P 5 # 3.0 in echt
-param set-default MC_PITCH_P 6.5 # 3.0 in echt
-param set-default MC_YAW_P 1.6 # 1.0 in echt
+param set-default MC_ROLL_P 3 # 3.0 in echt
+param set-default MC_PITCH_P 3 # 3.0 in echt
+param set-default MC_YAW_P 1 #1.6 # 1.0 in echt
 
 # Velocity controller gains
 param set-default MPC_XY_VEL_P_ACC 1.8 # 1.8 in echt def.
@@ -333,7 +315,7 @@ param set-default MPC_XY_VEL_I_ACC 0.4 # 0.4 in echt def.
 param set-default MPC_XY_VEL_D_ACC 0.2 # 0.2 in echt def.
 
 # Position controller gains
-param set-default MPC_XY_P 0.95 # 0.3 in echt def = 0.95
+param set-default MPC_XY_P 0.3 # 0.3 in echt def = 0.95
 # -------------------------------------
 # Multicopter controller gains neu paralell form
 # param set-default MC_ROLLRATE_K 1
