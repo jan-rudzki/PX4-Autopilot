@@ -9,7 +9,7 @@
       <pose>0 0 0.115 0 0 0</pose> <!-- Position of S1 CG Frame relative to inertial frame. sitl flight controller is at base link origin. therefore CG should be at base link origin -->
       <inertial>
         <pose>0 0 0 0 0 0</pose> <!-- Position of inertia tensor relative to base_link frame (center of gravity) should be at base link origin -->
-        <mass>16.0</mass>
+        <mass>20.0</mass>
         <inertia> <!-- Inertia characteristics of base_link -->
           <!-- Seems to be right. Check with structure/PD team-->
           <ixx>6.023</ixx>
@@ -1003,7 +1003,8 @@
       <eff>0.95</eff>
       <CLa>6.435583</CLa>
       <!-- <CD0>0.01359</CD0> Value extracted from SUAVE -->
-      <CD0>0.03987</CD0>
+      <!-- <CD0>0.03987</CD0> Value extracted form AVL -->
+      <CD0>0.08</CD0>
       <Cem0>0.11420</Cem0>
       <Cema>-0.609373</Cema>
       <CYb>-0.365857</CYb>

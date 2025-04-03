@@ -240,8 +240,8 @@
       <!-- <latitude_deg>48.284155</latitude_deg>
       <longitude_deg>11.616761</longitude_deg> -->
       <!-- Changed Location to Bauernhof nördlich vom See -->
-      <latitude_deg>48.2195221</latitude_deg>
-      <longitude_deg>11.7042316</longitude_deg>
+      <latitude_deg>48.219883</latitude_deg>
+      <longitude_deg>11.697478</longitude_deg>
       <elevation>500</elevation>
     </spherical_coordinates>
   </world>
