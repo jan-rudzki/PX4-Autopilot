@@ -65,7 +65,7 @@ void TECSAirspeedFilter::initialize(const float equivalent_airspeed, const float
 	_airspeed_state.speed_rate = 0.f;
 }
 
-void TECSAirspeedFilter::update(const float dt, const Input &input, const Param &param,
+void TECSAirspeedFilter::update(const float dt, const Input &input, const Param &param, // wrong implementation of the conversion from EAS to TAS
 				const bool airspeed_sensor_available)
 {
 	// Input checking
