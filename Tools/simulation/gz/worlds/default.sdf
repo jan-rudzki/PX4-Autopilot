@@ -239,7 +239,7 @@
       <!-- Changed Location to Eching -->
       <latitude_deg>48.284155</latitude_deg>
       <longitude_deg>11.616761</longitude_deg>
-      <elevation>0</elevation>
+      <elevation>482</elevation>
     </spherical_coordinates>
   </world>
 </sdf>
