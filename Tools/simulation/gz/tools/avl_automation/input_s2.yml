@@ -1,0 +1,23 @@
+# Enter a name for your vehicle
+vehicle_name: s2_advanced
+
+# Enter the type of airframe you would like to use:
+frame_type: custom
+
+# First define some model-wide parameters for custom models:
+reference_area: 1.149
+wing_span: 3.486
+
+# Provide a reference point at which the forces and moments generated will act.
+reference_point:
+  X: 1.28
+  Y: 0
+  Z: 0
+
+#Provide information on each of the Control Surfaces
+num_ctrl_surfaces: 4
+ctrl_surface_order:
+  - aileron
+  - aileron
+  - elevator
+  - elevator

@@ -28,7 +28,7 @@ def main():
     inputs = parser.parse_args()
 
     # Load YAML configuration
-    yaml_file = "input_s1.yml"  # Specify your YAML file here
+    yaml_file = inputs.yaml_file  # Use the provided YAML file argument
     if not os.path.exists(yaml_file):
         raise FileNotFoundError(f"YAML file {yaml_file} not found.")
 

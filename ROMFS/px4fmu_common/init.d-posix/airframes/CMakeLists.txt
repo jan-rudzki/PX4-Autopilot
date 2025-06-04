@@ -109,6 +109,7 @@ px4_add_romfs_files(
 	4020_gz_s1
 	4021_gz_s1_6_hover
 	4022_gz_s1_advanced
+	4023_gz_s2_advanced
 
 	# [22000, 22999] Reserve for custom models
 )

@@ -995,98 +995,95 @@
     <!-- <plugin filename="/home/jan/Desktop/PX4/PX4-Autopilot/Tools/gazebo_plugins/advanced_lift_drag/build/libAdvancedLiftDrag.so" name="gz::sim::systems::AdvancedLiftDrag"> -->
     <!-- <plugin filename="/home/jan/Desktop/PX4/PX4-Autopilot/Tools/ros2_ws/install/advanced_lift_drag_plugin/lib/libAdvancedLiftDrag.so" -->
     <!-- plugin filename="libAdvancedLiftDragROS.so" -->
-    <plugin filename="libAdvancedLiftDrag.so"
-            name="gz::sim::systems::AdvancedLiftDrag">
+
+    <plugin filename="gz-sim-advanced-lift-drag-system" name="gz::sim::systems::AdvancedLiftDrag">
       <a0>0.00000</a0>
-      <CL0>0.02262</CL0>
-      <AR>10.509090909090908</AR>
+      <CL0>0.02646</CL0>
+      <AR>10.576323759791125</AR>
       <eff>0.95</eff>
-      <CLa>6.435583</CLa>
-      <!-- <CD0>0.01359</CD0> Value extracted from SUAVE -->
-      <CD0>0.03987</CD0>
-      <Cem0>0.11420</Cem0>
-      <Cema>-0.609373</Cema>
-      <CYb>-0.365857</CYb>
-      <Cellb>-0.006328</Cellb>
-      <Cenb>0.025240</Cenb>
+      <CLa>7.594579</CLa>
+      <CD0>0.00008</CD0> <!-- !!! needs to be extracted extracted from SUAVE -->
+      <Cem0>0.14923</Cem0>
+      <Cema>-0.828736</Cema>
+      <CYb>-0.369664</CYb>
+      <Cellb>-0.020978</Cellb>
+      <Cenb>0.016621</Cenb>
       <CDp>-0.000000</CDp>
-      <CYp>-0.036888</CYp>
-      <CLp>-0.000005</CLp>
-      <Cellp>-0.617281</Cellp>
-      <Cemp>-0.000003</Cemp>
-      <Cenp>0.008975</Cenp>
-      <CDq>0.223381</CDq> <!-- was negative bevore but may be wrong -->
+      <CYp>-0.041397</CYp>
+      <CLp>-0.000003</CLp>
+      <Cellp>-0.726367</Cellp>
+      <Cemp>-0.000001</Cemp>
+      <Cenp>0.008134</Cenp>
+      <CDq>0.299289</CDq> <!-- was negative bevore but may be wrong -->
       <CYq>-0.000001</CYq>
-      <CLq>-15.304629</CLq>
+      <CLq>-18.438747</CLq>
       <Cellq>0.000001</Cellq>
-      <Cemq>-77.614914</Cemq>
+      <Cemq>-80.459358</Cemq>
       <Cenq>-0.000000</Cenq>
       <CDr>-0.000000</CDr>
-      <CYr>0.179315</CYr>
+      <CYr>0.152799</CYr>
       <CLr>0.000000</CLr>
-      <Cellr>0.004628</Cellr>
+      <Cellr>0.008741</Cellr>
       <Cemr>-0.000000</Cemr>
-      <Cenr>-0.042830</Cenr>
-      <alpha_stall>0.22689</alpha_stall> <!-- Corresponds to 13 degrees -->
+      <Cenr>-0.037394</Cenr>
+      <alpha_stall>0.3391428111</alpha_stall> <!-- Corresponds to 13 degrees -->
       <CLa_stall>-3.85</CLa_stall>
       <CDa_stall>-0.9233984055</CDa_stall>
       <Cema_stall>0</Cema_stall>
-      <cp>0 0 0</cp>
-      <area>1.1</area>
-      <mac>0.21568627450980393</mac>
+      <cp>10 0 0</cp> <!-- ?? muss ggf auf 0, wenn Koordinatensystem hier liegt-->
+      <area>1.149</area>
+      <mac>0.2197360872059667</mac>
       <air_density>1.2041</air_density>
       <forward>1 0 0</forward>
       <upward>0 0 1</upward>
       <link_name>base_link</link_name>
       <!-- Control Surfaces -->
-      <num_ctrl_surfaces>2</num_ctrl_surfaces>
-      <control_surface>
-        <name>servo_2</name>
-        <index>2</index>
-        <direction>-1</direction>
-        <CD_ctrl>0.000000</CD_ctrl>
-        <CY_ctrl>0.000187</CY_ctrl>
-        <CL_ctrl>0.000000</CL_ctrl>
-        <Cell_ctrl>0.006419</Cell_ctrl>
-        <Cem_ctrl>0.000000</Cem_ctrl>
-        <Cen_ctrl>-0.000035</Cen_ctrl>
-      </control_surface>
-      <!-- <control_surface>
-        <name>servo_3</name>
-        <index>3</index>
-        <direction>1</direction>
-        <CD_ctrl>0.000000</CD_ctrl>
-        <CY_ctrl>0.000187</CY_ctrl>
-        <CL_ctrl>0.000000</CL_ctrl>
-        <Cell_ctrl>0.006419</Cell_ctrl>
-        <Cem_ctrl>0.000000</Cem_ctrl>
-        <Cen_ctrl>-0.000035</Cen_ctrl>
-      </control_surface> -->
+      <num_ctrl_surfaces>4</num_ctrl_surfaces>
       <control_surface>
         <name>servo_0</name>
         <index>0</index>
         <direction>-1</direction>
-        <CD_ctrl>-0.000036</CD_ctrl>
-        <CY_ctrl>0.000000</CY_ctrl>
-        <CL_ctrl>0.005155</CL_ctrl>
-        <Cell_ctrl>-0.000000</Cell_ctrl>
-        <Cem_ctrl>0.028481</Cem_ctrl>
-        <Cen_ctrl>-0.000000</Cen_ctrl>
-      </control_surface>
-      <!-- <control_surface>
+        <CD_ctrl>0.000000</CD_ctrl>
+        <CY_ctrl>0.000146</CY_ctrl>
+        <CL_ctrl>0.000000</CL_ctrl>
+        <Cell_ctrl>0.006122</Cell_ctrl>
+        <Cem_ctrl>0.000000</Cem_ctrl>
+        <Cen_ctrl>-0.000023</Cen_ctrl>
+    </control_surface>
+    <!-- <control_surface>
         <name>servo_1</name>
         <index>1</index>
         <direction>-1</direction>
-        <CD_ctrl>-0.000036</CD_ctrl>
+        <CD_ctrl>0.000000</CD_ctrl>
+        <CY_ctrl>0.000146</CY_ctrl>
+        <CL_ctrl>0.000000</CL_ctrl>
+        <Cell_ctrl>0.006122</Cell_ctrl>
+        <Cem_ctrl>0.000000</Cem_ctrl>
+        <Cen_ctrl>-0.000023</Cen_ctrl>
+    </control_surface> -->
+    <control_surface>
+        <name>servo_2</name>
+        <index>2</index>
+        <direction>1</direction>
+        <CD_ctrl>-0.000051</CD_ctrl>
         <CY_ctrl>0.000000</CY_ctrl>
-        <CL_ctrl>0.005155</CL_ctrl>
+        <CL_ctrl>-0.004259</CL_ctrl>
         <Cell_ctrl>-0.000000</Cell_ctrl>
-        <Cem_ctrl>0.028481</Cem_ctrl>
-        <Cen_ctrl>3.5e-05</Cen_ctrl>
-      </control_surface> -->
+        <Cem_ctrl>0.023411</Cem_ctrl>
+        <Cen_ctrl>0.000000</Cen_ctrl>
+    </control_surface>
+    <!-- <control_surface>
+        <name>servo_3</name>
+        <index>3</index>
+        <direction>1</direction>
+        <CD_ctrl>-0.000051</CD_ctrl>
+        <CY_ctrl>0.000000</CY_ctrl>
+        <CL_ctrl>-0.004259</CL_ctrl>
+        <Cell_ctrl>-0.006122</Cell_ctrl>
+        <Cem_ctrl>0.023411</Cem_ctrl>
+        <Cen_ctrl>2.3e-05</Cen_ctrl>
+    </control_surface> -->
     </plugin>
-
-
 
 <!-- Motor Models -->
     <!-- Motor 0 -->
