@@ -105,7 +105,7 @@ PARAM_DEFINE_FLOAT(MPC_LAND_ALT3, 1.f);
  * Landing descend rate
  *
  * @unit m/s
- * @min 0.6
+ * @min 0.2
  * @decimal 1
  * @group Multicopter Position Control
  */

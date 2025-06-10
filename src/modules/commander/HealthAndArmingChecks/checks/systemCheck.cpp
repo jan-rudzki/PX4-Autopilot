@@ -121,27 +121,6 @@ void SystemChecks::checkAndReport(const Context &context, Report &reporter)
 		}
 	}
 
-	// avoidance system
-	if (context.status().avoidance_system_required) {
-		if (context.status().avoidance_system_valid) {
-			reporter.setIsPresent(health_component_t::avoidance);
-
-		} else {
-			/* EVENT
-			 * @description
-			 * <profile name="dev">
-			 * This check can be configured via <param>COM_OBS_AVOID</param> parameter.
-			 * </profile>
-			 */
-			reporter.armingCheckFailure(NavModes::All, health_component_t::system, events::ID("check_system_avoidance_not_ready"),
-						    events::Log::Error, "Avoidance system not ready");
-
-			if (reporter.mavlink_log_pub()) {
-				mavlink_log_critical(reporter.mavlink_log_pub(), "Preflight Fail: Avoidance system not ready");
-			}
-		}
-	}
-
 	// VTOL in transition
 	if (context.status().is_vtol && !context.isArmed()) {
 		if (context.status().in_transition_mode) {
@@ -173,7 +152,7 @@ void SystemChecks::checkAndReport(const Context &context, Report &reporter)
 	}
 
 	// Arm Requirements: authorization
-	if (_param_com_arm_auth_req.get() != 0 && !context.isArmed()) {
+	if (_param_com_arm_auth_req.get() != 0 && !context.isArmed() && context.isArmingRequest()) {
 		if (arm_auth_check() != vehicle_command_ack_s::VEHICLE_CMD_RESULT_ACCEPTED) {
 			/* EVENT
 			 */

@@ -158,6 +158,8 @@ private:
 		HELICOPTER_TAIL_ESC = 10,
 		HELICOPTER_TAIL_SERVO = 11,
 		HELICOPTER_COAXIAL = 12,
+		SPACECRAFT_2D = 13,
+		SPACECRAFT_3D = 14,
 	};
 
 	enum class FailureMode {
@@ -215,7 +217,6 @@ private:
 		(ParamInt<px4::params::CA_METHOD>) _param_ca_method,
 		(ParamInt<px4::params::CA_FAILURE_MODE>) _param_ca_failure_mode,
 		(ParamInt<px4::params::CA_R_REV>) _param_r_rev
-		// (ParamFloat<px4::params::CA_PUSHER_SCALE>) _param_ca_pusher_scale
 	)
 
 };

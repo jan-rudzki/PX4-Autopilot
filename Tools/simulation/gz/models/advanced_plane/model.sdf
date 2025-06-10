@@ -360,9 +360,8 @@
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
-          <!-- -30/+30 deg. -->
-          <lower>-0.53</lower>
-          <upper>0.53</upper>
+          <lower>-0.78</lower>
+          <upper>0.78</upper>
         </limit>
         <dynamics>
           <damping>1.000</damping>
@@ -389,9 +388,8 @@
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
-          <!-- -30/+30 deg. -->
-          <lower>-0.53</lower>
-          <upper>0.53</upper>
+          <lower>-0.78</lower>
+          <upper>0.78</upper>
         </limit>
         <dynamics>
           <damping>1.000</damping>
@@ -418,9 +416,8 @@
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
-          <!-- -30/+30 deg. -->
-          <lower>-0.53</lower>
-          <upper>0.53</upper>
+          <lower>-0.78</lower>
+          <upper>0.78</upper>
         </limit>
         <dynamics>
           <damping>1.000</damping>
@@ -447,9 +444,8 @@
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
-          <!-- -30/+30 deg. -->
-          <lower>-0.53</lower>
-          <upper>0.53</upper>
+          <lower>-0.78</lower>
+          <upper>0.78</upper>
         </limit>
         <dynamics>
           <damping>1.000</damping>
@@ -476,9 +472,8 @@
       <axis>
         <xyz>0 1 0</xyz>
         <limit>
-          <!-- -30/+30 deg. -->
-          <lower>-0.53</lower>
-          <upper>0.53</upper>
+          <lower>-0.78</lower>
+          <upper>0.78</upper>
         </limit>
         <dynamics>
           <damping>1.000</damping>
@@ -505,9 +500,8 @@
       <axis>
         <xyz>0 0 1</xyz>
         <limit>
-          <!-- -30/+30 deg. -->
-          <lower>-0.53</lower>
-          <upper>0.53</upper>
+          <lower>-0.78</lower>
+          <upper>0.78</upper>
         </limit>
         <dynamics>
           <damping>1.000</damping>
@@ -569,7 +563,6 @@
       <forward>1 0 0</forward>
       <upward>0 0 1</upward>
       <link_name>base_link</link_name>
-      <!-- <topic_name>lift_drag_forces</topic_name> -->
       <num_ctrl_surfaces>4</num_ctrl_surfaces>
       <control_surface>
         <name>servo_0</name>
@@ -616,8 +609,7 @@
         <Cen_ctrl>0.001613</Cen_ctrl>
       </control_surface>
     </plugin>
-    <plugin filename="libMulticopterMotorModel.so" name="gz::sim::systems::MulticopterMotorModel">
-    <!-- filename="gz-sim-multicopter-motor-model-system" name="gz::sim::systems::MulticopterMotorModel" -->
+    <plugin filename="gz-sim-multicopter-motor-model-system" name="gz::sim::systems::MulticopterMotorModel">
       <jointName>rotor_puller_joint</jointName>
       <linkName>rotor_puller</linkName>
       <turningDirection>cw</turningDirection>
