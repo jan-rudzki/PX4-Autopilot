@@ -238,18 +238,9 @@
       <!-- <latitude_deg>47.397971057728974</latitude_deg> -->
       <!-- <longitude_deg> 8.546163739800146</longitude_deg> -->
       <!-- Changed Location to Eching -->
-<<<<<<< HEAD
-      <latitude_deg>48.284155</latitude_deg>
-      <longitude_deg>11.616761</longitude_deg>
-      <elevation>482</elevation>
-=======
-      <!-- <latitude_deg>48.284155</latitude_deg>
-      <longitude_deg>11.616761</longitude_deg> -->
-      <!-- Changed Location to Bauernhof nördlich vom See -->
       <latitude_deg>48.219883</latitude_deg>
       <longitude_deg>11.697478</longitude_deg>
       <elevation>500</elevation>
->>>>>>> jan
     </spherical_coordinates>
   </world>
 </sdf>
