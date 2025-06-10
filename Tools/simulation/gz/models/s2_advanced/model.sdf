@@ -1277,3 +1277,6 @@
   </model>
 
 </sdf>
+
+
+<!-- dragTorque = thrust*momentConstant -->
