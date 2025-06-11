@@ -139,7 +139,7 @@
 <!-- Propellers -->
     <!-- Propeller 0 (vorne links)-->
     <link name='rotor_0'>
-      <pose relative_to="nose_link">-0.4481 0.97 -0.03 1.5708 0 0</pose> <!-- rotation of 90° + 10° about x axis -->
+      <pose relative_to="nose_link">-0.448 0.901606 -0.106104 0.1745 0 0</pose> <!-- rotation of 90° + 10° about x axis -->
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass> <!-- This mass seems to be wrong -->
@@ -170,7 +170,7 @@
         </surface>
       </collision>
       <visual name='rotor_0_visual'>
-        <pose>0 0 0 0 0 0</pose>
+        <pose>0 0 0 1.5708 0 0</pose> <!-- CAD had wrong frame direction -->
         <geometry>
           <mesh>
             <scale>0.001 0.001 0.001</scale>
@@ -203,7 +203,7 @@
     </joint>
     <!-- Propeller 1 (vorne links zwei)-->
     <link name='rotor_1'>
-      <pose relative_to="nose_link">-0.9 0.97 -0.03 1.5708 0 0</pose> <!-- rotation of -8° about x axis -->
+      <pose relative_to="nose_link">-1.002667 0.890394 -0.106104 -0.1745 0 0</pose> <!-- rotation of -10° about x axis -->
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -234,7 +234,7 @@
         </surface>
       </collision>
       <visual name='rotor_1_visual'>
-        <pose>0 0 0 0 0 0</pose>
+        <pose>0 0 0 -1.5708 0 0</pose> <!-- CAD had wrong frame direction -->
         <geometry>
           <mesh>
             <scale>0.001 0.001 0.001</scale>
@@ -267,7 +267,7 @@
     </joint>
     <!-- Propeller 2 (vorne links drei)-->
     <link name='rotor_2'>
-      <pose relative_to="nose_link">-1.3519 0.97 -0.03 1.5708 0 0</pose> <!-- rotation of +9° about x axis -->
+      <pose relative_to="nose_link">-1.557333 0.890394 -0.106104 -0.1745 0 0</pose> <!-- rotation of -10° about x axis -->
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -298,7 +298,7 @@
         </surface>
       </collision>
       <visual name='rotor_2_visual'>
-        <pose>0 0 0 0 0 0</pose>
+        <pose>0 0 0 1.5708 0 0</pose> <!-- CAD had opposite frame direction -->
         <geometry>
           <mesh>
             <scale>0.001 0.001 0.001</scale>
@@ -331,7 +331,7 @@
     </joint>
     <!-- Propeller 3 (vorne links 4)-->
     <link name='rotor_3'>
-      <pose relative_to="nose_link">-2.1 0.97 -0.03 1.5708 0 0</pose> <!-- rotation of -4° about x axis -->
+      <pose relative_to="nose_link">-2.112 0.901606 -0.106104 0.1745 0 0</pose> <!-- rotation of +10° about x axis -->
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -362,7 +362,7 @@
         </surface>
       </collision>
       <visual name='rotor_3_visual'>
-        <pose>0 0 0 0 0 0</pose>
+        <pose>0 0 0 -1.5708 0 0</pose> <!-- CAD had wrong frame direction -->
         <geometry>
           <mesh>
             <scale>0.001 0.001 0.001</scale>
@@ -395,7 +395,7 @@
     </joint>
     <!-- Propeller 4 (vorne rechts 1)-->
     <link name='rotor_4'>
-      <pose relative_to="nose_link">-0.4481	-0.97	-0.03 1.5708 0 0</pose> <!-- rotation of -7° about x axis -->
+      <pose relative_to="nose_link">-0.448 -0.901606 -0.106104 -0.1745 0 0</pose> <!-- rotation of 90° -10° about x axis -->
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -426,7 +426,7 @@
         </surface>
       </collision>
       <visual name='rotor_4_visual'>
-        <pose>0 0 0 0 0 0</pose>
+        <pose>0 0 0 1.5708 0 0</pose> <!-- CAD had opposite frame direction -->
         <geometry>
           <mesh>
             <scale>0.001 0.001 0.001</scale>
@@ -459,7 +459,7 @@
     </joint>
     <!-- Propeller 5 (vorne rechts 2)-->
     <link name='rotor_5'>
-      <pose relative_to="nose_link">-0.9 -0.97 -0.03 1.5708 0 0</pose> <!-- rotation of +8° about x axis -->
+      <pose relative_to="nose_link">-1.002667 -0.890394 -0.106104 0.1745 0 0</pose> <!-- rotation of +10° about x axis -->
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -490,7 +490,7 @@
         </surface>
       </collision>
       <visual name='rotor_5_visual'>
-        <pose>0 0 0 0 0 0</pose>
+        <pose>0 0 0 -1.5708 0 0</pose> <!-- CAD had wrong frame direction -->
         <geometry>
           <mesh>
             <scale>0.001 0.001 0.001</scale>
@@ -523,7 +523,7 @@
     </joint>
     <!-- Propeller 6 (vorne rechts 3)-->
     <link name='rotor_6'>
-      <pose relative_to="nose_link">-1.3519	-0.97	-0.03 1.5708 0 0</pose> <!-- rotation of -9° about x axis -->
+      <pose relative_to="nose_link">-1.557333 -0.890394 -0.106104 0.1745 0 0</pose> <!-- rotation of +10° about x axis -->
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass> <!-- This mass seems to be wrong -->
@@ -554,7 +554,7 @@
         </surface>
       </collision>
       <visual name='rotor_6_visual'>
-        <pose>0 0 0 0 0 0</pose>
+        <pose>0 0 0 1.5708 0 0</pose> <!-- CAD had wrong frame direction -->
         <geometry>
           <mesh>
             <scale>0.001 0.001 0.001</scale>
@@ -587,7 +587,7 @@
     </joint>
     <!-- Propeller 7 (vorne rechts 4)-->
     <link name='rotor_7'>
-      <pose relative_to="nose_link">-2.1 -0.97 -0.03 1.5708 0 0</pose> <!-- rotation of +4° about x axis -->
+      <pose relative_to="nose_link">-2.112 -0.901606 -0.106104 -0.1745 0 0</pose> <!-- rotation of -10° about x axis -->
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass> <!-- This mass seems to be wrong -->
@@ -618,7 +618,7 @@
         </surface>
       </collision>
       <visual name='rotor_7_visual'>
-        <pose>0 0 0 0 0 0</pose>
+        <pose>0 0 0 -1.5708 0 0</pose> <!-- CAD had wrong frame direction -->
         <geometry>
           <mesh>
             <scale>0.001 0.001 0.001</scale>
@@ -651,7 +651,7 @@
     </joint>
     <!-- Pusher Prop left -->
     <link name='rotor_8'>
-      <pose relative_to="nose_link">-2.040004 0.47 0.089 0 1.5708 0</pose>
+      <pose relative_to="nose_link">-2.096525 0.438 0.085299 0 1.5708 0</pose>
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -716,7 +716,7 @@
     </joint>
     <!-- Pusher Prop right -->
     <link name='rotor_9'>
-      <pose relative_to="nose_link">-2.040004 -0.47 0.089 0 1.5708 0</pose>
+      <pose relative_to="nose_link">-2.096525 -0.438 0.085299 0 1.5708 0</pose>
       <inertial>
         <pose>0 0 0 0 0 0</pose>
         <mass>0.005</mass>
@@ -1002,7 +1002,7 @@
       <AR>10.576323759791125</AR>
       <eff>0.95</eff>
       <CLa>7.594579</CLa>
-      <CD0>0.00008</CD0> <!-- !!! needs to be extracted extracted from SUAVE -->
+      <CD0>0.0303038​</CD0> <!-- extracted from SUAVE -->
       <Cem0>0.14923</Cem0>
       <Cema>-0.828736</Cema>
       <CYb>-0.369664</CYb>
@@ -1030,7 +1030,7 @@
       <CLa_stall>-3.85</CLa_stall>
       <CDa_stall>-0.9233984055</CDa_stall>
       <Cema_stall>0</Cema_stall>
-      <cp>10 0 0</cp> <!-- ?? muss ggf auf 0, wenn Koordinatensystem hier liegt-->
+      <cp>10 0 0</cp> <!-- ?? Das wird evtl gar nicht genutz. Muss ggf auf 0, wenn Koordinatensystem hier liegt-->
       <area>1.149</area>
       <mac>0.2197360872059667</mac>
       <air_density>1.2041</air_density>
