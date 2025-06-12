@@ -103,78 +103,78 @@ param set-default FW_T_SINK_MIN 2
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 # Rotor 0: vorne links ccw
-param set-default CA_ROTOR0_PX 0.7519
-param set-default CA_ROTOR0_PY -0.97
-param set-default CA_ROTOR0_PZ 0.03
-param set-default CA_ROTOR0_KM 0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
-param set-default CA_ROTOR0_CT 50.2
+param set-default CA_ROTOR0_PX 0.832
+param set-default CA_ROTOR0_PY -0.901606
+param set-default CA_ROTOR0_PZ 0.099104
+param set-default CA_ROTOR0_KM 0.02052 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR0_CT 58 # T = ct*u² Attention: this definition is different to Gazebo
 
 # Rotor 1: vorne mitte links cw
-param set-default CA_ROTOR1_PX 0.30
-param set-default CA_ROTOR1_PY -0.97
-param set-default CA_ROTOR1_PZ 0.03
-param set-default CA_ROTOR1_KM -0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
-param set-default CA_ROTOR1_CT 50.2
+param set-default CA_ROTOR1_PX 0.277333
+param set-default CA_ROTOR1_PY -0.890304
+param set-default CA_ROTOR1_PZ 0.099104
+param set-default CA_ROTOR1_KM -0.02052 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR1_CT 58 # T = ct*u² Attention: this definition is different to Gazebo
 
-# Rotor 2: hinten mitte links cw
-param set-default CA_ROTOR2_PX -0.15
-param set-default CA_ROTOR2_PY -0.97
-param set-default CA_ROTOR2_PZ 0.03
-param set-default CA_ROTOR2_KM -0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
-param set-default CA_ROTOR2_CT 50.2
+# Rotor 2: hinten mitte links ccw
+param set-default CA_ROTOR2_PX -0.27333
+param set-default CA_ROTOR2_PY -0.890394
+param set-default CA_ROTOR2_PZ 0.099104
+param set-default CA_ROTOR2_KM 0.02052 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR2_CT 58 # T = ct*u² Attention: this definition is different to Gazebo
 
-# Rotor 3: hinten links ccw
-param set-default CA_ROTOR3_PX -0.9
-param set-default CA_ROTOR3_PY -0.97
-param set-default CA_ROTOR3_PZ 0.03
-param set-default CA_ROTOR3_KM 0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
-param set-default CA_ROTOR3_CT 50.2
+# Rotor 3: hinten links cw
+param set-default CA_ROTOR3_PX -0.832
+param set-default CA_ROTOR3_PY -0.901606
+param set-default CA_ROTOR3_PZ 0.099104
+param set-default CA_ROTOR3_KM -0.02052 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR3_CT 58 # T = ct*u² Attention: this definition is different to Gazebo
 
 # Rotor 4: vorne rechts cw
-param set-default CA_ROTOR4_PX 0.7519
-param set-default CA_ROTOR4_PY 0.97
-param set-default CA_ROTOR4_PZ 0.03
-param set-default CA_ROTOR4_KM -0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
-param set-default CA_ROTOR4_CT 50.2
+param set-default CA_ROTOR4_PX 0.832
+param set-default CA_ROTOR4_PY 0.901606
+param set-default CA_ROTOR4_PZ 0.099104
+param set-default CA_ROTOR4_KM -0.02052 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR4_CT 58 # T = ct*u² Attention: this definition is different to Gazebo
 
 # Rotor 5: vorne mitte rechts ccw
-param set-default CA_ROTOR5_PX 0.30
-param set-default CA_ROTOR5_PY 0.97
-param set-default CA_ROTOR5_PZ 0.03
-param set-default CA_ROTOR5_KM 0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
-param set-default CA_ROTOR5_CT 50.2
+param set-default CA_ROTOR5_PX 0.277333
+param set-default CA_ROTOR5_PY 0.890304
+param set-default CA_ROTOR5_PZ 0.099104
+param set-default CA_ROTOR5_KM 0.02052 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR5_CT 58 # T = ct*u² Attention: this definition is different to Gazebo
 
-# Rotor 6: hinten mitte rechts ccw
-param set-default CA_ROTOR6_PX -0.15
-param set-default CA_ROTOR6_PY 0.97
-param set-default CA_ROTOR6_PZ 0.03
-param set-default CA_ROTOR6_KM 0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
-param set-default CA_ROTOR6_CT 50.2
+# Rotor 6: hinten mitte rechts cw
+param set-default CA_ROTOR6_PX -0.27333
+param set-default CA_ROTOR6_PY 0.890394
+param set-default CA_ROTOR6_PZ 0.099104
+param set-default CA_ROTOR6_KM -0.02052 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR6_CT 58 # T = ct*u² Attention: this definition is different to Gazebo
 
-# Rotor 7: hinten rechts cw
-param set-default CA_ROTOR7_PX -0.9
-param set-default CA_ROTOR7_PY 0.97
-param set-default CA_ROTOR7_PZ 0.03
-param set-default CA_ROTOR7_KM -0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
-param set-default CA_ROTOR7_CT 50.2
+# Rotor 7: hinten rechts ccw
+param set-default CA_ROTOR7_PX -0.832
+param set-default CA_ROTOR7_PY 0.901606
+param set-default CA_ROTOR7_PZ 0.099104
+param set-default CA_ROTOR7_KM 0.02052 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR7_CT 58 # T = ct*u² Attention: this definition is different to Gazebo
 
-# Rotor 8: pusher links ccw
+# Rotor 8: pusher links cw
 param set-default CA_ROTOR8_AX 1.0
 param set-default CA_ROTOR8_AZ 0.0
-param set-default CA_ROTOR8_PX -0.840004
-param set-default CA_ROTOR8_PY -0.47 # auf 0 gesetzt für durchschnittliche Position in der Mitte -0.47
+param set-default CA_ROTOR8_PX -0.816525
+param set-default CA_ROTOR8_PY -0.38 # auf 0 gesetzt für durchschnittliche Position in der Mitte -0.47
 param set-default CA_ROTOR8_PZ -0 # Achtung!!!! echter Wert von -0.09 verursacht Crash!! PX4 hat in der control allocation ein zu starkes Pitch Down Moment der Pusher berechnet und steuert zu krass nach oben, wenn man das auf echten Wert setzt!!!
-param set-default CA_ROTOR8_KM 0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
-param set-default CA_ROTOR8_CT 50.2
+param set-default CA_ROTOR8_KM -0.01 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR8_CT 60 # T = ct*u² Attention: this definition is different to Gazebo
 
-# Rotor 9: pusher rechts cw
+# Rotor 9: pusher rechts ccw
 param set-default CA_ROTOR9_AX 1.0
 param set-default CA_ROTOR9_AZ 0.0
-param set-default CA_ROTOR9_PX -0.840004
-param set-default CA_ROTOR9_PY 0.47
+param set-default CA_ROTOR9_PX -0.816525
+param set-default CA_ROTOR9_PY 0.438
 param set-default CA_ROTOR9_PZ -0
-param set-default CA_ROTOR9_KM -0.025 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
-param set-default CA_ROTOR9_CT 50.2
+param set-default CA_ROTOR9_KM 0.01 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
+param set-default CA_ROTOR9_CT 60 # T = ct*u² Attention: this definition is different to Gazebo
 
 
 # für hover ausfall:
