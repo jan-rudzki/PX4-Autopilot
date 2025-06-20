@@ -80,7 +80,7 @@ param set-default VT_ARSP_BLEND 22 # Speed at which fw and mc control are blende
 param set-default VT_ARSP_TRANS 24 # Transition speed
 param set-default VT_F_TRANS_THR 1.0 # Target throttle for the transition to FW flight
 param set-default VT_QC_T_ALT_LOSS 10 # Altitude loss threshold for quad-chute triggering during VTOL transition to FW flight.
-param set-default VT_F_TRANS_DUR 8 # Duration of front transition
+param set-default VT_F_TRANS_DUR 15 # Duration of front transition
 param set-default VT_F_TR_OL_TM 8 # Duration of front transition, if no airspeed feedback available
 param set-default FW_PSP_OFF 2 # Pitch setpoint in degree for typical cruise: Target value for end of transition!!!!
 param set-default VT_PSHER_SLEW 0.33 # 1/s Pusher throttle ramp up slew rate
@@ -162,7 +162,7 @@ param set-default CA_ROTOR7_CT 58 # T = ct*u² Attention: this definition is dif
 param set-default CA_ROTOR8_AX 1.0
 param set-default CA_ROTOR8_AZ 0.0
 param set-default CA_ROTOR8_PX -0.816525
-param set-default CA_ROTOR8_PY -0.38 # auf 0 gesetzt für durchschnittliche Position in der Mitte -0.47
+param set-default CA_ROTOR8_PY -0.438 # auf 0 gesetzt für durchschnittliche Position in der Mitte -0.47
 param set-default CA_ROTOR8_PZ -0 # Achtung!!!! echter Wert von -0.09 verursacht Crash!! PX4 hat in der control allocation ein zu starkes Pitch Down Moment der Pusher berechnet und steuert zu krass nach oben, wenn man das auf echten Wert setzt!!!
 param set-default CA_ROTOR8_KM -0.01 # positive value means ccw, negative value cw; range(-1,1); Torque = km*thrust
 param set-default CA_ROTOR8_CT 60 # T = ct*u² Attention: this definition is different to Gazebo

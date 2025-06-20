@@ -1040,7 +1040,7 @@
       <link_name>base_link</link_name>
       <!-- Control Surfaces -->
       <num_ctrl_surfaces>2</num_ctrl_surfaces> <!-- !!! needs to be changed to two-->
-      <control_surface>
+      <control_surface> <!-- Elevons -->
         <name>servo_2</name> <!-- swapped from 0 to 2, this is elevon -->
         <index>2</index> <!-- swapped from 0 to 2 -->
         <direction>-1</direction>
@@ -1049,41 +1049,19 @@
         <CL_ctrl>0.000000</CL_ctrl>
         <Cell_ctrl>0.006122</Cell_ctrl>
         <Cem_ctrl>0.000000</Cem_ctrl>
-        <Cen_ctrl>-0.000023</Cen_ctrl>
+        <Cen_ctrl>-0.000023</Cen_ctrl> <!-- -0.000023 -->
       </control_surface>
-      <!-- <control_surface>
-        <name>servo_1</name>
-        <index>1</index>
-        <direction>-1</direction>
-        <CD_ctrl>0.000000</CD_ctrl>
-        <CY_ctrl>0.000146</CY_ctrl>
-        <CL_ctrl>0.000000</CL_ctrl>
-        <Cell_ctrl>0.006122</Cell_ctrl>
-        <Cem_ctrl>0.000000</Cem_ctrl>
-        <Cen_ctrl>-0.000023</Cen_ctrl>
-      </control_surface> -->
-      <control_surface>
-        <name>servo_0</name> <!-- these elevator values might need to be divided by two-->
+      <control_surface> <!-- Elevator -->
+        <name>servo_0</name> <!-- Jan divided these elevator values might need to be divided by two -->
         <index>0</index>
         <direction>1</direction>
         <CD_ctrl>-0.000051</CD_ctrl>
         <CY_ctrl>0.000000</CY_ctrl>
-        <CL_ctrl>-0.004259</CL_ctrl>
+        <CL_ctrl>-0.004259</CL_ctrl> <!-- this value was positive for S1. I think it depends on QGround configuration -->
         <Cell_ctrl>-0.000000</Cell_ctrl>
         <Cem_ctrl>0.023411</Cem_ctrl>
         <Cen_ctrl>0.000000</Cen_ctrl>
       </control_surface>
-      <!-- <control_surface>
-        <name>servo_3</name>
-        <index>3</index>
-        <direction>1</direction>
-        <CD_ctrl>-0.000051</CD_ctrl>
-        <CY_ctrl>0.000000</CY_ctrl>
-        <CL_ctrl>-0.004259</CL_ctrl>
-        <Cell_ctrl>-0.006122</Cell_ctrl>
-        <Cem_ctrl>0.023411</Cem_ctrl>
-        <Cen_ctrl>2.3e-05</Cen_ctrl>
-      </control_surface> -->
     </plugin>
 
 <!-- Motor Models -->
@@ -1092,7 +1070,7 @@
     <plugin name="gz::sim::systems::MulticopterMotorModel" filename="libMulticopterMotorModel.so">
       <jointName>rotor_0_joint</jointName>
       <linkName>rotor_0</linkName>
-      <turningDirection>ccw</turningDirection>
+      <turningDirection>cw</turningDirection>
       <timeConstantUp>0.0125</timeConstantUp>
       <timeConstantDown>0.025</timeConstantDown>
       <maxRotVelocity>785</maxRotVelocity> <!-- omega in rad/s (S1 value) -->
@@ -1109,7 +1087,7 @@
     <plugin name="gz::sim::systems::MulticopterMotorModel" filename="libMulticopterMotorModel.so">
       <jointName>rotor_1_joint</jointName>
       <linkName>rotor_1</linkName>
-      <turningDirection>cw</turningDirection>
+      <turningDirection>ccw</turningDirection>
       <timeConstantUp>0.0125</timeConstantUp>
       <timeConstantDown>0.025</timeConstantDown>
       <maxRotVelocity>785</maxRotVelocity> <!-- omega in rad/s (S1 value) -->
